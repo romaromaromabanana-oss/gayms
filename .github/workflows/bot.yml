@@ -43,4 +43,10 @@ jobs:
         if: success()
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+       - name: Запуск Толика (смена 5.5 часов до сохранения)
+     env:
+       TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+       GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+     run: |
+       timeout 19800s python -u botgemini.py || true
         run: gh workflow run bot.yml
