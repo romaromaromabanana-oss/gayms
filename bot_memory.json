@@ -251,6 +251,13 @@
       "user": "KeVitGeo",
       "text": "Уф",
       "bot_reply": null
+    },
+    {
+      "time_short": "20:02",
+      "chat_id": -1002373626230,
+      "user": "MiliKotikAbormotik",
+      "text": "Привет",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -314,6 +321,18 @@
         -1002373626230
       ],
       "topic_id": 1262
+    },
+    "MiliKotikAbormotik": {
+      "profile": "Пока мало данных",
+      "msg_count": 1,
+      "user_id": 7380468613,
+      "username": "MiliKotikAbormotik",
+      "first_name": "Диана😼",
+      "bio": "Котики помнят те времена, когда их считали богами.",
+      "chats": [
+        -1002373626230
+      ],
+      "topic_id": 1283
     }
   },
   "ignored_users": {}
