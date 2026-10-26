@@ -15,8 +15,8 @@ from google import genai
 from google.genai import types
 
 # ================= КОНФИГУРАЦИЯ =================
-TELEGRAM_TOKEN = "8792265592:AAEJUxeTbIGMsBOhPdUHJWgFeElPfW4B3pE"
-GEMINI_API_KEY = "AQ.Ab8RN6JTSFF6oi6CDtvyBk_-AeSIZzuY_aEa-4rKqatXhtTFMA"
+TELEGRAM_TOKEN = os.environ.get("TELEGRAM_TOKEN", "")
+GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY", "")
 ADMIN_USERNAME = "Belugahgfgh"
 
 BUFFER_WAIT_SECONDS = 4.0
