@@ -1,12 +1,13 @@
 name: Run Tolik Bot
 
 on:
-  workflow_dispatch: # Кнопка ручного запуска
+  workflow_dispatch:
   schedule:
-    - cron: '*/30 * * * *' # Авто-проверка и перезапуск
+    - cron: '*/30 * * * *'
 
 permissions:
   contents: write
+  actions: write # Разрешаем боту самому перезапускать свою смену!
 
 jobs:
   run-bot:
@@ -26,7 +27,7 @@ jobs:
       - name: Установка библиотек
         run: pip install -r requirements.txt
 
-      - name: Запуск Толика (работает 5.5 часов до автосохранения)
+      - name: Запуск Толика (смена 5.5 часов до сохранения)
         run: |
           timeout 19800s python -u botgemini.py || true
 
@@ -37,3 +38,9 @@ jobs:
           git config --local user.name "Tolik AutoSave"
           git add bot_memory.json bot_config.json || true
           git diff --staged --quiet || (git commit -m "💾 Автосохранение памяти Толика" && git push)
+
+      - name: Вечный цикл 24/7 (мгновенный запуск следующей смены)
+        if: success()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh workflow run bot.yml
