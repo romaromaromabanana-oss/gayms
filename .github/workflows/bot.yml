@@ -1,0 +1,39 @@
+name: Run Tolik Bot
+
+on:
+  workflow_dispatch: # Кнопка ручного запуска
+  schedule:
+    - cron: '*/30 * * * *' # Авто-проверка и перезапуск
+
+permissions:
+  contents: write
+
+jobs:
+  run-bot:
+    runs-on: ubuntu-latest
+    concurrency:
+      group: tolik-bot-single-instance
+      cancel-in-progress: false
+    steps:
+      - name: Скачивание файлов бота
+        uses: actions/checkout@v4
+
+      - name: Установка Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Установка библиотек
+        run: pip install -r requirements.txt
+
+      - name: Запуск Толика (работает 5.5 часов до автосохранения)
+        run: |
+          timeout 19800s python -u botgemini.py || true
+
+      - name: Автосохранение памяти Толика в GitHub
+        if: always()
+        run: |
+          git config --local user.email "bot@github.com"
+          git config --local user.name "Tolik AutoSave"
+          git add bot_memory.json bot_config.json || true
+          git diff --staged --quiet || (git commit -m "💾 Автосохранение памяти Толика" && git push)
