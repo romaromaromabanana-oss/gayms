@@ -461,6 +461,13 @@
       "user": "Pistolass",
       "text": "Еш",
       "bot_reply": null
+    },
+    {
+      "time_short": "15:24",
+      "chat_id": -1002373626230,
+      "user": "AtVance",
+      "text": "Опускаем тест в баночку для анализов… Ты не беременна 🙅🏻‍♀️",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -536,6 +543,17 @@
         -1002373626230
       ],
       "topic_id": 1283
+    },
+    "AtVance": {
+      "profile": "Пока мало данных",
+      "msg_count": 1,
+      "user_id": 8144628930,
+      "username": "AtVance",
+      "first_name": "Häil of Blade's [Dallor]",
+      "chats": [
+        -1002373626230
+      ],
+      "topic_id": 1322
     }
   },
   "ignored_users": {}
