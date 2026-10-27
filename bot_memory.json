@@ -699,6 +699,13 @@
       "user": "Pistolass",
       "text": "Моя гифка\nОтдай",
       "bot_reply": null
+    },
+    {
+      "time_short": "23:09",
+      "chat_id": -1002373626230,
+      "user": "MatyaMatya",
+      "text": "Мая",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -788,7 +795,7 @@
     },
     "MatyaMatya": {
       "profile": "**ДОСЬЕ на @MatyaMatya (Matya):**\n\n* **Общая информация:** Имя в Telegram — Matya. О себе ничего не указала. \n* **Манера общения:** Пользователь вышла на связь, поздоровалась («Приве») и отправила стикер.\n* **Отношения с Толиком и участниками чата:** Пока не зафиксированы.",
-      "msg_count": 4,
+      "msg_count": 5,
       "user_id": 1122949994,
       "username": "MatyaMatya",
       "first_name": "Matya",
