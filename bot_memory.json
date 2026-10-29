@@ -1189,6 +1189,13 @@
       "user": "Pistolass",
       "text": "ЕБАТЬ ТИГРИЦА МОЛОДЕЦ ЛУЧШАЯ ПРОСТО",
       "bot_reply": null
+    },
+    {
+      "time_short": "17:39",
+      "chat_id": -1002373626230,
+      "user": "Rofox24",
+      "text": "Ура победа",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -1356,6 +1363,17 @@
         -1002373626230
       ],
       "topic_id": 1457
+    },
+    "Rofox24": {
+      "profile": "Пока мало данных",
+      "msg_count": 1,
+      "user_id": 1489559644,
+      "username": "Rofox24",
+      "first_name": "Рофокс",
+      "chats": [
+        -1002373626230
+      ],
+      "topic_id": 1461
     }
   },
   "ignored_users": {}
