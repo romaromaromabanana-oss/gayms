@@ -1063,6 +1063,13 @@
       "user": "Pistolass",
       "text": "Опускаем тест в баночку для анализов… Ты не беременна 🙅🏻‍♀️",
       "bot_reply": null
+    },
+    {
+      "time_short": "13:16",
+      "chat_id": -1002373626230,
+      "user": "Re_But",
+      "text": "День",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -1184,6 +1191,18 @@
         -1002373626230
       ],
       "topic_id": 1410
+    },
+    "Re_But": {
+      "profile": "Пока мало данных",
+      "msg_count": 1,
+      "user_id": 5602905590,
+      "username": "Re_But",
+      "first_name": "Re_But",
+      "bio": "Re_But your mind. Life is unfair. Напиши мне в ЛС \" Доходяга срал томат, суслик \".",
+      "chats": [
+        -1002373626230
+      ],
+      "topic_id": 1433
     }
   },
   "ignored_users": {}
