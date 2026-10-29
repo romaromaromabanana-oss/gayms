@@ -1084,6 +1084,13 @@
       "user": "AikoAppleAlley",
       "text": "Пришло кстати письмо, надо забрать с почты",
       "bot_reply": null
+    },
+    {
+      "time_short": "13:49",
+      "chat_id": -1002373626230,
+      "user": "TotalTrash_Mammal",
+      "text": "Чо за оно",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -1227,6 +1234,18 @@
       "chats": [
         -1002373626230
       ]
+    },
+    "TotalTrash_Mammal": {
+      "profile": "Пока мало данных",
+      "msg_count": 1,
+      "user_id": 8060132907,
+      "username": "TotalTrash_Mammal",
+      "first_name": "Kiᴋi Bᴇᴀrʍᴀn🔜Dark Matters 🌈",
+      "bio": "Реп испортил меня, как альтуха руку ножом",
+      "chats": [
+        -1002373626230
+      ],
+      "topic_id": 1440
     }
   },
   "ignored_users": {}
