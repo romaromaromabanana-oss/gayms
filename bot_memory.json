@@ -1175,6 +1175,13 @@
       "user": "Belugahgfgh",
       "text": "Нихуя себе",
       "bot_reply": null
+    },
+    {
+      "time_short": "16:23",
+      "chat_id": -1002373626230,
+      "user": "YEEEEEAAAH",
+      "text": "ЕЕЕЕЕ",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -1330,6 +1337,18 @@
         -1002373626230
       ],
       "topic_id": 1440
+    },
+    "YEEEEEAAAH": {
+      "profile": "Пока мало данных",
+      "msg_count": 1,
+      "user_id": 7738824276,
+      "username": "YEEEEEAAAH",
+      "first_name": "°•|Cookie|•°",
+      "bio": "Я восхищаюсь Тори Фокс и Кетлин. Мечтаю стать такой же крутой как они.",
+      "chats": [
+        -1002373626230
+      ],
+      "topic_id": 1457
     }
   },
   "ignored_users": {}
