@@ -3429,6 +3429,13 @@
       "user": "Pistolass",
       "text": "Вы издеваетесь",
       "bot_reply": null
+    },
+    {
+      "time_short": "00:46",
+      "chat_id": -1002373626230,
+      "user": "Sergoniy",
+      "text": " [Собеседник отправил ГИФКУ (GIF-анимацию без звука, это именно гифка, а не фото!)]",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -3652,6 +3659,18 @@
       "chats": [
         -1002373626230
       ]
+    },
+    "Sergoniy": {
+      "profile": "Пока мало данных",
+      "msg_count": 1,
+      "user_id": 5197040940,
+      "username": "Sergoniy",
+      "first_name": "Serjoniy☕ 🇧🇾",
+      "bio": "Мне лень писать)",
+      "chats": [
+        -1002373626230
+      ],
+      "topic_id": 1842
     }
   },
   "ignored_users": {
