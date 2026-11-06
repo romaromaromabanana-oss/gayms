@@ -5459,6 +5459,55 @@
       "user": "alexmard",
       "text": "Xz я не sosal",
       "bot_reply": null
+    },
+    {
+      "time_short": "21:42",
+      "chat_id": -1003733973211,
+      "user": "Re_But",
+      "text": "Не ври\nБыло дело",
+      "bot_reply": null
+    },
+    {
+      "time_short": "21:42",
+      "chat_id": -1003733973211,
+      "user": "Re_But",
+      "text": "Эт кто ?",
+      "bot_reply": null
+    },
+    {
+      "time_short": "21:43",
+      "chat_id": -1003733973211,
+      "user": "alexmard",
+      "text": "Матерей\nОй\nМатвей",
+      "bot_reply": null
+    },
+    {
+      "time_short": "21:43",
+      "chat_id": -1003733973211,
+      "user": "Re_But",
+      "text": "Имба",
+      "bot_reply": null
+    },
+    {
+      "time_short": "21:43",
+      "chat_id": -1003733973211,
+      "user": "Re_But",
+      "text": "Матерей...",
+      "bot_reply": null
+    },
+    {
+      "time_short": "21:43",
+      "chat_id": -1003733973211,
+      "user": "alexmard",
+      "text": "Макара",
+      "bot_reply": null
+    },
+    {
+      "time_short": "21:43",
+      "chat_id": -1003733973211,
+      "user": "Re_But",
+      "text": "Чьих ты сюда добавил ?",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -5584,8 +5633,8 @@
       "topic_id": 1410
     },
     "Re_But": {
-      "profile": "Вот структурированное психологическое досье на пользователя **@Re_But**, составленное на основе анализа его профиля и истории общения",
-      "msg_count": 95,
+      "profile": "Here is the structured psychological profile of the user based strictly on the provided profile data and chat logs.\n\n### 👤 Основное\n*",
+      "msg_count": 100,
       "user_id": 5602905590,
       "username": "Re_But",
       "first_name": "Re_But",
@@ -5714,7 +5763,7 @@
     },
     "alexmard": {
       "profile": ": \"почему есть в Америке или Европе или где-то в селе нахуй чат школы а у нас не",
-      "msg_count": 60,
+      "msg_count": 62,
       "user_id": 7014663496,
       "username": "alexmard",
       "first_name": "Alex",
