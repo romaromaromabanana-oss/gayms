@@ -5718,6 +5718,13 @@
       "user": "Hdhjedjje",
       "text": "Что это",
       "bot_reply": null
+    },
+    {
+      "time_short": "22:04",
+      "chat_id": -1002626154604,
+      "user": "echvasfar2",
+      "text": " [Собеседник отправил СТИКЕР]",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -6351,6 +6358,18 @@
       "chats": [
         -1003733973211
       ]
+    },
+    "echvasfar2": {
+      "profile": "Пока мало данных",
+      "msg_count": 1,
+      "user_id": 7521551047,
+      "username": "echvasfar2",
+      "first_name": "You",
+      "bio": "Дорог мне тот, кто указывает на мои ошибки (Умар ибн аль Хаттаб)",
+      "chats": [
+        -1002626154604
+      ],
+      "topic_id": 2292
     }
   },
   "ignored_users": {}
