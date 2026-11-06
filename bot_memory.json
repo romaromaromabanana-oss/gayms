@@ -5809,6 +5809,27 @@
       "user": "t3hge",
       "text": "Ну да",
       "bot_reply": null
+    },
+    {
+      "time_short": "22:07",
+      "chat_id": -1002626154604,
+      "user": "echvasfar2",
+      "text": "Даже кушал\nВкусная",
+      "bot_reply": null
+    },
+    {
+      "time_short": "22:07",
+      "chat_id": -1002626154604,
+      "user": "t3hge",
+      "text": "Национальный преступник",
+      "bot_reply": null
+    },
+    {
+      "time_short": "22:08",
+      "chat_id": -1002626154604,
+      "user": "t3hge",
+      "text": "Уничтожают, расхватывают страну!",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -6445,7 +6466,7 @@
     },
     "echvasfar2": {
       "profile": "**👤 Основное:**\nПользователь использует никнейм @echvasfar2 и имя «You",
-      "msg_count": 5,
+      "msg_count": 6,
       "user_id": 7521551047,
       "username": "echvasfar2",
       "first_name": "You",
@@ -6456,8 +6477,8 @@
       "topic_id": 2292
     },
     "t3hge": {
-      "profile": "rule: don't invent. Grammar in text: neutral/plural (\"были\", \"напиздели\"). Name \"",
-      "msg_count": 8,
+      "profile": "п-talking manner (\"Америка\", \"пендосы\", \"расхватывают страну\"), but rule 1 says \"",
+      "msg_count": 10,
       "user_id": 5088721390,
       "username": "t3hge",
       "first_name": "лжеt3hge",
