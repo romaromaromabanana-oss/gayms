@@ -5053,6 +5053,34 @@
       "user": "Re_But",
       "text": "Кнш",
       "bot_reply": null
+    },
+    {
+      "time_short": "21:34",
+      "chat_id": -1003733973211,
+      "user": "Hdhjedjje",
+      "text": " [Собеседник отправил ГИФКУ (GIF)]",
+      "bot_reply": null
+    },
+    {
+      "time_short": "21:34",
+      "chat_id": -1003733973211,
+      "user": "alexmard",
+      "text": "Добавить всю школу сюда ❤️",
+      "bot_reply": null
+    },
+    {
+      "time_short": "21:34",
+      "chat_id": -1003733973211,
+      "user": "Re_But",
+      "text": " [Собеседник отправил СТИКЕР]",
+      "bot_reply": null
+    },
+    {
+      "time_short": "21:35",
+      "chat_id": -1002626154604,
+      "user": "lxmrcs",
+      "text": "*и****",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -5179,7 +5207,7 @@
     },
     "Re_But": {
       "profile": "on seats curled up in a ball while in his fursuit so ticket inspectors leave him alone (\"sleeping cuteness\").\n        *",
-      "msg_count": 74,
+      "msg_count": 75,
       "user_id": 5602905590,
       "username": "Re_But",
       "first_name": "Re_But",
@@ -5308,7 +5336,7 @@
     },
     "alexmard": {
       "profile": "Вот подробное, адекватное и психологически структурированное досье на пользователя `@alexmard`, состав",
-      "msg_count": 42,
+      "msg_count": 43,
       "user_id": 7014663496,
       "username": "alexmard",
       "first_name": "Alex",
@@ -5518,7 +5546,7 @@
     },
     "Hdhjedjje": {
       "profile": "Информация о возрасте, городе проживания и описание в профиле (bio) отсутствуют.\n\n    *   **🎭 Характер и",
-      "msg_count": 5,
+      "msg_count": 6,
       "user_id": 7115258910,
       "username": "Hdhjedjje",
       "first_name": "Ярослав",
@@ -5643,13 +5671,14 @@
     },
     "lxmrcs": {
       "profile": "Пока мало данных",
-      "msg_count": 0,
+      "msg_count": 1,
       "user_id": 8049231975,
       "username": "lxmrcs",
       "first_name": "⌬~1χμρχ",
       "chats": [
         -1002626154604
-      ]
+      ],
+      "topic_id": 2185
     }
   },
   "ignored_users": {}
