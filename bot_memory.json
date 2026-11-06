@@ -5669,6 +5669,55 @@
       "user": "Dadyashnyk",
       "text": "Это про меня",
       "bot_reply": null
+    },
+    {
+      "time_short": "21:57",
+      "chat_id": -1003733973211,
+      "user": "Re_But",
+      "text": "Чё ?!",
+      "bot_reply": null
+    },
+    {
+      "time_short": "21:57",
+      "chat_id": -1003733973211,
+      "user": "Re_But",
+      "text": "Кто разрешал покидать группу ?!",
+      "bot_reply": null
+    },
+    {
+      "time_short": "21:57",
+      "chat_id": -1003733973211,
+      "user": "Re_But",
+      "text": "Я сча его уволю из ООО ГосЛинг",
+      "bot_reply": null
+    },
+    {
+      "time_short": "21:58",
+      "chat_id": -1003733973211,
+      "user": "Re_But",
+      "text": "Балин, я хотел ещё по улице пройтись, а в итоге сижу тут в чате",
+      "bot_reply": null
+    },
+    {
+      "time_short": "21:59",
+      "chat_id": -1003733973211,
+      "user": "Re_But",
+      "text": "Уже 22:00 почти",
+      "bot_reply": null
+    },
+    {
+      "time_short": "21:59",
+      "chat_id": -1003733973211,
+      "user": "Re_But",
+      "text": "Лан, до 23:00 можно",
+      "bot_reply": null
+    },
+    {
+      "time_short": "22:00",
+      "chat_id": -1003733973211,
+      "user": "Hdhjedjje",
+      "text": "Что это",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -5795,7 +5844,7 @@
     },
     "Re_But": {
       "profile": "Here is the structured psychological profile of the user based strictly on the provided profile data and chat logs.\n\n### 👤 Основное\n*",
-      "msg_count": 110,
+      "msg_count": 116,
       "user_id": 5602905590,
       "username": "Re_But",
       "first_name": "Re_But",
@@ -6134,7 +6183,7 @@
     },
     "Hdhjedjje": {
       "profile": "**ДОСЬЕ ПОЛЬЗОВАТЕЛЯ**\n\n👤 **Основное:**\nПользователя зовут Яро",
-      "msg_count": 15,
+      "msg_count": 16,
       "user_id": 7115258910,
       "username": "Hdhjedjje",
       "first_name": "Ярослав",
@@ -6290,6 +6339,18 @@
         -1003733973211
       ],
       "topic_id": 2282
+    },
+    "SweetKazah": {
+      "profile": "Пока мало данных",
+      "msg_count": 0,
+      "user_id": 6523875426,
+      "username": "SweetKazah",
+      "first_name": "Сладкий",
+      "last_name": "Казах🔑🌙",
+      "bio": "誰もお茶としてあなたを暖めません。| Я люблю юри💘",
+      "chats": [
+        -1003733973211
+      ]
     }
   },
   "ignored_users": {}
