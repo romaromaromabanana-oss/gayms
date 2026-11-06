@@ -5179,6 +5179,69 @@
       "user": "Re_But",
       "text": "Я ему уже предлагал",
       "bot_reply": null
+    },
+    {
+      "time_short": "21:36",
+      "chat_id": -1003733973211,
+      "user": "batyaNeBei",
+      "text": "Главный фуреныш\nА он что",
+      "bot_reply": null
+    },
+    {
+      "time_short": "21:36",
+      "chat_id": -1003733973211,
+      "user": "alexmard",
+      "text": "И как",
+      "bot_reply": null
+    },
+    {
+      "time_short": "21:36",
+      "chat_id": -1003733973211,
+      "user": "Re_But",
+      "text": "Он и вахолюб",
+      "bot_reply": null
+    },
+    {
+      "time_short": "21:36",
+      "chat_id": -1003733973211,
+      "user": "Re_But",
+      "text": "Тут его собратья есть",
+      "bot_reply": null
+    },
+    {
+      "time_short": "21:36",
+      "chat_id": -1003733973211,
+      "user": "Re_But",
+      "text": "Пока отказался",
+      "bot_reply": null
+    },
+    {
+      "time_short": "21:36",
+      "chat_id": -1003733973211,
+      "user": "batyaNeBei",
+      "text": "Сюка",
+      "bot_reply": null
+    },
+    {
+      "time_short": "21:36",
+      "chat_id": -1003733973211,
+      "user": "Re_But",
+      "text": "Толик, скажи что",
+      "bot_reply": "ну чего тебе сказать [MSG] тут вон предлагают всю школу в чат затащить и виктора викторовича первыми рядами запустить [MSG] представляю его лицо, если он сюда зайдет и увидит все наши пушистые обсуждения"
+    },
+    {
+      "time_short": "21:37",
+      "chat_id": -1003733973211,
+      "user": "batyaNeBei",
+      "text": "Юрию предлагай",
+      "bot_reply": null
+    },
+    {
+      "time_short": "21:37",
+      "chat_id": -1003733973211,
+      "user": "Hdhjedjje",
+      "text": " [Собеседник прикрепил ФОТО]",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -5305,7 +5368,7 @@
     },
     "Re_But": {
       "profile": "👤 **Основное:**\nПользователь использует никнейм и имя **Re_But** (`@Re_But`).",
-      "msg_count": 81,
+      "msg_count": 85,
       "user_id": 5602905590,
       "username": "Re_But",
       "first_name": "Re_But",
@@ -5434,7 +5497,7 @@
     },
     "alexmard": {
       "profile": "Вот подробное, адекватное и психологически структурированное досье на пользователя `@alexmard`, состав",
-      "msg_count": 46,
+      "msg_count": 47,
       "user_id": 7014663496,
       "username": "alexmard",
       "first_name": "Alex",
@@ -5643,8 +5706,8 @@
       "topic_id": 1999
     },
     "Hdhjedjje": {
-      "profile": "Информация о возрасте, городе проживания и описание в профиле (bio) отсутствуют.\n\n    *   **🎭 Характер и",
-      "msg_count": 9,
+      "profile": "**ДОСЬЕ ПОЛЬЗОВАТЕЛЯ**\n\n👤 **Основное:**\nПользователя зовут Яро",
+      "msg_count": 10,
       "user_id": 7115258910,
       "username": "Hdhjedjje",
       "first_name": "Ярослав",
@@ -5656,7 +5719,7 @@
     },
     "batyaNeBei": {
       "profile": "**Досье на пользователя @batyaNeBei**\n\n👤 **Основное:**\nПользователь использует никнейм `@",
-      "msg_count": 11,
+      "msg_count": 14,
       "user_id": 7166013552,
       "username": "batyaNeBei",
       "first_name": "𝑆",
