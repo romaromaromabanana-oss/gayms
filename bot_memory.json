@@ -5732,6 +5732,48 @@
       "user": "t3hge",
       "text": "Типа Америка не страна?",
       "bot_reply": null
+    },
+    {
+      "time_short": "22:05",
+      "chat_id": -1002626154604,
+      "user": "t3hge",
+      "text": "Подозрения были",
+      "bot_reply": null
+    },
+    {
+      "time_short": "22:05",
+      "chat_id": -1002626154604,
+      "user": "t3hge",
+      "text": "Это все пендосы",
+      "bot_reply": null
+    },
+    {
+      "time_short": "22:06",
+      "chat_id": -1002626154604,
+      "user": "t3hge",
+      "text": "Все напиздели, нет никакой Америки",
+      "bot_reply": null
+    },
+    {
+      "time_short": "22:06",
+      "chat_id": -1002626154604,
+      "user": "echvasfar2",
+      "text": "Тип Америка не в Европе",
+      "bot_reply": null
+    },
+    {
+      "time_short": "22:06",
+      "chat_id": -1002626154604,
+      "user": "echvasfar2",
+      "text": "Чио за старанв Инжир\n?",
+      "bot_reply": null
+    },
+    {
+      "time_short": "22:06",
+      "chat_id": -1002626154604,
+      "user": "t3hge",
+      "text": "Ну, Америки вообще нет как страны",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -6368,7 +6410,7 @@
     },
     "echvasfar2": {
       "profile": "Пока мало данных",
-      "msg_count": 1,
+      "msg_count": 3,
       "user_id": 7521551047,
       "username": "echvasfar2",
       "first_name": "You",
@@ -6379,8 +6421,8 @@
       "topic_id": 2292
     },
     "t3hge": {
-      "profile": "Пока мало данных",
-      "msg_count": 1,
+      "profile": "rule: don't invent. Grammar in text: neutral/plural (\"были\", \"напиздели\"). Name \"",
+      "msg_count": 5,
       "user_id": 5088721390,
       "username": "t3hge",
       "first_name": "лжеt3hge",
