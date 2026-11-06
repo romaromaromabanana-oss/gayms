@@ -5725,6 +5725,13 @@
       "user": "echvasfar2",
       "text": " [Собеседник отправил СТИКЕР]",
       "bot_reply": null
+    },
+    {
+      "time_short": "22:05",
+      "chat_id": -1002626154604,
+      "user": "t3hge",
+      "text": "Типа Америка не страна?",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -6370,6 +6377,17 @@
         -1002626154604
       ],
       "topic_id": 2292
+    },
+    "t3hge": {
+      "profile": "Пока мало данных",
+      "msg_count": 1,
+      "user_id": 5088721390,
+      "username": "t3hge",
+      "first_name": "лжеt3hge",
+      "chats": [
+        -1002626154604
+      ],
+      "topic_id": 2295
     }
   },
   "ignored_users": {}
