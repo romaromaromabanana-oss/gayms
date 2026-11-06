@@ -5830,6 +5830,27 @@
       "user": "t3hge",
       "text": "Уничтожают, расхватывают страну!",
       "bot_reply": null
+    },
+    {
+      "time_short": "22:08",
+      "chat_id": -1002626154604,
+      "user": "echvasfar2",
+      "text": "хехехех",
+      "bot_reply": null
+    },
+    {
+      "time_short": "22:11",
+      "chat_id": -1003733973211,
+      "user": "Dadyashnyk",
+      "text": "Ой бля... Зря ты спросил , нихуя не поймёшь и будешь ночами думать",
+      "bot_reply": null
+    },
+    {
+      "time_short": "22:11",
+      "chat_id": -1003733973211,
+      "user": "Re_But",
+      "text": "Общество с ограниченной ответственностью \" Государственный Линг \" - моя корпорация ( монстров )",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -5956,7 +5977,7 @@
     },
     "Re_But": {
       "profile": "Here is the structured psychological profile of the user based strictly on the provided profile data and chat logs.\n\n### 👤 Основное\n*",
-      "msg_count": 116,
+      "msg_count": 117,
       "user_id": 5602905590,
       "username": "Re_But",
       "first_name": "Re_But",
@@ -6442,7 +6463,7 @@
     },
     "Dadyashnyk": {
       "profile": "Пока мало данных",
-      "msg_count": 1,
+      "msg_count": 2,
       "user_id": 7502159934,
       "username": "Dadyashnyk",
       "first_name": "†£ДяДя_ШнЮк†⁶⁷",
@@ -6466,7 +6487,7 @@
     },
     "echvasfar2": {
       "profile": "**👤 Основное:**\nПользователь использует никнейм @echvasfar2 и имя «You",
-      "msg_count": 6,
+      "msg_count": 7,
       "user_id": 7521551047,
       "username": "echvasfar2",
       "first_name": "You",
