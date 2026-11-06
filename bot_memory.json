@@ -4423,6 +4423,13 @@
       "user": "integralch",
       "text": "Ботаете химию",
       "bot_reply": null
+    },
+    {
+      "time_short": "21:23",
+      "chat_id": -1004434349454,
+      "user": "Telegram",
+      "text": "https://t.me/FTFCGK",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -4915,6 +4922,16 @@
         -1002626154604
       ],
       "topic_id": 2045
+    },
+    "Telegram": {
+      "profile": "Пока мало данных",
+      "msg_count": 1,
+      "user_id": 777000,
+      "first_name": "Telegram",
+      "chats": [
+        -1004434349454
+      ],
+      "topic_id": 2050
     }
   },
   "ignored_users": {}
