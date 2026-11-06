@@ -25,6 +25,7 @@ MAX_MESSAGES_IN_BUFFER = 7
 
 GEMINI_MAIN_MODELS = ["gemini-3.5-flash-lite", "gemini-3.6-flash", "gemini-3.1-flash-lite"]
 GEMINI_FAST_MODELS = ["gemini-3.5-flash-lite", "gemini-3.1-flash-lite", "gemini-3.6-flash"]
+GEMINI_SMART_MODELS = ["gemini-3.6-flash", "gemini-3.5-flash-lite", "gemini-3.1-flash-lite"]
 NANO_BANANA_MODELS = ["gemini-3.1-flash-lite-image", "gemini-nano-banana-2.1", "gemini-3.1-flash-image"]
 
 BOT_ID = int(TELEGRAM_TOKEN.split(":")[0]) if ":" in TELEGRAM_TOKEN else 0
@@ -69,13 +70,12 @@ enriched_user_ids = set()
 GLOBAL_MEMORY = None
 GLOBAL_CONFIG = None
 
-# ================= ЕДИНАЯ ПОТОКОБЕЗОПАСНАЯ БАЗА И АВТОСОХРАНЕНИЕ В GITHUB =================
+# ================= БАЗА ДАННЫХ И АВТОСОХРАНЕНИЕ В GITHUB =================
 
 def get_minsk_time():
     return datetime.now(timezone.utc) + timedelta(hours=3)
 
 def git_autosave_memory():
-    """Мгновенно сохраняет bot_memory.json и bot_config.json в GitHub в фоновом режиме."""
     def _push():
         with git_lock:
             try:
@@ -93,8 +93,9 @@ def load_config():
         if GLOBAL_CONFIG is not None:
             return GLOBAL_CONFIG
         default_cfg = {
-            "main_chat_id": None, "diary_topic_id": None, "last_diary_date": "",
-            "current_plan": "Планов пока нет.", "known_chats": {}, "selfies": [], "stickers": {},
+            "main_chat_id": None, "diary_topic_id": None, "admin_user_id": None,
+            "last_diary_date": "", "current_plan": "Планов пока нет.",
+            "known_chats": {}, "selfies": [], "stickers": {},
         }
         if os.path.exists(CONFIG_FILE):
             try:
@@ -143,7 +144,6 @@ def save_memory(memory=None, push_git=False):
         git_autosave_memory()
 
 def find_canonical_user_key(memory, user_name, user_id=None):
-    """Находит существующую запись юзера по user_id или нику (без учета регистра), чтобы не плодить дубликаты!"""
     users = memory.setdefault("users", {})
     if user_name in users:
         return user_name
@@ -156,6 +156,14 @@ def find_canonical_user_key(memory, user_name, user_id=None):
         if k.lower() == u_low or (v.get("username") or "").lower() == u_low:
             return k
     return user_name
+
+def find_user_by_topic_id(memory, thread_id):
+    if not thread_id:
+        return None, None
+    for k, v in memory.get("users", {}).items():
+        if v.get("topic_id") == thread_id:
+            return k, v.get("user_id")
+    return None, None
 
 def safe_request(url, json_data=None, method="POST"):
     try:
@@ -189,9 +197,14 @@ def register_user_metadata(memory, user_obj, chat_id, custom_title=""):
     last_name = user_obj.get("last_name") or ""
     raw_name = username if username else (first_name if first_name else f"User_{u_id}")
 
+    if username.lower() == ADMIN_USERNAME.lower():
+        cfg = load_config()
+        if cfg.get("admin_user_id") != u_id:
+            cfg["admin_user_id"] = u_id
+            save_config()
+
     existing_key = find_canonical_user_key(memory, raw_name, u_id)
     if existing_key in memory["users"] and username and existing_key != username:
-        # Переносим старые данные (включая topic_id!) под актуальный username
         old_data = memory["users"].pop(existing_key)
         memory["users"].setdefault(username, {}).update(old_data)
         key_name = username
@@ -230,6 +243,90 @@ def sync_chat_admins(chat_id, memory):
         for adm in res.get("result", []):
             register_user_metadata(memory, adm.get("user", {}), chat_id, custom_title=adm.get("custom_title", ""))
 
+# ================= УПРАВЛЕНИЕ ЧАТАМИ, ССЫЛКАМИ И ОДОБРЕНИЕМ ВСТУПЛЕНИЯ =================
+
+def fetch_chat_invite_link(chat_id, chat_obj=None):
+    """Добывает или создает ссылку на чат, где состоит Толик."""
+    if chat_obj and chat_obj.get("username"):
+        return f"https://t.me/{chat_obj['username']}"
+    res = safe_request(f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/getChat?chat_id={chat_id}", method="GET")
+    if res.get("ok") and "result" in res:
+        r = res["result"]
+        if r.get("username"):
+            return f"https://t.me/{r['username']}"
+        if r.get("invite_link"):
+            return r["invite_link"]
+    # Пробуем сгенерировать инвайт-ссылку, если у бота есть права администратора
+    exp = safe_request(f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/exportChatInviteLink", {"chat_id": chat_id})
+    if exp.get("ok") and exp.get("result"):
+        return exp["result"]
+    cr = safe_request(f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/createChatInviteLink", {"chat_id": chat_id})
+    if cr.get("ok") and cr.get("result", {}).get("invite_link"):
+        return cr["result"]["invite_link"]
+    return "Нет прав админа для создания ссылки (приватный чат)"
+
+def check_and_register_group_chat(chat_obj):
+    """
+    Проверяет групповой чат. Если чат новый — ставит на ожидание одобрения и шлет админу в ЛС выбор с кнопками!
+    Возвращает True, если Толику разрешено отвечать в этом чате.
+    """
+    chat_id = chat_obj.get("id")
+    if not chat_id or chat_id > 0:
+        return True
+    cfg = load_config()
+    if chat_id == cfg.get("main_chat_id"):
+        return False
+
+    cid_str = str(chat_id)
+    known = cfg.setdefault("known_chats", {})
+    title = chat_obj.get("title") or f"Чат {chat_id}"
+
+    if cid_str not in known:
+        invite_link = fetch_chat_invite_link(chat_id, chat_obj)
+        known[cid_str] = {
+            "title": title,
+            "invite_link": invite_link,
+            "status": "pending",
+            "added_at": get_minsk_time().strftime("%d.%m.%Y %H:%M"),
+        }
+        save_config(push_git=True)
+        notify_admin_chat_approval(chat_id, title, invite_link)
+        return False
+
+    # Обновляем название и ссылку, если появилась
+    known[cid_str]["title"] = title
+    if known[cid_str].get("invite_link", "").startswith("Нет прав"):
+        new_link = fetch_chat_invite_link(chat_id, chat_obj)
+        if not new_link.startswith("Нет прав"):
+            known[cid_str]["invite_link"] = new_link
+            save_config()
+
+    return known[cid_str].get("status") == "approved"
+
+def notify_admin_chat_approval(chat_id, title, invite_link):
+    cfg = load_config()
+    text = (
+        f"🔔 <b>Толика добавили в новый чат!</b>\n\n"
+        f"🏷 <b>Название:</b> {title}\n"
+        f"🆔 <b>ID чата:</b> <code>{chat_id}</code>\n"
+        f"🔗 <b>Ссылка:</b> {invite_link}\n\n"
+        f"Разрешить Толику отвечать в этом чате?"
+    )
+    kb = {
+        "inline_keyboard": [
+            [
+                {"text": "✅ Одобрить (Отвечать всем)", "callback_data": f"chat_approve:{chat_id}"},
+                {"text": "🔇 Отказать (Молчать)", "callback_data": f"chat_mute:{chat_id}"},
+            ]
+        ]
+    }
+    admin_id = cfg.get("admin_user_id")
+    main_chat = cfg.get("main_chat_id")
+    if admin_id:
+        send_message(admin_id, text, parse_mode="HTML", reply_markup=kb)
+    if main_chat and main_chat != admin_id:
+        send_message(main_chat, text, parse_mode="HTML", reply_markup=kb)
+
 # ================= ЗАЩИТА ОТ СПАМА И ФЛУДА =================
 
 def check_flood_on_incoming(user_id):
@@ -265,7 +362,6 @@ def check_reply_rate_spam(user_id):
 # ================= ПОИСК В ИНТЕРНЕТЕ =================
 
 def search_web(query, max_results=3):
-    print(f"🌐 [ПОИСК В ИНТЕРНЕТЕ]: Запрос -> \"{query}\"")
     results = []
     try:
         w_url = f"https://ru.wikipedia.org/w/api.php?action=query&list=search&srsearch={urllib.parse.quote(query)}&utf8=&format=json&srlimit=2"
@@ -287,14 +383,13 @@ def search_web(query, max_results=3):
                 cl = re.sub(r"<.*?>", "", s).strip()
                 if cl:
                     results.append(cl)
-    except Exception as e:
-        logging.error(f"Search Web Error: {e}")
-
+    except Exception:
+        pass
     return "\n".join(results[:max_results]) if results else ""
 
 # ================= TELEGRAM API И МЕДИА =================
 
-def send_message(chat_id, text, message_thread_id=None, reply_to_message_id=None, parse_mode=None):
+def send_message(chat_id, text, message_thread_id=None, reply_to_message_id=None, parse_mode=None, reply_markup=None):
     url = f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage"
     data = {"chat_id": chat_id, "text": text}
     if message_thread_id:
@@ -303,7 +398,20 @@ def send_message(chat_id, text, message_thread_id=None, reply_to_message_id=None
         data["reply_to_message_id"] = reply_to_message_id
     if parse_mode:
         data["parse_mode"] = parse_mode
+    if reply_markup:
+        data["reply_markup"] = reply_markup
     return safe_request(url, data)
+
+def edit_message_text(chat_id, message_id, text, parse_mode="HTML", reply_markup=None):
+    url = f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/editMessageText"
+    data = {"chat_id": chat_id, "message_id": message_id, "text": text, "parse_mode": parse_mode}
+    if reply_markup:
+        data["reply_markup"] = reply_markup
+    return safe_request(url, data)
+
+def answer_callback_query(callback_query_id, text=""):
+    url = f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/answerCallbackQuery"
+    return safe_request(url, {"callback_query_id": callback_query_id, "text": text})
 
 def send_photo(chat_id, photo, caption="", message_thread_id=None, reply_to_message_id=None):
     url = f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendPhoto"
@@ -319,8 +427,7 @@ def send_photo(chat_id, photo, caption="", message_thread_id=None, reply_to_mess
             data["photo"] = photo
             r = requests.post(url, json=data, timeout=15)
         return r.json().get("ok", False)
-    except Exception as e:
-        logging.error(f"Send Photo Error: {e}")
+    except Exception:
         return False
 
 def send_sticker(chat_id, sticker_id, message_thread_id=None, reply_to_message_id=None):
@@ -352,8 +459,7 @@ def get_file_bytes(file_id, expected_mime="image/jpeg"):
             else expected_mime
         )
         return (file_data, mime) if len(file_data) <= 20 * 1024 * 1024 else (None, None)
-    except Exception as e:
-        logging.error(f"Download File Error: {e}")
+    except Exception:
         return None, None
 
 def download_video_or_thumb(vid_obj):
@@ -431,7 +537,6 @@ def generate_image_nano_banana(prompt, reference_images=None):
             pass
 
     try:
-        print(f"🎨 [FLUX FREE ENGINE]: Рисую картинку -> {final_flux_prompt}")
         enc = urllib.parse.quote(final_flux_prompt)
         seed = random.randint(1000, 99999999)
         for flux_model in ["flux", "turbo"]:
@@ -439,8 +544,8 @@ def generate_image_nano_banana(prompt, reference_images=None):
             r = requests.get(url, headers={"User-Agent": "Mozilla/5.0"}, timeout=40)
             if r.status_code == 200 and len(r.content) > 1000:
                 return r.content
-    except Exception as e:
-        logging.error(f"Flux Error: {e}")
+    except Exception:
+        pass
     return None
 
 def analyze_sticker(img_data, mime_type):
@@ -460,7 +565,7 @@ def analyze_sticker(img_data, mime_type):
             continue
     return "неизвестно"
 
-# ================= GEMINI: ГОЛОС, ВИДЕО, ДИАЛОГ, САММАРИ =================
+# ================= GEMINI: ГОЛОС, ВИДЕО, ДИАЛОГ, ДОСЬЕ =================
 
 def transcribe_media_gemini(media_bytes, mime_type="audio/ogg", is_video_note=False):
     prompt = (
@@ -486,38 +591,36 @@ def generate_main_dialogue(prompt_text, system_instruction, image_parts=None, re
     for attempt in range(retries):
         for model_name in GEMINI_MAIN_MODELS:
             try:
-                print(f"🧠 [GEMINI ({model_name})]: Формирую ответ Толика...")
                 response = gemini_client.models.generate_content(
                     model=model_name,
                     contents=contents,
                     config=types.GenerateContentConfig(
                         system_instruction=system_instruction,
-                        temperature=0.75,
+                        temperature=0.7,
                         max_output_tokens=600,
                         safety_settings=SAFETY_SETTINGS,
                     ),
                 )
                 if response and response.text:
                     raw_reply = response.text.strip()
-                    print(f"✨ [ОТВЕТ GEMINI ({model_name}) ПОЛУЧЕН]: {raw_reply}")
+                    print(f"✨ [ОТВЕТ GEMINI ({model_name})]: {raw_reply}")
                     return raw_reply
             except Exception as e:
-                logging.error(f"Gemini Main Error ({model_name}): {e}")
                 if "blocked" in str(e).lower() or "safety" in str(e).lower():
                     return "ты че? я такое делать не буду."
                 continue
         time.sleep(2)
     return "блин, инет лагает... [MSG] сорян"
 
-def generate_fast_summary(prompt_text, system_instruction, retries=2):
+def generate_smart_summary(prompt_text, system_instruction, retries=2):
     for _ in range(retries):
-        for model_name in GEMINI_FAST_MODELS:
+        for model_name in GEMINI_SMART_MODELS:
             try:
                 response = gemini_client.models.generate_content(
                     model=model_name,
                     contents=prompt_text,
                     config=types.GenerateContentConfig(
-                        system_instruction=system_instruction, temperature=0.2, max_output_tokens=450, safety_settings=SAFETY_SETTINGS
+                        system_instruction=system_instruction, temperature=0.25, max_output_tokens=700, safety_settings=SAFETY_SETTINGS
                     ),
                 )
                 if response and response.text:
@@ -527,7 +630,7 @@ def generate_fast_summary(prompt_text, system_instruction, retries=2):
         time.sleep(1)
     return None
 
-# ================= СИСТЕМА ДОСЬЕ (БЕЗ ДУБЛИКАТОВ ТОПИКОВ!) =================
+# ================= СИСТЕМА ДОСЬЕ (ПОДРОБНЫЕ И СТРУКТУРИРОВАННЫЕ) =================
 
 def get_or_create_user_topic(main_chat_id, user_name, user_id):
     if not main_chat_id:
@@ -539,7 +642,6 @@ def get_or_create_user_topic(main_chat_id, user_name, user_id):
         if user_id:
             u_data["user_id"] = user_id
 
-        # Проверяем, нет ли уже сохраненного topic_id у этого user_id под любым ключом
         topic_id = u_data.get("topic_id")
         if not topic_id and user_id:
             for k, v in memory["users"].items():
@@ -553,7 +655,13 @@ def get_or_create_user_topic(main_chat_id, user_name, user_id):
             if new_topic_id:
                 u_data["topic_id"] = new_topic_id
                 save_memory(push_git=True)
-                send_message(main_chat_id, f"📁 Создано досье для пользователя @{canon_key}.", message_thread_id=new_topic_id)
+                send_message(
+                    main_chat_id,
+                    f"📁 Создано досье для <b>@{canon_key}</b> (ID: <code>{user_id}</code>).\n"
+                    f"💡 <i>Чтобы написать этому пользователю в ЛС от лица Толика, введи здесь:</i> <code>/send привет</code>",
+                    message_thread_id=new_topic_id,
+                    parse_mode="HTML",
+                )
                 return new_topic_id
         return topic_id
 
@@ -570,15 +678,14 @@ def log_dialogue_to_topic(user_name, user_id, user_text, bot_reply, is_group):
     if bot_reply:
         log_msg += f"\n🦊 <b>Толик:</b> {bot_reply}"
     res = send_message(main_chat_id, log_msg, message_thread_id=topic_id, parse_mode="HTML")
-    # Если старый топик был удален вручную в ТГ (ошибка thread not found), сбрасываем topic_id
     if not res.get("ok") and "thread" in str(res.get("description", "")).lower():
         memory = load_memory()
         canon_key = find_canonical_user_key(memory, user_name, user_id)
         memory["users"].get(canon_key, {}).pop("topic_id", None)
         save_memory()
 
-def update_dossier(user_name, user_id=None):
-    """Накопительное досье: сохраняет старые факты и дополняет их новыми."""
+def update_dossier(user_name, user_id=None, force=False):
+    """Формирует богатое, структурированное досье по 4 пунктам (игнорируя мелкий мусор и вбросы)."""
     memory = load_memory()
     canon_key = find_canonical_user_key(memory, user_name, user_id)
     user_history = [h for h in memory["history"] if h.get("user", "").lower() == canon_key.lower()]
@@ -586,7 +693,7 @@ def update_dossier(user_name, user_id=None):
         return
 
     lines = []
-    for h in user_history[-60:]:
+    for h in user_history[-70:]:
         where = "в ЛС" if h.get("chat_id", 0) > 0 else "в чате"
         line = f"[{where}] {h['user']}: {h['text']}"
         if h.get("bot_reply"):
@@ -595,22 +702,33 @@ def update_dossier(user_name, user_id=None):
 
     u_info = memory.get("users", {}).get(canon_key, {})
     old_profile = u_info.get("profile", "Пока мало данных")
+    # Если старое досье было испорчено коротким мусором (< 35 символов), сбрасываем его
+    if len(old_profile) < 35:
+        old_profile = "Пока мало данных"
+
     fn = f"{u_info.get('first_name', '')} {u_info.get('last_name', '')}".strip()
     bio = u_info.get("bio", "")
     meta_str = f"Ник: @{canon_key} | Имя в ТГ: {fn or 'не указано'} | О себе (bio): {bio or 'нет'}"
 
     prompt = (
         f"Данные профиля: {meta_str}\n\n"
-        f"ПРЕДЫДУЩЕЕ ДОСЬЕ (сохрани важные факты отсюда!):\n{old_profile}\n\n"
-        f"СВЕЖИЕ СООБЩЕНИЯ ПОЛЬЗОВАТЕЛЯ:\n" + "\n".join(lines) + "\n\n"
-        f"Обнови и дополни ДОСЬЕ на @{canon_key} СТРОГО по этим реальным сообщениям (ничего не выдумывай!):\n"
-        f"- Как зовут, какой пол, манера общения, реальные факты и увлечения.\n"
-        f"- Отношения с Толиком и участниками чата.\n"
-        f"Объедини старые факты с новыми кратко от 3-го лица."
+        f"ПРЕДЫДУЩЕЕ ДОСЬЕ (сохрани все реальные факты отсюда!):\n{old_profile}\n\n"
+        f"ИСТОРИЯ СООБЩЕНИЙ ПОЛЬЗОВАТЕЛЯ:\n" + "\n".join(lines) + "\n\n"
+        f"Составь ПОДРОБНОЕ, АДЕКВАТНОЕ И СТРУКТУРИРОВАННОЕ ДОСЬЕ на @{canon_key} строго по этим данным.\n"
+        f"ВАЖНЫЕ ПРАВИЛА:\n"
+        f"1. ИГНОРИРУЙ бессмысленные однословные шутки, щитпостинг и глупые вбросы (вроде 'помидор срет' и т.п.) — НЕ записывай случайный бред в досье!\n"
+        f"2. НИЧЕГО не выдумывай от себя, чего не было в сообщениях.\n"
+        f"3. Оформи досье строго по 4 разделам (минимум 4-8 предложений в сумме):\n"
+        f"👤 Основное: (имя, ник, пол, возраст/город если известны, описание из био)\n"
+        f"🎭 Характер и манера речи: (как общается, какой юмор, часто ли пишет)\n"
+        f"🎯 Интересы и реальные факты: (чем увлекается, о чем рассказывал, что любит)\n"
+        f"🦊 Отношения с Толиком и чатом: (как относится к Толику, с кем общается, о чем говорили в ЛС)"
     )
     try:
-        response = generate_fast_summary(prompt, "Ты хранитель долгосрочной памяти. Пиши только подтвержденные факты.")
-        if response and response != "IGNORE":
+        response = generate_smart_summary(
+            prompt, "Ты профессиональный психолог-аналитик. Ты пишешь подробные, чистые и точные досье без мусора."
+        )
+        if response and len(response.strip()) > 45 and "IGNORE" not in response:
             profile = response.strip()
             memory = load_memory()
             memory.setdefault("users", {}).setdefault(canon_key, {})["profile"] = profile
@@ -618,19 +736,32 @@ def update_dossier(user_name, user_id=None):
 
             config = load_config()
             main_chat_id = config.get("main_chat_id")
-            if main_chat_id and (user_id or u_info.get("user_id")):
-                topic_id = get_or_create_user_topic(main_chat_id, canon_key, user_id or u_info.get("user_id"))
+            uid = user_id or u_info.get("user_id")
+            if main_chat_id and uid:
+                topic_id = get_or_create_user_topic(main_chat_id, canon_key, uid)
                 if topic_id:
-                    send_message(main_chat_id, f"🔄 <b>Обновлено досье на {canon_key}:</b>\n\n{profile}", message_thread_id=topic_id, parse_mode="HTML")
+                    send_message(main_chat_id, f"🔄 <b>Обновлено досье на @{canon_key}:</b>\n\n{profile}", message_thread_id=topic_id, parse_mode="HTML")
     except Exception as e:
         print(f"❌ ОШИБКА ДОСЬЕ: {e}")
 
 def sync_all_users_on_start():
     try:
         memory = load_memory()
+        cfg = load_config()
+        known_chats = cfg.setdefault("known_chats", {})
         chat_ids = {h.get("chat_id") for h in memory.get("history", []) if h.get("chat_id", 0) < 0}
         for cid in chat_ids:
             sync_chat_admins(cid, memory)
+            if cid != cfg.get("main_chat_id") and str(cid) not in known_chats:
+                res = safe_request(f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/getChat?chat_id={cid}", method="GET")
+                c_obj = res.get("result", {}) if res.get("ok") else {}
+                known_chats[str(cid)] = {
+                    "title": c_obj.get("title") or f"Чат {cid}",
+                    "invite_link": fetch_chat_invite_link(cid, c_obj),
+                    "status": "approved",
+                    "added_at": "Уже был в памяти",
+                }
+        save_config()
         save_memory()
     except Exception as e:
         logging.error(f"Startup Sync Error: {e}")
@@ -675,9 +806,9 @@ def build_genius_social_and_cross_memory(chat_id, current_user, text, memory):
             display += f" | О себе: {bio}"
 
         u_msgs = [h["text"] for h in all_history if h.get("user") == u_key and h.get("text")][-5:]
-        quotes_str = f" | Реальные реплики: {' // '.join(u_msgs)}" if u_msgs else " | Пока молчит в чате"
+        quotes_str = f" | Реальные реплики: {' // '.join(u_msgs)}" if u_msgs else ""
 
-        short_prof = profile.replace("\n", " ")[:180]
+        short_prof = profile.replace("\n", " ")[:220]
         participants_summary.append(f"• {display} — Досье: {short_prof}{quotes_str}")
 
         tokens = [t.lower() for t in [u_key, uname, fn, ln, title] if t and len(t) >= 3]
@@ -688,28 +819,8 @@ def build_genius_social_and_cross_memory(chat_id, current_user, text, memory):
         if any(tok in text_lower for tok in tokens):
             mentioned_details.append(
                 f"📌 РЕАЛЬНЫЕ ДАННЫЕ ПРО УПОМЯНУТОГО ЧЕЛОВЕКА ({display}):\n"
-                f"Досье: {profile}\n"
-                f"Его/её настоящие сообщения в чате: {' // '.join(u_msgs) if u_msgs else 'сообщений от него пока нет'}"
-            )
-
-    words = [w for w in re.findall(r"[а-яёa-z0-9_]{3,}", text_lower) if w not in [
-        "толик", "толя", "толян", "придумай", "стих", "про", "кто", "это", "такой", "такая",
-        "расскажи", "знаешь", "помнишь", "что", "как", "привет", "дела", "тебя", "мне", "опиши"
-    ]]
-    if words:
-        found_in_history = []
-        for h in all_history[-300:]:
-            h_txt = (h.get("text", "") + " " + (h.get("bot_reply") or "")).lower()
-            if any(w in h_txt for w in words):
-                pl = "в ЛС" if h.get("chat_id", 0) > 0 else "в чате"
-                found_in_history.append(
-                    f"[{pl}] {h.get('user')}: {h.get('text')}"
-                    + (f" -> Толик: {h.get('bot_reply')}" if h.get("bot_reply") else "")
-                )
-        if found_in_history:
-            mentioned_details.append(
-                "📌 УПОМИНАНИЯ ЭТИХ СЛОВ/ИМЕН В ПРОШЛЫХ ПЕРЕПИСКАХ (ЛС И ЧАТ):\n"
-                + "\n".join(found_in_history[-8:])
+                f"Досье:\n{profile}\n"
+                f"Его/её настоящие сообщения в чате: {' // '.join(u_msgs) if u_msgs else 'сообщений пока нет'}"
             )
 
     roster_str = "\n".join(participants_summary[:45]) if participants_summary else "Пока никого нет."
@@ -728,7 +839,6 @@ def fetch_ai_response(
     stickers = config.get("stickers", {})
     sticker_list = ", ".join(stickers.keys()) if stickers else "нет"
     has_selfies = len(config.get("selfies", [])) > 0
-    has_input_media = bool(image_parts)
     media_types = media_types or []
 
     cross_memory_str, roster_str, mentioned_str = build_genius_social_and_cross_memory(chat_id, user_name, text, memory)
@@ -740,10 +850,11 @@ def fetch_ai_response(
         )
     elif post_dialog_check:
         address_rule = (
-            "РЕЖИМ АНАЛИЗА ПОСЛЕ ДИАЛОГА:\n"
-            "Ты только что общался с этим пользователем, но сейчас он тебя не тегнул.\n"
-            "1) Если он продолжает диалог с тобой, отвечает тебе, кинул стикер/гифку тебе или комментирует твой рисунок — ответь как Толик.\n"
-            "2) Если он уже НЕ ХОЧЕТ с тобой общаться, закрыл тему или пишет другим — ВЫВЕДИ РОВНО ОДНО СЛОВО: STOP_DIALOG"
+            "СТРОГИЙ РЕЖИМ АНАЛИЗА В ГРУППЕ ПОСЛЕ ДИАЛОГА:\n"
+            "ВНИМАНИЕ: Это групповой чат! Собеседник НЕ назвал твое имя и НЕ нажал Reply на твое сообщение.\n"
+            "1) Отвечай ТОЛЬКО если его фраза на 100% является прямым ответом на твой вопрос секунду назад.\n"
+            "2) Если это общая фраза в чат, обсуждение других тем, обращение к другим людям, короткое 'ок/пон/ясно/лол' или есть ХОТЬ МАЛЕЙШЕЕ СОМНЕНИЕ, что пишут лично тебе — "
+            "ВЫВЕДИ РОВНО ОДНО СЛОВО: STOP_DIALOG"
         )
     else:
         address_rule = "Если с тобой не хотят общаться — выведи ровно одно слово: STOP_DIALOG"
@@ -757,20 +868,20 @@ def fetch_ai_response(
         f"Сейчас: {now.strftime('%H:%M %d.%m.%Y')}. Твой план на день:\n{current_plan}\n\n"
         f"{address_rule}\n\n"
         f"ВАЖНО ПРО РАЗЛИЧЕНИЕ ТИПОВ МЕДИА (СТИКЕР vs ГИФКА vs ВИДЕО vs ФОТО):\n"
-        f"- Если собеседник прислал СТИКЕР — ты знаешь, что это именно СТИКЕР в Телеграме! НИКОГДА не называй стикер 'картинкой', 'фоткой', 'артом' или 'рисунком'! Реагируй на эмоцию/вайб/действие персонажа со стикера (и можешь отправить стикер в ответ через [STICKER: ...]).\n"
-        f"- Если собеседник прислал ГИФКУ (GIF-анимацию) — ты знаешь, что это именно ГИФКА (анимированный мем без звука), а не обычная картинка и не видео со звуком! Можешь называть её гифкой и комментировать действие на ней.\n"
-        f"- Если собеседник прислал ВИДЕО — это видеоролик со звуком.\n"
-        f"- Если собеседник прислал ФОТО / КАРТИНКУ — тогда это реально фотка, скриншот или рисунок.\n\n"
+        f"- Если прислали СТИКЕР — это СТИКЕР в Телеграме! НИКОГДА не называй стикер 'картинкой', 'фоткой', 'артом' или 'рисунком'! Реагируй на эмоцию/вайб со стикера.\n"
+        f"- Если прислали ГИФКУ (GIF) — это именно ГИФКА (анимированный мем без звука), а не картинка и не видео со звуком!\n"
+        f"- Если прислали ВИДЕО — это видеоролик со звуком.\n"
+        f"- Если прислали ФОТО / КАРТИНКУ — это фотка, скриншот или рисунок.\n\n"
         f"ПРАВИЛО ЧЕСТНОСТИ И ЗНАНИЯ УЧАСТНИКОВ (БЕЗ ВЫДУМОК!):\n"
         f"1. Ниже дан список ВСЕХ участников чата и твоя память из ЛС.\n"
         f"2. СТРОГО ЗАПРЕЩЕНО ВЫДУМЫВАТЬ ФАКТЫ О ЛЮДЯХ ОТ БАЛДЫ.\n"
-        f"3. ЗАПРЕЩЕНО использовать тег [SEARCH: ...] для поиска участников чата, друзей и их ников!\n"
-        f"4. В общем чате веди себя тактично: ты помнишь переписки из ЛС, но НЕ сливай чужие личные секреты на публику.\n\n"
+        f"3. ЗАПРЕЩЕНО использовать тег [SEARCH: ...] для поиска участников чата и их ников!\n"
+        f"4. В общем чате веди себя тактично: не сливай чужие личные секреты из ЛС на публику.\n\n"
         f"ПРАВИЛА СТИЛЯ:\n"
         f"1. ПИШИ СТРОГО СТРОЧНЫМИ БУКВАМИ (маленькими). Точки в конце коротких реплик не ставь.\n"
         f"2. НЕ ЗДОРОВАЙСЯ ('привет', 'ку'), если диалог уже идет!\n"
         f"3. Отвечай живо, короткими сообщениями от 1-го лица, разделяя мысли тегом [MSG].\n"
-        f"4. ЗАПРЕЩЕНО говорить слова: 'бот', 'ии', 'нейросеть', 'сгенерирую', 'промпт', 'досье'. Ты живой парень.\n"
+        f"4. ЗАПРЕЩЕНО говорить слова: 'бот', 'ии', 'нейросеть', 'сгенерирую', 'промпт', 'досье'.\n"
         f"5. НИКАКИХ ЭМОДЗИ В ТЕКСТЕ.\n\n"
         f"ДОСТУПНЫЕ СПЕЦ-ТЕГИ:\n"
         f"- [SEARCH: запрос] — ТОЛЬКО для новостей мира, лекарств, игр и научных фактов.\n"
@@ -794,18 +905,18 @@ def fetch_ai_response(
     if seeing_own_drawing:
         reply_context += " [К сообщению прикреплена ТВОЯ СОБСТВЕННАЯ КАРТИНКА (рисунок/фото), которую ты сам только что сделал — ты видишь её глазами!]"
     elif "sticker" in media_types:
-        reply_context += " [ВАЖНО: Собеседник отправил СТИКЕР в Телеграме! Это именно СТИКЕР (реакция/эмоция), а НЕ фотография и НЕ картинка! Оцени эмоцию/посыл на стикере, не называй его 'картинкой' или 'рисунком'!]"
+        reply_context += " [ВАЖНО: Собеседник отправил СТИКЕР в Телеграме! Это именно СТИКЕР, а НЕ фотография и НЕ картинка!]"
     elif "gif" in media_types:
         reply_context += " [ВАЖНО: Собеседник отправил ГИФКУ (GIF-анимацию без звука)! Это именно ГИФКА, а не фото и не обычное видео!]"
     elif "video" in media_types:
-        reply_context += " [ВАЖНО: Собеседник отправил ВИДЕОРОЛИК со звуком! Посмотри видеоряд и послушай звук напрямую!]"
+        reply_context += " [ВАЖНО: Собеседник отправил ВИДЕОРОЛИК со звуком!]"
     elif "photo" in media_types:
-        reply_context += " [Собеседник отправил ФОТОГРАФИЮ / КАРТИНКУ — посмотри на неё своими глазами!]"
+        reply_context += " [Собеседник отправил ФОТОГРАФИЮ / КАРТИНКУ!]"
 
     footer = (
         "[Ответь собеседнику как Толик! Слова STOP_DIALOG и IGNORE использовать ЗАПРЕЩЕНО!]"
         if explicit_ping
-        else "[Если собеседник продолжает разговор с тобой — ответь как Толик. Если с тобой больше не хотят общаться — выведи: STOP_DIALOG]"
+        else "[Если фраза на 100% адресована тебе в продолжение диалога — ответь как Толик. Иначе выведи ТОЛЬКО слово: STOP_DIALOG]"
     )
 
     final_prompt = f"Контекст переписки в чате:\n{history_text}\n\n{reply_context}\nНовое сообщение от {user_name}:\n{text}\n\n{footer}"
@@ -836,6 +947,355 @@ def fetch_ai_response(
 
     return reply
 
+# ================= АДМИН-ПАНЕЛЬ, КОМАНДЫ И РАССЫЛКИ =================
+
+HELP_TEXT = (
+    "🛠 <b>ПАНЕЛЬ УПРАВЛЕНИЯ ТОЛИКОМ (КОМАНДЫ АДМИНА):</b>\n\n"
+    "💬 <b>Общение от лица Толика и Рассылки:</b>\n"
+    "• <code>/send текст</code> (или <code>/лс текст</code>) — <i>пишется прямо внутри топика досье юзера</i>: отправляет ему сообщение в ЛС от лица Толика!\n"
+    "• <code>/sendto @ник текст</code> — написать любому юзеру в ЛС по нику или ID\n"
+    "• <code>/saychat ID_чата текст</code> — написать сообщение от Толика в любую группу\n"
+    "• <code>/broadcast текст</code> (или <code>/all текст</code>) — 📢 написать ВСЕМ пользователям бота в ЛС одновременно!\n"
+    "• <code>/broadcast_chats текст</code> — 📢 написать во ВСЕ одобренные группы одновременно!\n\n"
+    "🌐 <b>Управление чатами и ссылками:</b>\n"
+    "• <code>/chats</code> (или <code>/чаты</code>) — список всех чатов, где состоит Толик, их <b>ссылки для входа</b> и кнопки Вкл/Выкл\n"
+    "• <code>/chat_on ID_чата</code> — разрешить Толику общаться в чате\n"
+    "• <code>/chat_off ID_чата</code> — перевести Толика в режим тишины в чате\n"
+    "• <code>/leave ID_чата</code> — заставить Толика выйти из чата\n\n"
+    "📁 <b>Досье и Пользователи:</b>\n"
+    "• <code>/users</code> — список всех пользователей в базе с их ID\n"
+    "• <code>/dossier</code> (или <code>/досье @ник</code>) — пересобрать подробное качественное досье прямо сейчас\n"
+    "• <code>/set_dossier текст</code> — (в топике юзера) вручную задать текст досье\n"
+    "• <code>/bind @ник</code> — привязать текущий топик к досье пользователя\n"
+    "• <code>/mute @ник 30</code> — замутить юзера для бота на N минут\n"
+    "• <code>/unmute @ник</code> — размутить юзера\n\n"
+    "⚙️ <b>Настройки и Память:</b>\n"
+    "• <code>/plan текст</code> — задать план Толика на сегодня\n"
+    "• <code>/save</code> — мгновенно сохранить всю память в GitHub\n"
+    "• <code>/stats</code> — статистика памяти бота\n"
+    "• <code>/mainchat</code> | <code>/setdiary</code> | <code>/set_looks</code> | <code>/add_stickers</code>"
+)
+
+def handle_admin_command(msg, chat_id, thread_id, message_id, text):
+    cmd_raw = text.strip()
+    cmd_low = cmd_raw.lower()
+    memory = load_memory()
+    cfg = load_config()
+
+    if cmd_low in ["/help", "/помощь", "/commands", "/команды"]:
+        send_message(chat_id, HELP_TEXT, message_thread_id=thread_id, parse_mode="HTML")
+        return True
+
+    if cmd_low == "/mainchat":
+        cfg["main_chat_id"] = chat_id
+        save_config(push_git=True)
+        send_message(chat_id, "✅ Основной чат для досье установлен и сохранен в GitHub!\nНапиши <code>/помощь</code> для списка всех команд.", message_thread_id=thread_id, parse_mode="HTML")
+        return True
+
+    if cmd_low == "/setdiary":
+        cfg["main_chat_id"] = chat_id
+        cfg["diary_topic_id"] = thread_id
+        save_config(push_git=True)
+        send_message(chat_id, "✅ Эта тема установлена для 'Моих будней'!", message_thread_id=thread_id)
+        return True
+
+    if cmd_low == "/save":
+        save_memory(push_git=True)
+        save_config(push_git=True)
+        send_message(chat_id, "💾 Память и конфиг принудительно сохранены и отправлены в GitHub!", message_thread_id=thread_id)
+        return True
+
+    if cmd_low.startswith("/plan "):
+        new_plan = cmd_raw.split(maxsplit=1)[1].strip()
+        cfg["current_plan"] = new_plan
+        save_config(push_git=True)
+        send_message(chat_id, f"📅 Новый план Толика на день установлен:\n\n{new_plan}", message_thread_id=thread_id)
+        return True
+
+    # Список всех чатов + копирование ссылок + инлайн-кнопки управления
+    if cmd_low in ["/chats", "/чаты", "/links", "/ссылки"]:
+        known = cfg.get("known_chats", {})
+        if not known:
+            send_message(chat_id, "📭 Список групповых чатов пока пуст.", message_thread_id=thread_id)
+            return True
+        lines = ["🌐 <b>ЧАТЫ, ГДЕ СОСТОИТ ТОЛИК (ССЫЛКИ И СТАТУСЫ):</b>\n"]
+        kb_rows = []
+        for cid_s, c_info in known.items():
+            title = c_info.get("title", cid_s)
+            status = c_info.get("status", "pending")
+            st_icon = "✅ Отвечает всем" if status == "approved" else ("🔇 Молчит" if status == "muted" else "⏳ Ждет решения")
+            # Пробуем освежить ссылку
+            link = c_info.get("invite_link", "")
+            if not link or link.startswith("Нет прав"):
+                link = fetch_chat_invite_link(int(cid_s))
+                c_info["invite_link"] = link
+            lines.append(
+                f"🔹 <b>{title}</b>\n"
+                f"   • ID: <code>{cid_s}</code>\n"
+                f"   • Статус: {st_icon}\n"
+                f"   • Ссылка: {link}\n"
+            )
+            toggle_btn = (
+                {"text": f"🔇 Заглушить: {title[:15]}", "callback_data": f"chat_mute:{cid_s}"}
+                if status == "approved"
+                else {"text": f"✅ Включить: {title[:15]}", "callback_data": f"chat_approve:{cid_s}"}
+            )
+            kb_rows.append([toggle_btn])
+        save_config()
+        send_message(chat_id, "\n".join(lines), message_thread_id=thread_id, parse_mode="HTML", reply_markup={"inline_keyboard": kb_rows[:15]})
+        return True
+
+    if cmd_low.startswith("/chat_on "):
+        target_cid = cmd_raw.split(maxsplit=1)[1].strip()
+        cfg.setdefault("known_chats", {}).setdefault(target_cid, {"title": f"Чат {target_cid}"})["status"] = "approved"
+        save_config(push_git=True)
+        send_message(chat_id, f"✅ В чате <code>{target_cid}</code> включен режим общения! Толик теперь отвечает там.", message_thread_id=thread_id, parse_mode="HTML")
+        return True
+
+    if cmd_low.startswith("/chat_off "):
+        target_cid = cmd_raw.split(maxsplit=1)[1].strip()
+        cfg.setdefault("known_chats", {}).setdefault(target_cid, {"title": f"Чат {target_cid}"})["status"] = "muted"
+        save_config(push_git=True)
+        send_message(chat_id, f"🔇 В чате <code>{target_cid}</code> включен режим тишины! Толик там просто молчит.", message_thread_id=thread_id, parse_mode="HTML")
+        return True
+
+    if cmd_low.startswith("/leave "):
+        target_cid = cmd_raw.split(maxsplit=1)[1].strip()
+        safe_request(f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/leaveChat", {"chat_id": target_cid})
+        cfg.get("known_chats", {}).pop(target_cid, None)
+        save_config(push_git=True)
+        send_message(chat_id, f"👋 Толик вышел из чата <code>{target_cid}</code>.", message_thread_id=thread_id, parse_mode="HTML")
+        return True
+
+    # Отправка сообщения пользователю прямо из его топика досье (/send или /лс)
+    if cmd_low.startswith(("/send ", "/лс ", "/write ")):
+        msg_to_send = cmd_raw.split(maxsplit=1)[1].strip()
+        target_u, target_uid = find_user_by_topic_id(memory, thread_id)
+        if not target_uid:
+            send_message(chat_id, "❌ Эта тема не привязана к пользователю (или у него еще не записан ID). Используй <code>/sendto @ник текст</code>", message_thread_id=thread_id, parse_mode="HTML")
+            return True
+        res = send_message(target_uid, msg_to_send)
+        if res.get("ok"):
+            send_message(chat_id, f"📨 <b>Отправлено в ЛС для @{target_u}:</b>\n🦊 Толик: {msg_to_send}", message_thread_id=thread_id, parse_mode="HTML")
+            memory["history"].append({"time_short": get_minsk_time().strftime("%H:%M"), "chat_id": target_uid, "user": target_u, "text": "[Сообщение от Толика]", "bot_reply": msg_to_send})
+            save_memory()
+        else:
+            send_message(chat_id, f"⚠️ Пользователь @{target_u} еще не запускал бота в ЛС (ошибка ТГ: {res.get('description')}).", message_thread_id=thread_id)
+        return True
+
+    # Отправка сообщения любому юзеру по нику или ID (/sendto @ник текст)
+    if cmd_low.startswith("/sendto "):
+        parts = cmd_raw.split(maxsplit=2)
+        if len(parts) < 3:
+            send_message(chat_id, "⚠️ Формат: <code>/sendto @ник_или_ID текст сообщения</code>", message_thread_id=thread_id, parse_mode="HTML")
+            return True
+        target_arg, msg_to_send = parts[1].lstrip("@"), parts[2].strip()
+        target_uid = int(target_arg) if target_arg.lstrip("-").isdigit() else None
+        canon_u = target_arg
+        if not target_uid:
+            canon_u = find_canonical_user_key(memory, target_arg)
+            target_uid = memory.get("users", {}).get(canon_u, {}).get("user_id")
+        if not target_uid:
+            send_message(chat_id, f"❌ Не найден ID для пользователя @{target_arg}.", message_thread_id=thread_id)
+            return True
+        res = send_message(target_uid, msg_to_send)
+        if res.get("ok"):
+            send_message(chat_id, f"✅ Сообщение успешно доставлено пользователю <b>@{canon_u}</b> (<code>{target_uid}</code>)!", message_thread_id=thread_id, parse_mode="HTML")
+        else:
+            send_message(chat_id, f"❌ Не удалось отправить (возможно, у юзера закрыта личка с ботом): {res.get('description')}", message_thread_id=thread_id)
+        return True
+
+    # Написать сообщение от лица Толика в любой групповой чат (/saychat ID текст)
+    if cmd_low.startswith("/saychat "):
+        parts = cmd_raw.split(maxsplit=2)
+        if len(parts) < 3:
+            send_message(chat_id, "⚠️ Формат: <code>/saychat ID_чата текст сообщения</code>", message_thread_id=thread_id, parse_mode="HTML")
+            return True
+        target_cid, msg_to_send = parts[1].strip(), parts[2].strip()
+        res = send_message(target_cid, msg_to_send)
+        if res.get("ok"):
+            send_message(chat_id, f"✅ Толик написал в чат <code>{target_cid}</code>:\n{msg_to_send}", message_thread_id=thread_id, parse_mode="HTML")
+        else:
+            send_message(chat_id, f"❌ Ошибка отправки в чат: {res.get('description')}", message_thread_id=thread_id)
+        return True
+
+    # Массовая рассылка ВСЕМ пользователям бота в ЛС одновременно (/broadcast или /all)
+    if cmd_low.startswith(("/broadcast ", "/all ")):
+        b_text = cmd_raw.split(maxsplit=1)[1].strip()
+        users = memory.get("users", {})
+        sent_ok = 0
+        failed = 0
+        send_message(chat_id, f"⏳ Начинаю рассылку сообщения всем пользователям ({len(users)} чел.)...", message_thread_id=thread_id)
+        for u_key, u_data in users.items():
+            uid = u_data.get("user_id")
+            if uid and uid != BOT_ID:
+                res = send_message(uid, b_text)
+                if res.get("ok"):
+                    sent_ok += 1
+                else:
+                    failed += 1
+                time.sleep(0.15)
+        send_message(
+            chat_id,
+            f"📢 <b>Массовая рассылка в ЛС завершена!</b>\n"
+            f"✅ Успешно доставлено: <b>{sent_ok}</b> чел.\n"
+            f"🚫 Не открыта личка с ботом: <b>{failed}</b> чел.",
+            message_thread_id=thread_id,
+            parse_mode="HTML",
+        )
+        return True
+
+    # Массовая рассылка во все одобренные групповые чаты (/broadcast_chats текст)
+    if cmd_low.startswith("/broadcast_chats "):
+        b_text = cmd_raw.split(maxsplit=1)[1].strip()
+        known = cfg.get("known_chats", {})
+        sent_ok = 0
+        for cid_s, c_info in known.items():
+            if c_info.get("status") == "approved":
+                res = send_message(int(cid_s), b_text)
+                if res.get("ok"):
+                    sent_ok += 1
+                time.sleep(0.2)
+        send_message(chat_id, f"📢 Рассылка по чатам завершена! Отправлено в <b>{sent_ok}</b> групп.", message_thread_id=thread_id, parse_mode="HTML")
+        return True
+
+    # Список всех пользователей
+    if cmd_low == "/users":
+        users = memory.get("users", {})
+        lines = [f"👥 <b>ПОЛЬЗОВАТЕЛИ В БАЗЕ ({len(users)}):</b>\n"]
+        for k, v in list(users.items())[:50]:
+            fn = f"{v.get('first_name', '')} {v.get('last_name', '')}".strip()
+            uid = v.get("user_id", "нет ID")
+            lines.append(f"• <b>@{k}</b> ({fn or 'без имени'}) — ID: <code>{uid}</code> | Сообщений: {v.get('msg_count', 0)}")
+        send_message(chat_id, "\n".join(lines), message_thread_id=thread_id, parse_mode="HTML")
+        return True
+
+    # Принудительное обновление досье (/dossier или /досье)
+    if cmd_low.startswith(("/dossier", "/досье")):
+        parts = cmd_raw.split(maxsplit=1)
+        if len(parts) > 1:
+            target_u = find_canonical_user_key(memory, parts[1].lstrip("@"))
+            target_uid = memory.get("users", {}).get(target_u, {}).get("user_id")
+        else:
+            target_u, target_uid = find_user_by_topic_id(memory, thread_id)
+        if not target_u:
+            send_message(chat_id, "⚠️ Напиши <code>/досье @ник</code> или вызови команду внутри топика досье пользователя.", message_thread_id=thread_id, parse_mode="HTML")
+            return True
+        send_message(chat_id, f"⏳ Пересобираю подробное досье для <b>@{target_u}</b>...", message_thread_id=thread_id, parse_mode="HTML")
+        threading.Thread(target=update_dossier, args=(target_u, target_uid, True), daemon=True).start()
+        return True
+
+    # Ручная установка текста досье (/set_dossier текст)
+    if cmd_low.startswith("/set_dossier "):
+        new_prof = cmd_raw.split(maxsplit=1)[1].strip()
+        target_u, _ = find_user_by_topic_id(memory, thread_id)
+        if not target_u:
+            send_message(chat_id, "⚠️ Вызови <code>/set_dossier текст</code> внутри топика нужного пользователя!", message_thread_id=thread_id, parse_mode="HTML")
+            return True
+        memory["users"].setdefault(target_u, {})["profile"] = new_prof
+        save_memory(push_git=True)
+        send_message(chat_id, f"✅ Досье для <b>@{target_u}</b> вручную обновлено и сохранено:\n\n{new_prof}", message_thread_id=thread_id, parse_mode="HTML")
+        return True
+
+    # Мут / Размут пользователя
+    if cmd_low.startswith("/mute "):
+        parts = cmd_raw.split()
+        target_arg = parts[1].lstrip("@")
+        mins = int(parts[2]) if len(parts) > 2 and parts[2].isdigit() else 60
+        canon_u = find_canonical_user_key(memory, target_arg)
+        uid = int(target_arg) if target_arg.isdigit() else memory.get("users", {}).get(canon_u, {}).get("user_id")
+        if uid:
+            memory.setdefault("ignored_users", {})[str(uid)] = time.time() + mins * 60
+            save_memory()
+            send_message(chat_id, f"🔇 Пользователь <b>@{canon_u}</b> замучен для Толика на {mins} мин.", message_thread_id=thread_id, parse_mode="HTML")
+        else:
+            send_message(chat_id, "❌ Не найден ID пользователя.", message_thread_id=thread_id)
+        return True
+
+    if cmd_low.startswith("/unmute "):
+        target_arg = cmd_raw.split(maxsplit=1)[1].strip().lstrip("@")
+        canon_u = find_canonical_user_key(memory, target_arg)
+        uid = int(target_arg) if target_arg.isdigit() else memory.get("users", {}).get(canon_u, {}).get("user_id")
+        if uid:
+            memory.get("ignored_users", {}).pop(str(uid), None)
+            save_memory()
+            send_message(chat_id, f"🔊 Пользователь <b>@{canon_u}</b> размучен!", message_thread_id=thread_id, parse_mode="HTML")
+        return True
+
+    if cmd_low.startswith("/bind"):
+        parts = cmd_raw.split(maxsplit=1)
+        target_u = parts[1].lstrip("@") if len(parts) > 1 else ADMIN_USERNAME
+        canon_t = find_canonical_user_key(memory, target_u)
+        memory["users"].setdefault(canon_t, {})["topic_id"] = thread_id
+        save_memory(push_git=True)
+        send_message(chat_id, f"✅ Этот топик успешно привязан к досье @{canon_t} и сохранен в GitHub!", message_thread_id=thread_id)
+        return True
+
+    if cmd_low.startswith("/set_looks") and "reply_to_message" in msg and "photo" in msg["reply_to_message"]:
+        photo_id = msg["reply_to_message"]["photo"][-1]["file_id"]
+        cfg["selfies"].append(photo_id)
+        save_config(push_git=True)
+        send_message(chat_id, "✅ Фотка добавлена в канон Толика!", message_thread_id=thread_id)
+        return True
+
+    if cmd_low.startswith("/add_stickers") and "reply_to_message" in msg and "sticker" in msg["reply_to_message"]:
+        set_name = msg["reply_to_message"]["sticker"].get("set_name")
+        if set_name:
+            threading.Thread(target=parse_sticker_set, args=(set_name, chat_id, thread_id), daemon=True).start()
+        return True
+
+    if cmd_low.startswith("/stats"):
+        stats = (
+            f"📊 <b>Статистика Толика:</b>\n"
+            f"- Знакомых участников: {len(memory['users'])}\n"
+            f"- Групповых чатов: {len(cfg.get('known_chats', {}))}\n"
+            f"- Сообщений в памяти: {len(memory['history'])}\n"
+            f"- Стикеров: {len(cfg.get('stickers', {}))}\n"
+            f"- Каноничных фото: {len(cfg.get('selfies', []))}"
+        )
+        send_message(chat_id, stats, message_thread_id=thread_id, reply_to_message_id=message_id, parse_mode="HTML")
+        return True
+
+    return False
+
+def handle_callback_query(cb):
+    user = cb.get("from", {})
+    uname = user.get("username", "")
+    if uname.lower() != ADMIN_USERNAME.lower():
+        answer_callback_query(cb["id"], "⛔️ Только для админа Толика!")
+        return
+
+    data = cb.get("data", "")
+    msg = cb.get("message", {})
+    c_id = msg.get("chat", {}).get("id")
+    m_id = msg.get("message_id")
+    cfg = load_config()
+
+    if data.startswith("chat_approve:"):
+        target_cid = data.split(":", 1)[1]
+        c_info = cfg.setdefault("known_chats", {}).setdefault(target_cid, {"title": f"Чат {target_cid}"})
+        c_info["status"] = "approved"
+        save_config(push_git=True)
+        answer_callback_query(cb["id"], "✅ Чат одобрен! Толик теперь общается там.")
+        edit_message_text(
+            c_id, m_id,
+            f"✅ <b>Чат «{c_info.get('title')}» (<code>{target_cid}</code>) ОДОБРЕН!</b>\n"
+            f"🔗 Ссылка: {c_info.get('invite_link', 'нет')}\n"
+            f"Толик теперь отвечает всем участникам в этом чате.",
+        )
+    elif data.startswith("chat_mute:"):
+        target_cid = data.split(":", 1)[1]
+        c_info = cfg.setdefault("known_chats", {}).setdefault(target_cid, {"title": f"Чат {target_cid}"})
+        c_info["status"] = "muted"
+        save_config(push_git=True)
+        answer_callback_query(cb["id"], "🔇 Толик переведен в режим молчания в этом чате.")
+        edit_message_text(
+            c_id, m_id,
+            f"🔇 <b>Чат «{c_info.get('title')}» (<code>{target_cid}</code>) — РЕЖИМ ТИШИНЫ.</b>\n"
+            f"🔗 Ссылка: {c_info.get('invite_link', 'нет')}\n"
+            f"Толик просто молчит в чате. Включить разговор можно командой <code>/chat_on {target_cid}</code> или через <code>/chats</code>.",
+        )
+
 # ================= АВТО-ЗАДАЧИ И СТИКЕРПАКИ =================
 
 def background_tasks():
@@ -847,7 +1307,6 @@ def background_tasks():
             config = load_config()
             main_chat = config.get("main_chat_id")
 
-            # Каждые 10 минут пушим актуальную память в GitHub
             if time.time() - last_git_push > 600:
                 last_git_push = time.time()
                 git_autosave_memory()
@@ -858,7 +1317,7 @@ def background_tasks():
             today_str = now.strftime("%d.%m.%Y")
             if now.hour >= 8 and config.get("last_diary_date") != today_str:
                 prompt = f"Составь краткий план на день на сегодня ({today_str}). Ты Толик (17 лет, Минск, фурри). Напиши со строчной буквы."
-                res = generate_fast_summary(prompt, "Пиши план для личного дневника.", retries=2)
+                res = generate_smart_summary(prompt, "Пиши план для личного дневника.", retries=2)
                 if res and "лагает" not in res:
                     config["current_plan"] = res
                     config["last_diary_date"] = today_str
@@ -870,7 +1329,7 @@ def background_tasks():
                 old_hist = memory["history"][:250]
                 memory["history"] = memory["history"][250:]
                 hist_text = "\n".join([f"{h['user']}: {h['text']}" for h in old_hist])
-                sum_res = generate_fast_summary(f"Выдели реальные факты о людях из этого диалога (3-5 предложений):\n{hist_text}", "Ты архиватор фактов.", retries=2)
+                sum_res = generate_smart_summary(f"Выдели реальные факты о людях из этого диалога (3-5 предложений):\n{hist_text}", "Ты архиватор фактов.", retries=2)
                 if sum_res and "IGNORE" not in sum_res and "STOP_DIALOG" not in sum_res:
                     memory["history"].insert(0, {"time_short": "ПАМЯТЬ", "chat_id": 0, "user": "SYSTEM", "text": sum_res, "bot_reply": None})
                 save_memory(push_git=True)
@@ -897,13 +1356,14 @@ def parse_sticker_set(set_name, chat_id, thread_id):
     save_config(push_git=True)
     send_message(chat_id, f"✅ Готово! Добавлено стикеров: {count}.", message_thread_id=thread_id)
 
-# ================= БУФЕР И ОБРАБОТКА ОТВЕТОВ =================
+# ================= БУФЕР И СТРОГИЙ АЛГОРИТМ АДРЕСАЦИИ В ГРУППАХ =================
 
 def has_explicit_ping(text, is_group, is_reply_to_bot):
+    """Строгая проверка обращения к Толику (без ложных срабатываний на слова типа 'столик')."""
     if not is_group or is_reply_to_bot:
         return True
     t_low = text.lower()
-    return any(name in t_low for name in ["толик", "толя", "толян", "толику", "толиком", "толясик"])
+    return bool(re.search(r"(?<![а-яёa-z0-9])(толик[а-яё]*|толя|толян[а-яё]*|толясик[а-яё]*|толе|толей|толю)(?![а-яёa-z0-9])", t_low))
 
 def process_buffered_messages():
     while True:
@@ -942,9 +1402,6 @@ def finalize_and_reply(data):
 
     user_name = find_canonical_user_key(memory, raw_user_name, user_id)
 
-    if len(data["texts"]) > 1:
-        print(f"🔗 [СКЛЕЙКА]: Склеено {len(data['texts'])} сообщений от @{user_name}!")
-
     memory["users"].setdefault(user_name, {"profile": "Пока мало данных", "msg_count": 0})
     memory["users"][user_name]["msg_count"] = memory["users"][user_name].get("msg_count", 0) + 1
     msg_cnt = memory["users"][user_name]["msg_count"]
@@ -954,24 +1411,31 @@ def finalize_and_reply(data):
         memory["history"].append({"time_short": now.strftime("%H:%M"), "chat_id": chat_id, "user": user_name, "text": combined_text, "bot_reply": None})
         save_memory()
         log_dialogue_to_topic(user_name, user_id, combined_text, None, is_group)
-        if msg_cnt == 2 or msg_cnt % 6 == 0:
+        if msg_cnt == 5 or msg_cnt % 10 == 0:
             threading.Thread(target=update_dossier, args=(user_name, user_id), daemon=True).start()
         return
 
     explicit_ping = has_explicit_ping(combined_text, is_group, data.get("is_reply_to_bot", False))
+
+    # В группе одиночные стикеры и гифки без реплая Толику НЕ считаются продолжением текстового диалога!
+    only_sticker_or_gif_no_ping = (
+        is_group and not explicit_ping and any(m in media_types for m in ["sticker", "gif"]) and len(data["texts"]) == 1 and "отправил СТИКЕР" in combined_text or "отправил ГИФКУ" in combined_text
+    )
+
     in_active_dialog = False
-    if conv_key in active_conversations:
-        if time.time() - active_conversations[conv_key] < 180:
+    if conv_key in active_conversations and not only_sticker_or_gif_no_ping:
+        # Строгое окно 35 секунд после ответа Толика (и только если в чате не перебили другие люди)
+        if time.time() - active_conversations[conv_key] < 35 and last_chat_sender.get(chat_id) in [user_id, BOT_ID, None]:
             in_active_dialog = True
         else:
             active_conversations.pop(conv_key, None)
 
     if is_group and not explicit_ping and not in_active_dialog:
-        print(f"💤 [СТАНДАРТНЫЙ РЕЖИМ]: @{user_name} написал без пинга -> сохранено в историю.")
+        last_chat_sender[chat_id] = user_id
         memory["history"].append({"time_short": now.strftime("%H:%M"), "chat_id": chat_id, "user": user_name, "text": combined_text, "bot_reply": None})
         save_memory()
         log_dialogue_to_topic(user_name, user_id, combined_text, None, is_group)
-        if msg_cnt == 2 or msg_cnt % 6 == 0:
+        if msg_cnt == 5 or msg_cnt % 10 == 0:
             threading.Thread(target=update_dossier, args=(user_name, user_id), daemon=True).start()
         return
 
@@ -984,7 +1448,6 @@ def finalize_and_reply(data):
     if not image_parts and chat_id in last_bot_image and time.time() - last_bot_image[chat_id]["time"] < 180:
         image_parts.append(last_bot_image[chat_id]["media"])
         seeing_own_drawing = True
-        print("🎨👁 [ЗРЕНИЕ ТОЛИКА]: Толик смотрит на свою недавно созданную картинку!")
 
     if not image_parts and chat_id in last_chat_media and time.time() - last_chat_media[chat_id]["time"] < 180:
         kws = ["видео", "ролик", "видос", "гиф", "фот", "картинк", "рисун", "скетч", "скрин", "мем", "глянь", "опиши", "посмотри", "что тут", "че там", "чё там"]
@@ -1007,7 +1470,8 @@ def finalize_and_reply(data):
 
     if reply == "STOP_DIALOG":
         active_conversations.pop(conv_key, None)
-        print(f"🛑 [STOP_DIALOG]: Диалог с @{user_name} завершен -> включен стандартный режим!")
+        last_chat_sender[chat_id] = user_id
+        print(f"🛑 [STOP_DIALOG]: Диалог с @{user_name} закрыт -> включен стандартный тихий режим!")
         memory["history"].append({"time_short": now.strftime("%H:%M"), "chat_id": chat_id, "user": user_name, "text": combined_text, "bot_reply": None})
         save_memory()
         log_dialogue_to_topic(user_name, user_id, combined_text, None, is_group)
@@ -1064,7 +1528,6 @@ def finalize_and_reply(data):
             chunk_text = chunk_text.replace(st_match.group(0), "").strip()
 
         if chunk_text:
-            print(f"💬 [ОТПРАВКА TG]: {chunk_text}")
             send_message(chat_id, chunk_text, message_thread_id=thread_id, reply_to_message_id=reply_to_id if i == 0 else None)
             sent_replies.append(chunk_text)
             time.sleep(random.uniform(0.8, 1.3))
@@ -1074,7 +1537,7 @@ def finalize_and_reply(data):
     save_memory()
     log_dialogue_to_topic(user_name, user_id, combined_text, full_bot_reply, is_group)
 
-    if msg_cnt == 2 or msg_cnt % 5 == 0:
+    if msg_cnt == 4 or msg_cnt % 7 == 0:
         threading.Thread(target=update_dossier, args=(user_name, user_id), daemon=True).start()
 
 # ================= ГЛАВНЫЙ ЦИКЛ БОТА =================
@@ -1082,7 +1545,7 @@ def finalize_and_reply(data):
 def run_bot():
     last_update_id = 0
     print("=" * 70)
-    print("🚀 Толик запущен (Точное различение Стикеров/Гифок + Автосохранение топиков)!")
+    print("🚀 Толик запущен (Админ-панель + Одобрение чатов + Умные Досье)!")
     print("=" * 70)
 
     threading.Thread(target=sync_all_users_on_start, daemon=True).start()
@@ -1103,6 +1566,20 @@ def run_bot():
 
             for update in r.json().get("result", []):
                 last_update_id = update["update_id"]
+
+                # 1. Обработка нажатий на инлайн-кнопки (Одобрить / Отказать чату)
+                if "callback_query" in update:
+                    handle_callback_query(update["callback_query"])
+                    continue
+
+                # 2. Если бота только что добавили в новую группу (my_chat_member)
+                if "my_chat_member" in update:
+                    mcm = update["my_chat_member"]
+                    new_st = mcm.get("new_chat_member", {}).get("status")
+                    if new_st in ["member", "administrator"]:
+                        check_and_register_group_chat(mcm.get("chat", {}))
+                    continue
+
                 if "message" not in update:
                     continue
 
@@ -1130,6 +1607,24 @@ def run_bot():
                     register_user_metadata(mem_snap, msg["reply_to_message"]["from"], chat_id)
                 save_memory()
 
+                # --- Команды Админа ---
+                if user_name.lower() == ADMIN_USERNAME.lower() and text.strip().startswith("/"):
+                    if handle_admin_command(msg, chat_id, thread_id, message_id, text):
+                        continue
+
+                # --- Не отвечаем в самом техническом чате досье ---
+                cfg_now = load_config()
+                if cfg_now.get("main_chat_id") and chat_id == cfg_now.get("main_chat_id"):
+                    continue
+
+                # --- Проверка одобрения группового чата админом ---
+                is_group = msg["chat"]["type"] in ["group", "supergroup"]
+                if is_group:
+                    chat_allowed = check_and_register_group_chat(msg["chat"])
+                    if not chat_allowed:
+                        # Если чат не одобрен (или в режиме тишины) — Толик просто молчит!
+                        continue
+
                 flood_status = check_flood_on_incoming(user_id)
                 if flood_status == "MUTED":
                     continue
@@ -1137,60 +1632,7 @@ def run_bot():
                     send_message(chat_id, "эй, полегче, не флуди так жестко [MSG] помолчу пару минут", message_thread_id=thread_id)
                     continue
 
-                # --- Команды Админа ---
-                if user_name.lower() == ADMIN_USERNAME.lower():
-                    if text.strip().lower() == "/mainchat":
-                        cfg = load_config()
-                        cfg["main_chat_id"] = chat_id
-                        save_config(push_git=True)
-                        send_message(chat_id, "✅ Основной чат для досье установлен и сохранен в GitHub!", message_thread_id=thread_id)
-                        continue
-                    if text.strip().lower() == "/setdiary":
-                        cfg = load_config()
-                        cfg["main_chat_id"] = chat_id
-                        cfg["diary_topic_id"] = thread_id
-                        save_config(push_git=True)
-                        send_message(chat_id, "✅ Тема установлена для дневника и сохранена в GitHub!", message_thread_id=thread_id)
-                        continue
-                    if text.strip().lower().startswith("/bind"):
-                        parts = text.strip().split(maxsplit=1)
-                        target_u = parts[1].lstrip("@") if len(parts) > 1 else user_name
-                        canon_t = find_canonical_user_key(mem_snap, target_u)
-                        mem_snap["users"].setdefault(canon_t, {})["topic_id"] = thread_id
-                        save_memory(push_git=True)
-                        send_message(chat_id, f"✅ Этот топик успешно привязан к досье @{canon_t} и сохранен в GitHub!", message_thread_id=thread_id)
-                        continue
-                    if text.startswith("/set_looks") and "reply_to_message" in msg and "photo" in msg["reply_to_message"]:
-                        photo_id = msg["reply_to_message"]["photo"][-1]["file_id"]
-                        cfg = load_config()
-                        cfg["selfies"].append(photo_id)
-                        save_config(push_git=True)
-                        send_message(chat_id, "✅ Фотка добавлена в канон Толика!", message_thread_id=thread_id)
-                        continue
-                    if text.startswith("/add_stickers") and "reply_to_message" in msg and "sticker" in msg["reply_to_message"]:
-                        set_name = msg["reply_to_message"]["sticker"].get("set_name")
-                        if set_name:
-                            threading.Thread(target=parse_sticker_set, args=(set_name, chat_id, thread_id), daemon=True).start()
-                        continue
-                    if text.startswith("/stats"):
-                        mem = load_memory()
-                        cfg = load_config()
-                        stats = (
-                            f"📊 <b>Статистика Толика:</b>\n"
-                            f"- Знакомых участников: {len(mem['users'])}\n"
-                            f"- Сообщений в памяти: {len(mem['history'])}\n"
-                            f"- Стикеров: {len(cfg.get('stickers', {}))}\n"
-                            f"- Каноничных фото: {len(cfg.get('selfies', []))}"
-                        )
-                        send_message(chat_id, stats, message_thread_id=thread_id, reply_to_message_id=message_id, parse_mode="HTML")
-                        continue
-
-                # --- Не отправляем ответы в сам технический чат логов досье ---
-                cfg_now = load_config()
-                if cfg_now.get("main_chat_id") and chat_id == cfg_now.get("main_chat_id"):
-                    continue
-
-                # --- 1. Голосовые и видеокружочки ---
+                # --- Обработка медиафайлов с точным различением типа ---
                 if "voice" in msg or "video_note" in msg:
                     is_vnote = "video_note" in msg
                     voice_obj = msg.get("voice") or msg.get("video_note")
@@ -1200,13 +1642,12 @@ def run_bot():
                         media_types.append("video_note" if is_vnote else "voice")
                         text += f" [{'Видеокружочек' if is_vnote else 'Голосовое сообщение'}: \"{rec or 'неразборчиво'}\"]"
 
-                # --- 2. СТИКЕРЫ (в сообщении или в реплае) ---
                 if "sticker" in msg:
                     st_bytes, st_mime = download_sticker_visual(msg["sticker"])
                     if st_bytes:
                         incoming_images.append((st_bytes, st_mime))
                         media_types.append("sticker")
-                    text += " [Собеседник отправил СТИКЕР (это именно стикер в Телеграме, а не картинка и не фото!)]"
+                    text += " [Собеседник отправил СТИКЕР]"
                 elif "reply_to_message" in msg and "sticker" in msg["reply_to_message"]:
                     st_bytes, st_mime = download_sticker_visual(msg["reply_to_message"]["sticker"])
                     if st_bytes:
@@ -1214,8 +1655,6 @@ def run_bot():
                         media_types.append("sticker")
                     if not text:
                         text = "[Собеседник ответил на СТИКЕР]"
-
-                # --- 3. ГИФКИ (animation — в ТГ гифки приходят как animation, иногда с полем video) ---
                 elif "animation" in msg:
                     vid_obj = msg["animation"]
                     v_bytes, v_mime, _ = download_video_or_thumb(vid_obj)
@@ -1223,7 +1662,7 @@ def run_bot():
                         incoming_images.append((v_bytes, v_mime))
                         media_types.append("gif")
                         last_chat_media[chat_id] = {"media": (v_bytes, v_mime), "kind": "gif", "time": time.time()}
-                    text += " [Собеседник отправил ГИФКУ (GIF-анимацию без звука, это именно гифка, а не фото!)]"
+                    text += " [Собеседник отправил ГИФКУ (GIF)]"
                 elif "reply_to_message" in msg and "animation" in msg["reply_to_message"]:
                     vid_obj = msg["reply_to_message"]["animation"]
                     v_bytes, v_mime, _ = download_video_or_thumb(vid_obj)
@@ -1232,8 +1671,6 @@ def run_bot():
                         media_types.append("gif")
                     if not text:
                         text = "[Собеседник ответил на ГИФКУ]"
-
-                # --- 4. ОБЫЧНЫЕ ВИДЕО ---
                 elif "video" in msg:
                     vid_obj = msg["video"]
                     v_bytes, v_mime, _ = download_video_or_thumb(vid_obj)
@@ -1250,15 +1687,13 @@ def run_bot():
                         media_types.append("video")
                     if not text:
                         text = "[Собеседник ответил на ВИДЕОРОЛИК]"
-
-                # --- 5. ФОТО / КАРТИНКИ ---
                 elif "photo" in msg:
                     img_bytes, mime = get_file_bytes(msg["photo"][-1]["file_id"], "image/jpeg")
                     if img_bytes:
                         incoming_images.append((img_bytes, mime))
                         media_types.append("photo")
                         last_chat_media[chat_id] = {"media": (img_bytes, mime), "kind": "photo", "time": time.time()}
-                    text += " [Собеседник прикрепил ФОТО / КАРТИНКУ]"
+                    text += " [Собеседник прикрепил ФОТО]"
                 elif "reply_to_message" in msg and "photo" in msg["reply_to_message"]:
                     rep_id = msg["reply_to_message"].get("from", {}).get("id")
                     img_bytes, mime = get_file_bytes(msg["reply_to_message"]["photo"][-1]["file_id"], "image/jpeg")
@@ -1273,7 +1708,6 @@ def run_bot():
                 if len(text) > 1500:
                     text = text[:1500] + "..."
 
-                is_group = msg["chat"]["type"] in ["group", "supergroup"]
                 reply_msg = msg.get("reply_to_message")
                 reply_target_info = "Обычное сообщение в чат."
                 should_reply = True
@@ -1285,14 +1719,13 @@ def run_bot():
                     if replied_user_id == BOT_ID:
                         reply_target_info = "Ответ на реплику Толика."
                         is_reply_to_bot = True
-                    elif any(name in text.lower() for name in ["толик", "толя", "толян"]):
+                    elif has_explicit_ping(text, is_group, False):
                         reply_target_info = f"Ответ на сообщение @{replied_user_name} с обращением к Толику."
                         is_reply_to_bot = True
                     else:
                         reply_target_info = f"Ответ пользователю @{replied_user_name} (чужой диалог)."
                         should_reply = False
 
-                print(f"\n📩 [СООБЩЕНИЕ] От: @{user_name} | {reply_target_info}\n   Текст: \"{text}\"")
                 if not text and not incoming_images:
                     continue
 
@@ -1310,7 +1743,6 @@ def run_bot():
                         if text and len(message_buffer[buffer_key]["texts"]) < MAX_MESSAGES_IN_BUFFER:
                             if not message_buffer[buffer_key]["texts"] or message_buffer[buffer_key]["texts"][-1] != text:
                                 message_buffer[buffer_key]["texts"].append(text)
-                                print(f"➕ [СКЛЕЙКА ({len(message_buffer[buffer_key]['texts'])} шт.)]: Жду ещё {BUFFER_WAIT_SECONDS} сек...")
                         if incoming_images and len(message_buffer[buffer_key]["images"]) < 4:
                             message_buffer[buffer_key]["images"].extend(incoming_images)
                         if media_types:
