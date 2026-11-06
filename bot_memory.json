@@ -5410,6 +5410,55 @@
       "user": "alexmard",
       "text": "А бля не могу\nЯ не адмен здесь",
       "bot_reply": null
+    },
+    {
+      "time_short": "21:41",
+      "chat_id": -1003733973211,
+      "user": "Re_But",
+      "text": "Сча будет",
+      "bot_reply": null
+    },
+    {
+      "time_short": "21:41",
+      "chat_id": -1003733973211,
+      "user": "alexmard",
+      "text": "Оо",
+      "bot_reply": null
+    },
+    {
+      "time_short": "21:42",
+      "chat_id": -1003733973211,
+      "user": "alexmard",
+      "text": "Блин так он был здесь же\nТолько вышел",
+      "bot_reply": null
+    },
+    {
+      "time_short": "21:42",
+      "chat_id": -1003733973211,
+      "user": "Hdhjedjje",
+      "text": "Интересно, что надо сделать чтобы получить админку?",
+      "bot_reply": null
+    },
+    {
+      "time_short": "21:42",
+      "chat_id": -1003733973211,
+      "user": "Re_But",
+      "text": "Все админы авто становятся активами",
+      "bot_reply": null
+    },
+    {
+      "time_short": "21:42",
+      "chat_id": -1003733973211,
+      "user": "Re_But",
+      "text": "Понравиться мне",
+      "bot_reply": null
+    },
+    {
+      "time_short": "21:42",
+      "chat_id": -1003733973211,
+      "user": "alexmard",
+      "text": "Xz я не sosal",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -5536,7 +5585,7 @@
     },
     "Re_But": {
       "profile": "Вот структурированное психологическое досье на пользователя **@Re_But**, составленное на основе анализа его профиля и истории общения",
-      "msg_count": 92,
+      "msg_count": 95,
       "user_id": 5602905590,
       "username": "Re_But",
       "first_name": "Re_But",
@@ -5664,8 +5713,8 @@
       "topic_id": 1933
     },
     "alexmard": {
-      "profile": "КАК СДЕЛАТЬ ЧТОБЫ ОН В ДРУГОМ ЧАТЕ НАХУЙ РАБОТА",
-      "msg_count": 57,
+      "profile": ": \"почему есть в Америке или Европе или где-то в селе нахуй чат школы а у нас не",
+      "msg_count": 60,
       "user_id": 7014663496,
       "username": "alexmard",
       "first_name": "Alex",
@@ -5875,7 +5924,7 @@
     },
     "Hdhjedjje": {
       "profile": "**ДОСЬЕ ПОЛЬЗОВАТЕЛЯ**\n\n👤 **Основное:**\nПользователя зовут Яро",
-      "msg_count": 12,
+      "msg_count": 13,
       "user_id": 7115258910,
       "username": "Hdhjedjje",
       "first_name": "Ярослав",
@@ -6008,6 +6057,17 @@
         -1002626154604
       ],
       "topic_id": 2185
+    },
+    "rival_five": {
+      "profile": "Пока мало данных",
+      "msg_count": 0,
+      "user_id": 2080108496,
+      "username": "rival_five",
+      "first_name": "Andrew",
+      "bio": "#ебуфизическииюридически",
+      "chats": [
+        -1003733973211
+      ]
     }
   },
   "ignored_users": {}
