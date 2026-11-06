@@ -5081,6 +5081,55 @@
       "user": "lxmrcs",
       "text": "*и****",
       "bot_reply": null
+    },
+    {
+      "time_short": "21:35",
+      "chat_id": -1003733973211,
+      "user": "Hdhjedjje",
+      "text": "Мне страшно",
+      "bot_reply": null
+    },
+    {
+      "time_short": "21:35",
+      "chat_id": -1003733973211,
+      "user": "Hdhjedjje",
+      "text": "Не надо",
+      "bot_reply": null
+    },
+    {
+      "time_short": "21:35",
+      "chat_id": -1002626154604,
+      "user": "alexmard",
+      "text": "Отправить евгению",
+      "bot_reply": null
+    },
+    {
+      "time_short": "21:35",
+      "chat_id": -1003733973211,
+      "user": "Hdhjedjje",
+      "text": "Пж🙏🙏🙏🙏",
+      "bot_reply": null
+    },
+    {
+      "time_short": "21:35",
+      "chat_id": -1003733973211,
+      "user": "Re_But",
+      "text": " [Собеседник отправил СТИКЕР]",
+      "bot_reply": null
+    },
+    {
+      "time_short": "21:35",
+      "chat_id": -1003733973211,
+      "user": "Re_But",
+      "text": "Кнш\nВсе фурри",
+      "bot_reply": null
+    },
+    {
+      "time_short": "21:35",
+      "chat_id": -1003733973211,
+      "user": "batyaNeBei",
+      "text": " [Собеседник прикрепил ФОТО]",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -5207,7 +5256,7 @@
     },
     "Re_But": {
       "profile": "on seats curled up in a ball while in his fursuit so ticket inspectors leave him alone (\"sleeping cuteness\").\n        *",
-      "msg_count": 75,
+      "msg_count": 77,
       "user_id": 5602905590,
       "username": "Re_But",
       "first_name": "Re_But",
@@ -5336,7 +5385,7 @@
     },
     "alexmard": {
       "profile": "Вот подробное, адекватное и психологически структурированное досье на пользователя `@alexmard`, состав",
-      "msg_count": 43,
+      "msg_count": 44,
       "user_id": 7014663496,
       "username": "alexmard",
       "first_name": "Alex",
@@ -5546,7 +5595,7 @@
     },
     "Hdhjedjje": {
       "profile": "Информация о возрасте, городе проживания и описание в профиле (bio) отсутствуют.\n\n    *   **🎭 Характер и",
-      "msg_count": 6,
+      "msg_count": 9,
       "user_id": 7115258910,
       "username": "Hdhjedjje",
       "first_name": "Ярослав",
@@ -5557,8 +5606,8 @@
       "topic_id": 2055
     },
     "batyaNeBei": {
-      "profile": "**Досье на пользователя @batyaNeBei (Имя в ТГ: 𝑆):**\n\n* **Личные данные и манера общения:** Общается в резком и недоумевающем тоне, использует ненормативную лексику («Что нахуй», «?????????», «😧»). Отправляет изображения в чат.\n* **Факты и интересы:** Упоминает участницу по имени Саша, задает ей вопросы о том, является ли она фанатом фурри и что она там забыла. Выражает готовность пожать кому-то руку («Какой. Я ему руку пожму»).\n* **Отношения с участниками:** Прямые данные об отношениях с Толиком в текущих сообщениях отсутствуют. Обращается к участнице по имени Саша.",
-      "msg_count": 9,
+      "profile": "**Досье на пользователя @batyaNeBei**\n\n👤 **Основное:**\nПользователь использует никнейм `@",
+      "msg_count": 10,
       "user_id": 7166013552,
       "username": "batyaNeBei",
       "first_name": "𝑆",
