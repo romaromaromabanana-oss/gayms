@@ -5774,6 +5774,41 @@
       "user": "t3hge",
       "text": "Ну, Америки вообще нет как страны",
       "bot_reply": null
+    },
+    {
+      "time_short": "22:07",
+      "chat_id": -1002626154604,
+      "user": "t3hge",
+      "text": "Я, вот, выяснил сейчас",
+      "bot_reply": null
+    },
+    {
+      "time_short": "22:07",
+      "chat_id": -1002626154604,
+      "user": "echvasfar2",
+      "text": "А блять\nДа",
+      "bot_reply": null
+    },
+    {
+      "time_short": "22:07",
+      "chat_id": -1002626154604,
+      "user": "t3hge",
+      "text": "Есть такая, я видел",
+      "bot_reply": null
+    },
+    {
+      "time_short": "22:07",
+      "chat_id": -1002626154604,
+      "user": "echvasfar2",
+      "text": "Которая на дереве растет?\nЯ тоже",
+      "bot_reply": null
+    },
+    {
+      "time_short": "22:07",
+      "chat_id": -1002626154604,
+      "user": "t3hge",
+      "text": "Ну да",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -6409,8 +6444,8 @@
       ]
     },
     "echvasfar2": {
-      "profile": "Пока мало данных",
-      "msg_count": 3,
+      "profile": "**👤 Основное:**\nПользователь использует никнейм @echvasfar2 и имя «You",
+      "msg_count": 5,
       "user_id": 7521551047,
       "username": "echvasfar2",
       "first_name": "You",
@@ -6422,7 +6457,7 @@
     },
     "t3hge": {
       "profile": "rule: don't invent. Grammar in text: neutral/plural (\"были\", \"напиздели\"). Name \"",
-      "msg_count": 5,
+      "msg_count": 8,
       "user_id": 5088721390,
       "username": "t3hge",
       "first_name": "лжеt3hge",
