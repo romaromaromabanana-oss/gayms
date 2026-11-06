@@ -4724,6 +4724,13 @@
       "user": "Diana",
       "text": "Нет иди нах",
       "bot_reply": null
+    },
+    {
+      "time_short": "21:29",
+      "chat_id": -1002626154604,
+      "user": "God_Of_Absolute",
+      "text": " [Собеседник прикрепил ФОТО / КАРТИНКУ]",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -5280,6 +5287,18 @@
         -1002626154604
       ],
       "topic_id": 2110
+    },
+    "God_Of_Absolute": {
+      "profile": "Пока мало данных",
+      "msg_count": 1,
+      "user_id": 1512107761,
+      "username": "God_Of_Absolute",
+      "first_name": "Nik",
+      "bio": "\"Я умнее Аянокоджи\" - Дилетант широкого профиля (вк: archmage_alex)",
+      "chats": [
+        -1002626154604
+      ],
+      "topic_id": 2113
     }
   },
   "ignored_users": {}
