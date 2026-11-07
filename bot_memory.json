@@ -8301,6 +8301,34 @@
       "user": "mayor_nasok",
       "text": "и проконтролить чтобы не проебались, у меня брат за 9 хотел в том году инфу писать, сказал класс руку, та просто забыла или перепутала, я хз, писал он за 8 по итогу",
       "bot_reply": null
+    },
+    {
+      "time_short": "17:19",
+      "chat_id": -1002626154604,
+      "user": "eliisa43",
+      "text": "Сочувствую",
+      "bot_reply": null
+    },
+    {
+      "time_short": "17:19",
+      "chat_id": -1002626154604,
+      "user": "Guest_Sgfffcgfdxxxx",
+      "text": "Не сочувствую",
+      "bot_reply": null
+    },
+    {
+      "time_short": "17:19",
+      "chat_id": -1002626154604,
+      "user": "O0O41",
+      "text": "Ну если сильно хочет, то может экстерном в класс повыше",
+      "bot_reply": null
+    },
+    {
+      "time_short": "17:20",
+      "chat_id": -1002626154604,
+      "user": "O0O41",
+      "text": "А нельзя самому контролировать как то?",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -9103,7 +9131,7 @@
     },
     "eliisa43": {
       "profile": "Вот подробное психологическое досье на пользователя **@eliisa43**, составленное на основе актуальных профильных данных и истории",
-      "msg_count": 17,
+      "msg_count": 18,
       "user_id": 6085948161,
       "username": "eliisa43",
       "first_name": "🜇 Игор Чичко",
@@ -9114,7 +9142,7 @@
     },
     "Guest_Sgfffcgfdxxxx": {
       "profile": "Пока мало данных",
-      "msg_count": 1,
+      "msg_count": 2,
       "user_id": 8025602731,
       "username": "Guest_Sgfffcgfdxxxx",
       "first_name": "NewUser",
@@ -9171,7 +9199,7 @@
     },
     "O0O41": {
       "profile": "Пока мало данных",
-      "msg_count": 2,
+      "msg_count": 4,
       "user_id": 6574531356,
       "username": "O0O41",
       "first_name": "Матвей",
