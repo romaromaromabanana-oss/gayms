@@ -7510,6 +7510,27 @@
       "user": "alexmard",
       "text": "Ахах\nПиздабол* кхи",
       "bot_reply": null
+    },
+    {
+      "time_short": "13:46",
+      "chat_id": -1002626154604,
+      "user": "brg1092",
+      "text": "Хахаха да нет",
+      "bot_reply": null
+    },
+    {
+      "time_short": "13:46",
+      "chat_id": -1002626154604,
+      "user": "alexmard",
+      "text": "Кхм",
+      "bot_reply": null
+    },
+    {
+      "time_short": "13:46",
+      "chat_id": -1002626154604,
+      "user": "brg1092",
+      "text": "Вопрос порождает за собой парадокс",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -7765,7 +7786,7 @@
     },
     "alexmard": {
       "profile": "**ДОСЬЕ ПОЛЬЗОВАТЕЛЯ @alexmard**\n\n👤 **Основное:**\nПользователь зарегистрирован",
-      "msg_count": 180,
+      "msg_count": 181,
       "user_id": 7014663496,
       "username": "alexmard",
       "first_name": "Alex",
@@ -8184,8 +8205,8 @@
       ]
     },
     "brg1092": {
-      "profile": "Пока мало данных",
-      "msg_count": 3,
+      "profile": "ВСОШ context points to high school age (15–18) or a student background in Russia.\n        *",
+      "msg_count": 5,
       "user_id": 5867861906,
       "username": "brg1092",
       "first_name": "B= {|x|>M}",
