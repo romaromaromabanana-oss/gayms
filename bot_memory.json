@@ -6789,6 +6789,13 @@
       "user": "Statist323",
       "text": " [Собеседник отправил ГИФКУ (GIF)]",
       "bot_reply": null
+    },
+    {
+      "time_short": "07:15",
+      "chat_id": -1003733973211,
+      "user": "Statist323",
+      "text": " [Собеседник отправил ГИФКУ (GIF)]",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -7563,7 +7570,7 @@
     },
     "Statist323": {
       "profile": "Пока мало данных",
-      "msg_count": 1,
+      "msg_count": 2,
       "user_id": 5559288909,
       "username": "Statist323",
       "first_name": "Statist",
