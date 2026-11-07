@@ -7531,6 +7531,13 @@
       "user": "brg1092",
       "text": "Вопрос порождает за собой парадокс",
       "bot_reply": null
+    },
+    {
+      "time_short": "13:47",
+      "chat_id": -1002626154604,
+      "user": "brg1092",
+      "text": "В любом случае ответа да/нет верить нельзя",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -8206,7 +8213,7 @@
     },
     "brg1092": {
       "profile": "ВСОШ context points to high school age (15–18) or a student background in Russia.\n        *",
-      "msg_count": 5,
+      "msg_count": 6,
       "user_id": 5867861906,
       "username": "brg1092",
       "first_name": "B= {|x|>M}",
