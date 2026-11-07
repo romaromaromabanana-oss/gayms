@@ -20,10 +20,16 @@ TELEGRAM_TOKEN = os.environ.get("TELEGRAM_TOKEN", "8792265592:AAEJUxeTbIGMsBOhPd
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY", "AQ.Ab8RN6JTSFF6oi6CDtvyBk_-AeSIZzuY_aEa-4rKqatXhtTFMA")
 ADMIN_USERNAME = "Belugahgfgh"
 
-BUFFER_WAIT_SECONDS = 4.0
-MAX_MESSAGES_IN_BUFFER = 7
+BUFFER_WAIT_SECONDS = 5.0
+MAX_MESSAGES_IN_BUFFER = 8
 
-GEMINI_MAIN_MODELS = ["gemini-3.5-flash-lite", "gemini-3.6-flash", "gemini-3.1-flash-lite"]
+# Максимальные лимиты памяти для Gemini 3.6 Flash (окно 1 млн токенов)
+MAX_HISTORY_STORAGE = 5000       # Храним до 5000 сообщений в базе без сжатия
+CHAT_CONTEXT_LIMIT = 150         # Видит последние 150 сообщений текущего чата
+USER_PERSONAL_CONTEXT_LIMIT = 50 # Видит последние 50 личных обменов репликами именно с этим собеседником
+CROSS_CHAT_CONTEXT_LIMIT = 80    # Видит до 80 сообщений из других групп и ЛС
+
+GEMINI_MAIN_MODELS = ["gemini-3.6-flash", "gemini-3.5-flash-lite", "gemini-3.1-flash-lite"]
 GEMINI_FAST_MODELS = ["gemini-3.5-flash-lite", "gemini-3.1-flash-lite", "gemini-3.6-flash"]
 GEMINI_SMART_MODELS = ["gemini-3.6-flash", "gemini-3.5-flash-lite", "gemini-3.1-flash-lite"]
 NANO_BANANA_MODELS = ["gemini-3.1-flash-lite-image", "gemini-nano-banana-2.1", "gemini-3.1-flash-image"]
@@ -70,10 +76,106 @@ enriched_user_ids = set()
 GLOBAL_MEMORY = None
 GLOBAL_CONFIG = None
 
-# ================= БАЗА ДАННЫХ И АВТОСОХРАНЕНИЕ В GITHUB =================
+minsk_weather_cache = {"text": "прохладно, осенняя погода", "updated_at": 0}
+
+# ================= ТОЧНОЕ ВРЕМЯ, ДАВНОСТЬ СООБЩЕНИЙ И ПОГОДА В МИНСКЕ =================
+
+MONTHS_RU = {
+    1: "января (зима)", 2: "февраля (зима)", 3: "марта (весна)", 4: "апреля (весна)",
+    5: "мая (весна)", 6: "июня (лето)", 7: "июля (лето)", 8: "августа (лето)",
+    9: "сентября (осень)", 10: "октября (осень)", 11: "ноября (осень)", 12: "декабря (зима)",
+}
+WEEKDAYS_RU = {
+    0: "понедельник", 1: "вторник", 2: "среда", 3: "четверг",
+    4: "пятница", 5: "суббота", 6: "воскресенье",
+}
+WMO_CODES = {
+    0: "ясно, без осадков", 1: "преимущественно ясно", 2: "переменная облачность", 3: "пасмурно",
+    45: "туман", 48: "густой туман", 51: "легкая морось", 53: "морось", 55: "сильная морось",
+    61: "небольшой дождь", 63: "дождь", 65: "сильный дождь", 71: "небольшой снег", 73: "снег",
+    75: "сильный снегопад", 80: "ливень", 95: "гроза",
+}
 
 def get_minsk_time():
     return datetime.now(timezone.utc) + timedelta(hours=3)
+
+def format_time_ago(msg_ts, now_ts):
+    """Вычисляет точную давность сообщения относительно текущего момента."""
+    if not msg_ts:
+        return "старая запись (ранее)"
+    diff = max(0, int(now_ts - msg_ts))
+    if diff < 45:
+        return f"ТОЛЬКО ЧТО ({diff} сек. назад)"
+    if diff < 3600:
+        return f"{diff // 60} мин. назад"
+    if diff < 86400:
+        h = diff // 3600
+        m = (diff % 3600) // 60
+        return f"{h} ч. {m} мин. назад"
+    days = diff // 86400
+    return f"{days} дн. назад"
+
+def format_history_entry_with_time(h, now_dt, now_ts):
+    """Форматирует сообщение из истории с точной датой, временем и пометкой 'сколько времени прошло'."""
+    today_str = now_dt.strftime("%d.%m.%Y")
+    yesterday_str = (now_dt - timedelta(days=1)).strftime("%d.%m.%Y")
+    msg_date = h.get("date_str", "")
+    msg_time = h.get("time_short", "")
+    msg_ts = h.get("ts")
+
+    if msg_date == today_str:
+        day_label = f"СЕГОДНЯ {msg_date}"
+    elif msg_date == yesterday_str:
+        day_label = f"ВЧЕРА {msg_date}"
+    elif msg_date:
+        day_label = f"ДАТА {msg_date}"
+    else:
+        day_label = "АРХИВНАЯ ЗАПИСЬ (не сегодня)"
+
+    ago_str = format_time_ago(msg_ts, now_ts)
+    stamp = f"[{day_label}, в {msg_time} — {ago_str}]"
+    line = f"{stamp} {h.get('user', 'User')}: {h.get('text', '')}"
+    if h.get("bot_reply"):
+        line += f"\n   ↳ {stamp} Толик ответил: {h['bot_reply']}"
+    return line
+
+def get_minsk_live_weather():
+    now_ts = time.time()
+    if now_ts - minsk_weather_cache["updated_at"] < 1200:
+        return minsk_weather_cache["text"]
+    try:
+        url = (
+            "https://api.open-meteo.com/v1/forecast?latitude=53.9006&longitude=27.5590"
+            "&current=temperature_2m,apparent_temperature,weather_code,wind_speed_10m&timezone=Europe%2FMinsk"
+        )
+        r = requests.get(url, timeout=6)
+        if r.status_code == 200:
+            cur = r.json().get("current", {})
+            temp = cur.get("temperature_2m")
+            feels = cur.get("apparent_temperature")
+            code = cur.get("weather_code", 3)
+            wind = cur.get("wind_speed_10m")
+            desc = WMO_CODES.get(code, "облачно")
+            sign = "+" if temp and temp > 0 else ""
+            f_sign = "+" if feels and feels > 0 else ""
+            w_str = f"{sign}{temp}°C (ощущается как {f_sign}{feels}°C), {desc}, ветер {wind} км/ч"
+            minsk_weather_cache["text"] = w_str
+            minsk_weather_cache["updated_at"] = now_ts
+            return w_str
+    except Exception:
+        pass
+    return minsk_weather_cache["text"]
+
+def get_minsk_datetime_and_weather_str():
+    now = get_minsk_time()
+    wday = WEEKDAYS_RU.get(now.weekday(), "")
+    month_str = MONTHS_RU.get(now.month, "")
+    hour = now.hour
+    part_of_day = "ночь" if hour < 6 else ("утро" if hour < 12 else ("день" if hour < 18 else "вечер"))
+    weather = get_minsk_live_weather()
+    return f"{now.strftime('%H:%M:%S')} ({part_of_day}), {wday}, {now.day} {month_str} {now.year} года. Погода в Минске сейчас: {weather}"
+
+# ================= БАЗА ДАННЫХ И АВТОСОХРАНЕНИЕ В GITHUB =================
 
 def git_autosave_memory():
     def _push():
@@ -122,7 +224,7 @@ def load_memory():
     with memory_lock:
         if GLOBAL_MEMORY is not None:
             return GLOBAL_MEMORY
-        default_mem = {"history": [], "users": {}, "ignored_users": {}}
+        default_mem = {"history": [], "users": {}, "ignored_users": {}, "eternal_facts": []}
         if os.path.exists(MEMORY_FILE):
             try:
                 with open(MEMORY_FILE, "r", encoding="utf-8") as f:
@@ -142,6 +244,14 @@ def save_memory(memory=None, push_git=False):
                 json.dump(GLOBAL_MEMORY, f, ensure_ascii=False, indent=2)
     if push_git:
         git_autosave_memory()
+
+def get_chat_display_name(chat_id):
+    if not chat_id or chat_id > 0:
+        return "ЛС"
+    cfg = load_config()
+    c_info = cfg.get("known_chats", {}).get(str(chat_id), {})
+    title = c_info.get("title")
+    return f"Группа «{title}»" if title else f"Группа ({chat_id})"
 
 def find_canonical_user_key(memory, user_name, user_id=None):
     users = memory.setdefault("users", {})
@@ -211,7 +321,7 @@ def register_user_metadata(memory, user_obj, chat_id, custom_title=""):
     else:
         key_name = existing_key
 
-    u_data = memory["users"].setdefault(key_name, {"profile": "Пока мало данных", "msg_count": 0})
+    u_data = memory["users"].setdefault(key_name, {"profile": "Пока мало данных", "msg_count": 0, "tolik_msg_count": 0})
     u_data["user_id"] = u_id
     if username:
         u_data["username"] = username
@@ -243,10 +353,9 @@ def sync_chat_admins(chat_id, memory):
         for adm in res.get("result", []):
             register_user_metadata(memory, adm.get("user", {}), chat_id, custom_title=adm.get("custom_title", ""))
 
-# ================= УПРАВЛЕНИЕ ЧАТАМИ, ССЫЛКАМИ И ОДОБРЕНИЕМ ВСТУПЛЕНИЯ =================
+# ================= УПРАВЛЕНИЕ ЧАТАМИ, ССЫЛКАМИ И ОДОБРЕНИЕМ =================
 
 def fetch_chat_invite_link(chat_id, chat_obj=None):
-    """Добывает или создает ссылку на чат, где состоит Толик."""
     if chat_obj and chat_obj.get("username"):
         return f"https://t.me/{chat_obj['username']}"
     res = safe_request(f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/getChat?chat_id={chat_id}", method="GET")
@@ -256,7 +365,6 @@ def fetch_chat_invite_link(chat_id, chat_obj=None):
             return f"https://t.me/{r['username']}"
         if r.get("invite_link"):
             return r["invite_link"]
-    # Пробуем сгенерировать инвайт-ссылку, если у бота есть права администратора
     exp = safe_request(f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/exportChatInviteLink", {"chat_id": chat_id})
     if exp.get("ok") and exp.get("result"):
         return exp["result"]
@@ -266,10 +374,6 @@ def fetch_chat_invite_link(chat_id, chat_obj=None):
     return "Нет прав админа для создания ссылки (приватный чат)"
 
 def check_and_register_group_chat(chat_obj):
-    """
-    Проверяет групповой чат. Если чат новый — ставит на ожидание одобрения и шлет админу в ЛС выбор с кнопками!
-    Возвращает True, если Толику разрешено отвечать в этом чате.
-    """
     chat_id = chat_obj.get("id")
     if not chat_id or chat_id > 0:
         return True
@@ -293,7 +397,6 @@ def check_and_register_group_chat(chat_obj):
         notify_admin_chat_approval(chat_id, title, invite_link)
         return False
 
-    # Обновляем название и ссылку, если появилась
     known[cid_str]["title"] = title
     if known[cid_str].get("invite_link", "").startswith("Нет прав"):
         new_link = fetch_chat_invite_link(chat_id, chat_obj)
@@ -317,7 +420,8 @@ def notify_admin_chat_approval(chat_id, title, invite_link):
             [
                 {"text": "✅ Одобрить (Отвечать всем)", "callback_data": f"chat_approve:{chat_id}"},
                 {"text": "🔇 Отказать (Молчать)", "callback_data": f"chat_mute:{chat_id}"},
-            ]
+            ],
+            [{"text": "👑 Открыть Панель Владельца", "callback_data": "panel:main"}],
         ]
     }
     admin_id = cfg.get("admin_user_id")
@@ -343,7 +447,7 @@ def check_flood_on_incoming(user_id):
     times.append(now)
     ram_msg_timestamps[user_id] = [t for t in times if now - t < 12]
 
-    if len(ram_msg_timestamps[user_id]) > 8:
+    if len(ram_msg_timestamps[user_id]) > 9:
         memory.setdefault("ignored_users", {})[str(user_id)] = now + 120
         save_memory()
         with buffer_lock:
@@ -409,9 +513,9 @@ def edit_message_text(chat_id, message_id, text, parse_mode="HTML", reply_markup
         data["reply_markup"] = reply_markup
     return safe_request(url, data)
 
-def answer_callback_query(callback_query_id, text=""):
+def answer_callback_query(callback_query_id, text="", show_alert=False):
     url = f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/answerCallbackQuery"
-    return safe_request(url, {"callback_query_id": callback_query_id, "text": text})
+    return safe_request(url, {"callback_query_id": callback_query_id, "text": text, "show_alert": show_alert})
 
 def send_photo(chat_id, photo, caption="", message_thread_id=None, reply_to_message_id=None):
     url = f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendPhoto"
@@ -537,6 +641,7 @@ def generate_image_nano_banana(prompt, reference_images=None):
             pass
 
     try:
+        print(f"🎨 [ГЕНЕРАЦИЯ ФОТО]: Промпт Толика -> {final_flux_prompt}")
         enc = urllib.parse.quote(final_flux_prompt)
         seed = random.randint(1000, 99999999)
         for flux_model in ["flux", "turbo"]:
@@ -565,7 +670,7 @@ def analyze_sticker(img_data, mime_type):
             continue
     return "неизвестно"
 
-# ================= GEMINI: ГОЛОС, ВИДЕО, ДИАЛОГ, ДОСЬЕ =================
+# ================= GEMINI 3.6 FLASH: МЫШЛЕНИЕ, ДИАЛОГ, ДОСЬЕ =================
 
 def transcribe_media_gemini(media_bytes, mime_type="audio/ogg", is_video_note=False):
     prompt = (
@@ -596,21 +701,25 @@ def generate_main_dialogue(prompt_text, system_instruction, image_parts=None, re
                     contents=contents,
                     config=types.GenerateContentConfig(
                         system_instruction=system_instruction,
-                        temperature=0.7,
-                        max_output_tokens=600,
+                        temperature=0.75,
+                        max_output_tokens=900,
                         safety_settings=SAFETY_SETTINGS,
                     ),
                 )
                 if response and response.text:
                     raw_reply = response.text.strip()
-                    print(f"✨ [ОТВЕТ GEMINI ({model_name})]: {raw_reply}")
+                    thought_match = re.search(r"\[THOUGHT:\s*(.*?)\]", raw_reply, flags=re.DOTALL | re.IGNORECASE)
+                    if thought_match:
+                        print(f"💭 [МЫСЛИ ТОЛИКА ({model_name})]: {thought_match.group(1).strip()}")
+                        raw_reply = re.sub(r"\[THOUGHT:\s*.*?\]", "", raw_reply, flags=re.DOTALL | re.IGNORECASE).strip()
+                    print(f"✨ [ОТВЕТ ТОЛИКА ({model_name})]: {raw_reply}")
                     return raw_reply
             except Exception as e:
                 if "blocked" in str(e).lower() or "safety" in str(e).lower():
                     return "ты че? я такое делать не буду."
                 continue
         time.sleep(2)
-    return "блин, инет лагает... [MSG] сорян"
+    return "блин, инет лагает... сорян"
 
 def generate_smart_summary(prompt_text, system_instruction, retries=2):
     for _ in range(retries):
@@ -620,7 +729,7 @@ def generate_smart_summary(prompt_text, system_instruction, retries=2):
                     model=model_name,
                     contents=prompt_text,
                     config=types.GenerateContentConfig(
-                        system_instruction=system_instruction, temperature=0.25, max_output_tokens=700, safety_settings=SAFETY_SETTINGS
+                        system_instruction=system_instruction, temperature=0.25, max_output_tokens=800, safety_settings=SAFETY_SETTINGS
                     ),
                 )
                 if response and response.text:
@@ -630,7 +739,7 @@ def generate_smart_summary(prompt_text, system_instruction, retries=2):
         time.sleep(1)
     return None
 
-# ================= СИСТЕМА ДОСЬЕ (ПОДРОБНЫЕ И СТРУКТУРИРОВАННЫЕ) =================
+# ================= СИСТЕМА ДОСЬЕ И ЛОГОВ ПО КОНКРЕТНЫМ ЧАТАМ =================
 
 def get_or_create_user_topic(main_chat_id, user_name, user_id):
     if not main_chat_id:
@@ -658,14 +767,14 @@ def get_or_create_user_topic(main_chat_id, user_name, user_id):
                 send_message(
                     main_chat_id,
                     f"📁 Создано досье для <b>@{canon_key}</b> (ID: <code>{user_id}</code>).\n"
-                    f"💡 <i>Чтобы написать этому пользователю в ЛС от лица Толика, введи здесь:</i> <code>/send привет</code>",
+                    f"💡 <i>Написать ему в ЛС от лица Толика:</i> <code>/send текст</code>",
                     message_thread_id=new_topic_id,
                     parse_mode="HTML",
                 )
                 return new_topic_id
         return topic_id
 
-def log_dialogue_to_topic(user_name, user_id, user_text, bot_reply, is_group):
+def log_dialogue_to_topic(user_name, user_id, user_text, bot_reply, chat_title):
     config = load_config()
     main_chat_id = config.get("main_chat_id")
     if not main_chat_id:
@@ -673,8 +782,8 @@ def log_dialogue_to_topic(user_name, user_id, user_text, bot_reply, is_group):
     topic_id = get_or_create_user_topic(main_chat_id, user_name, user_id)
     if not topic_id:
         return
-    chat_type = "в Группе" if is_group else "в ЛС"
-    log_msg = f"💬 <b>{user_name} ({chat_type}):</b> {user_text}"
+    now_str = get_minsk_time().strftime("%d.%m %H:%M")
+    log_msg = f"🕒 <i>[{now_str}]</i> 💬 <b>{user_name} ({chat_title}):</b> {user_text}"
     if bot_reply:
         log_msg += f"\n🦊 <b>Толик:</b> {bot_reply}"
     res = send_message(main_chat_id, log_msg, message_thread_id=topic_id, parse_mode="HTML")
@@ -685,24 +794,18 @@ def log_dialogue_to_topic(user_name, user_id, user_text, bot_reply, is_group):
         save_memory()
 
 def update_dossier(user_name, user_id=None, force=False):
-    """Формирует богатое, структурированное досье по 4 пунктам (игнорируя мелкий мусор и вбросы)."""
     memory = load_memory()
     canon_key = find_canonical_user_key(memory, user_name, user_id)
     user_history = [h for h in memory["history"] if h.get("user", "").lower() == canon_key.lower()]
     if not user_history:
         return
 
-    lines = []
-    for h in user_history[-70:]:
-        where = "в ЛС" if h.get("chat_id", 0) > 0 else "в чате"
-        line = f"[{where}] {h['user']}: {h['text']}"
-        if h.get("bot_reply"):
-            line += f"\nТолик: {h['bot_reply']}"
-        lines.append(line)
+    now_dt = get_minsk_time()
+    now_ts = time.time()
+    lines = [format_history_entry_with_time(h, now_dt, now_ts) for h in user_history[-100:]]
 
     u_info = memory.get("users", {}).get(canon_key, {})
     old_profile = u_info.get("profile", "Пока мало данных")
-    # Если старое досье было испорчено коротким мусором (< 35 символов), сбрасываем его
     if len(old_profile) < 35:
         old_profile = "Пока мало данных"
 
@@ -712,21 +815,21 @@ def update_dossier(user_name, user_id=None, force=False):
 
     prompt = (
         f"Данные профиля: {meta_str}\n\n"
-        f"ПРЕДЫДУЩЕЕ ДОСЬЕ (сохрани все реальные факты отсюда!):\n{old_profile}\n\n"
-        f"ИСТОРИЯ СООБЩЕНИЙ ПОЛЬЗОВАТЕЛЯ:\n" + "\n".join(lines) + "\n\n"
-        f"Составь ПОДРОБНОЕ, АДЕКВАТНОЕ И СТРУКТУРИРОВАННОЕ ДОСЬЕ на @{canon_key} строго по этим данным.\n"
+        f"ПРЕДЫДУЩЕЕ ДОСЬЕ (сохрани все важные факты отсюда!):\n{old_profile}\n\n"
+        f"ИСТОРИЯ СООБЩЕНИЙ ПОЛЬЗОВАТЕЛЯ (с датами и конкретными чатами):\n" + "\n".join(lines) + "\n\n"
+        f"Составь ПОДРОБНОЕ, АДЕКВАТНОЕ И СТРУКТУРИРОВАННОЕ ДОСЬЕ на @{canon_key}.\n"
         f"ВАЖНЫЕ ПРАВИЛА:\n"
-        f"1. ИГНОРИРУЙ бессмысленные однословные шутки, щитпостинг и глупые вбросы (вроде 'помидор срет' и т.п.) — НЕ записывай случайный бред в досье!\n"
-        f"2. НИЧЕГО не выдумывай от себя, чего не было в сообщениях.\n"
-        f"3. Оформи досье строго по 4 разделам (минимум 4-8 предложений в сумме):\n"
-        f"👤 Основное: (имя, ник, пол, возраст/город если известны, описание из био)\n"
-        f"🎭 Характер и манера речи: (как общается, какой юмор, часто ли пишет)\n"
-        f"🎯 Интересы и реальные факты: (чем увлекается, о чем рассказывал, что любит)\n"
-        f"🦊 Отношения с Толиком и чатом: (как относится к Толику, с кем общается, о чем говорили в ЛС)"
+        f"1. ИГНОРИРУЙ бессмысленные однословные шутки и случайные вбросы — НЕ записывай бред в досье!\n"
+        f"2. Не смешивай события из разных групповых чатов и ЛС.\n"
+        f"3. Оформи досье строго по 4 разделам (минимум 5-10 предложений):\n"
+        f"👤 Основное: (имя, ник, пол, откуда, описание из био)\n"
+        f"🎭 Характер и манера речи: (как общается, какой юмор)\n"
+        f"🎯 Интересы и реальные факты: (чем увлекается, о чем рассказывал, важные детали)\n"
+        f"🦊 Отношения с Толиком и в чатах: (в каких чатах сидит, о чем общался с Толиком в ЛС и в группах)"
     )
     try:
         response = generate_smart_summary(
-            prompt, "Ты профессиональный психолог-аналитик. Ты пишешь подробные, чистые и точные досье без мусора."
+            prompt, "Ты профессиональный психолог-аналитик. Пиши подробные, точные досье без мусора и выдумок."
         )
         if response and len(response.strip()) > 45 and "IGNORE" not in response:
             profile = response.strip()
@@ -767,19 +870,40 @@ def sync_all_users_on_start():
         logging.error(f"Startup Sync Error: {e}")
 
 def build_genius_social_and_cross_memory(chat_id, current_user, text, memory):
+    """Формирует максимальную память: личная история с юзером + другие чаты с датами + полная база участников!"""
     all_history = memory.get("history", [])
     all_users = memory.get("users", {})
+    eternal_facts = memory.get("eternal_facts", [])
+    cfg = load_config()
+    known_chats = cfg.get("known_chats", {})
+    now_dt = get_minsk_time()
+    now_ts = time.time()
 
-    other_chat_msgs = [h for h in all_history if h.get("user") == current_user and h.get("chat_id") not in [0, chat_id]]
-    cross_lines = []
-    for h in other_chat_msgs[-25:]:
-        place = "в ЛС (лично)" if h.get("chat_id", 0) > 0 else "в другом чате"
-        entry = f"[{place} {h.get('time_short', '')}] {current_user}: {h.get('text', '')}"
-        if h.get("bot_reply"):
-            entry += f" -> Ты ответил: {h.get('bot_reply')}"
-        cross_lines.append(entry)
-    cross_memory_str = "\n".join(cross_lines) if cross_lines else "Вне этого чата пока не общались."
+    # 1. Личная история диалогов Толика именно с этим собеседником в ТЕКУЩЕМ чате (чтобы не забывал через пару сообщений!)
+    personal_this_chat = [
+        h for h in all_history
+        if h.get("chat_id") == chat_id and h.get("user") == current_user and h.get("bot_reply")
+    ][-USER_PERSONAL_CONTEXT_LIMIT:]
+    personal_lines = [format_history_entry_with_time(h, now_dt, now_ts) for h in personal_this_chat]
+    personal_history_str = "\n".join(personal_lines) if personal_lines else "В этом чате вы еще лично не общались."
 
+    # 2. Переписки с текущим пользователем из ДРУГИХ чатов и ЛС (отсортированные по конкретным чатам с датами!)
+    other_chat_msgs = [
+        h for h in all_history
+        if h.get("user") == current_user and h.get("chat_id") not in [0, chat_id]
+    ][-CROSS_CHAT_CONTEXT_LIMIT:]
+    by_chat = {}
+    for h in other_chat_msgs:
+        h_cid = h.get("chat_id", 0)
+        c_label = h.get("chat_title") or ("В ЛС (личная переписка)" if h_cid > 0 else get_chat_display_name(h_cid))
+        by_chat.setdefault(c_label, []).append(format_history_entry_with_time(h, now_dt, now_ts))
+
+    cross_sections = []
+    for c_label, msgs in by_chat.items():
+        cross_sections.append(f"📍 {c_label}:\n" + "\n".join(msgs[-20:]))
+    cross_memory_str = "\n\n".join(cross_sections) if cross_sections else "Вне текущего чата вы пока не переписывались."
+
+    # 3. Полный список всех участников и знакомых без обрезки досье
     participants_summary = []
     mentioned_details = []
     text_lower = text.lower()
@@ -796,20 +920,33 @@ def build_genius_social_and_cross_memory(chat_id, current_user, text, memory):
         title = u_data.get("custom_title", "")
         bio = u_data.get("bio", "")
         profile = u_data.get("profile", "Пока мало данных")
+        u_chats = u_data.get("chats", [])
+
+        chat_names = []
+        for c in u_chats:
+            if c > 0:
+                chat_names.append("ЛС")
+            elif str(c) in known_chats:
+                chat_names.append(f"«{known_chats[str(c)].get('title', c)}»")
+        where_str = f" [Чаты: {', '.join(chat_names)}]" if chat_names else ""
 
         display = f"@{uname}"
         if fn or ln:
-            display += f" | Имя в ТГ: {fn} {ln}".rstrip()
+            display += f" | Имя: {fn} {ln}".rstrip()
         if title:
             display += f" | Титул: {title}"
         if bio:
             display += f" | О себе: {bio}"
+        display += where_str
 
-        u_msgs = [h["text"] for h in all_history if h.get("user") == u_key and h.get("text")][-5:]
-        quotes_str = f" | Реальные реплики: {' // '.join(u_msgs)}" if u_msgs else ""
+        u_msgs = [
+            f"[{h.get('date_str', '')} {h.get('time_short', '')} в {h.get('chat_title') or get_chat_display_name(h.get('chat_id'))}] {h['text']}"
+            for h in all_history if h.get("user") == u_key and h.get("text")
+        ][-8:]
+        quotes_str = f"\n   Последние реплики: {' // '.join(u_msgs)}" if u_msgs else ""
 
-        short_prof = profile.replace("\n", " ")[:220]
-        participants_summary.append(f"• {display} — Досье: {short_prof}{quotes_str}")
+        clean_prof = profile.replace("\n", " | ")
+        participants_summary.append(f"• {display}\n   Досье: {clean_prof}{quotes_str}")
 
         tokens = [t.lower() for t in [u_key, uname, fn, ln, title] if t and len(t) >= 3]
         for t in list(tokens):
@@ -818,22 +955,34 @@ def build_genius_social_and_cross_memory(chat_id, current_user, text, memory):
 
         if any(tok in text_lower for tok in tokens):
             mentioned_details.append(
-                f"📌 РЕАЛЬНЫЕ ДАННЫЕ ПРО УПОМЯНУТОГО ЧЕЛОВЕКА ({display}):\n"
-                f"Досье:\n{profile}\n"
-                f"Его/её настоящие сообщения в чате: {' // '.join(u_msgs) if u_msgs else 'сообщений пока нет'}"
+                f"📌 ПОЛНОЕ ДОСЬЕ НА УПОМЯНУТОГО УЧАСТНИКА ({display}):\n"
+                f"{profile}\n"
+                f"Его/её последние сообщения: {' // '.join(u_msgs) if u_msgs else 'сообщений пока нет'}"
             )
 
-    roster_str = "\n".join(participants_summary[:45]) if participants_summary else "Пока никого нет."
-    mentioned_str = "\n\n".join(mentioned_details)
-    return cross_memory_str, roster_str, mentioned_str
+    if eternal_facts:
+        cross_memory_str += "\n\n📚 ДОЛГОСРОЧНЫЙ АРХИВ ВАЖНЫХ ФАКТОВ ЧАТА:\n" + "\n".join(eternal_facts[-15:])
 
-# ================= ИНТЕЛЛЕКТ И КАНОН ТОЛИКА =================
+    roster_str = "\n".join(participants_summary[:60]) if participants_summary else "Пока никого нет."
+    mentioned_str = "\n\n".join(mentioned_details)
+    return personal_history_str, cross_memory_str, roster_str, mentioned_str
+
+# ================= ИНТЕЛЛЕКТ, РАЗМЫШЛЕНИЯ И КАНОН ТОЛИКА =================
+
+def is_complex_task(text, num_messages=1):
+    if num_messages > 1 or len(text) > 100:
+        return True
+    t_low = text.lower()
+    complex_markers = [
+        "?", "как ", "почему", "зачем", "шахмат", "походи", "ход", "стих", "придумай",
+        "объясни", "расскажи", "кто ", "что думаешь", "выбери", "помоги", "задач", "нарисуй", "сфоткай", "помнишь", "когда"
+    ]
+    return any(m in t_low for m in complex_markers)
 
 def fetch_ai_response(
     text, chat_history, user_name, user_profile, reply_target_info, memory, chat_id,
-    image_parts=None, media_types=None, explicit_ping=False, post_dialog_check=False, seeing_own_drawing=False,
+    image_parts=None, media_types=None, num_buffered=1, seeing_own_drawing=False,
 ):
-    now = get_minsk_time()
     config = load_config()
     current_plan = config.get("current_plan", "Планов пока нет.")
     stickers = config.get("stickers", {})
@@ -841,94 +990,100 @@ def fetch_ai_response(
     has_selfies = len(config.get("selfies", [])) > 0
     media_types = media_types or []
 
-    cross_memory_str, roster_str, mentioned_str = build_genius_social_and_cross_memory(chat_id, user_name, text, memory)
+    now_dt = get_minsk_time()
+    now_ts = time.time()
+    current_chat_name = get_chat_display_name(chat_id)
+    datetime_weather_str = get_minsk_datetime_and_weather_str()
+    personal_history_str, cross_memory_str, roster_str, mentioned_str = build_genius_social_and_cross_memory(
+        chat_id, user_name, text, memory
+    )
+    complex_mode = is_complex_task(text, num_buffered)
 
-    if explicit_ping:
-        address_rule = (
-            "СОБЕСЕДНИК ОБРАТИЛСЯ ЛИЧНО К ТЕБЕ. Обязательно ответь ему в характере Толика! "
-            "Слова STOP_DIALOG и IGNORE использовать ЗАПРЕЩЕНО."
+    thinking_instruction = (
+        "🧠 РЕЖИМ ГЛУБОКОГО РАЗМЫШЛЕНИЯ (СЛОЖНАЯ ИЛИ МНОГОСОСТАВНАЯ ЗАДАЧА):\n"
+        "В самом начале ответа ОБЯЗАТЕЛЬНО напиши блок размышлений `[THOUGHT: ...]` (2-4 предложения): "
+        "1) проверь, адресовано ли сообщение тебе (если не тебе — после мыслей напиши `[STOP]`); "
+        "2) посмотри на ТОЧНОЕ ВРЕМЯ и ДАТУ прошлых сообщений (что было вчера, что час назад, а что прямо сейчас — не путай время!); "
+        "3) перечисли все вопросы собеседника и продумай конкретный, точный ответ на каждый.\n"
+        "После закрытия скобки `]` пиши уже сам живой ответ Толика в чат."
+        if complex_mode
+        else (
+            "🧠 РЕЖИМ БЫСТРОГО РАЗМЫШЛЕНИЯ (ЛЕГКАЯ ЗАДАЧА):\n"
+            "В самом начале ответа напиши короткую мысль `[THOUGHT: кому адресовано, учет времени и как ответить]` (1 фраза), "
+            "а сразу после `]` пиши ответ Толика (или `[STOP]`, если сообщение не тебе)."
         )
-    elif post_dialog_check:
-        address_rule = (
-            "СТРОГИЙ РЕЖИМ АНАЛИЗА В ГРУППЕ ПОСЛЕ ДИАЛОГА:\n"
-            "ВНИМАНИЕ: Это групповой чат! Собеседник НЕ назвал твое имя и НЕ нажал Reply на твое сообщение.\n"
-            "1) Отвечай ТОЛЬКО если его фраза на 100% является прямым ответом на твой вопрос секунду назад.\n"
-            "2) Если это общая фраза в чат, обсуждение других тем, обращение к другим людям, короткое 'ок/пон/ясно/лол' или есть ХОТЬ МАЛЕЙШЕЕ СОМНЕНИЕ, что пишут лично тебе — "
-            "ВЫВЕДИ РОВНО ОДНО СЛОВО: STOP_DIALOG"
-        )
-    else:
-        address_rule = "Если с тобой не хотят общаться — выведи ровно одно слово: STOP_DIALOG"
+    )
 
     sys_prompt = (
-        f"ТВОЯ ЛИЧНОСТЬ И ИНТЕЛЛЕКТ:\n"
+        f"ТВОЯ ЛИЧНОСТЬ И ХАРАКТЕР:\n"
         f"Тебя зовут Толик. Тебе 17 лет. Ты живешь в Минске.\n"
-        f"Ты милый, сообразительный, эрудированный парень, душа компании. Ты открытый гей, фембой и фурри (фурсона — бело-голубой кот).\n"
-        f"Ты рисуешь скетчи в блокноте карандашом, любишь уют, музыку, аниме, технологии.\n"
-        f"ВАЖНО ПРО ГОЛОСОВЫЕ ЧАТЫ: Общаешься ТОЛЬКО текстом. От звонков отмазывайся.\n"
-        f"Сейчас: {now.strftime('%H:%M %d.%m.%Y')}. Твой план на день:\n{current_plan}\n\n"
-        f"{address_rule}\n\n"
-        f"ВАЖНО ПРО РАЗЛИЧЕНИЕ ТИПОВ МЕДИА (СТИКЕР vs ГИФКА vs ВИДЕО vs ФОТО):\n"
-        f"- Если прислали СТИКЕР — это СТИКЕР в Телеграме! НИКОГДА не называй стикер 'картинкой', 'фоткой', 'артом' или 'рисунком'! Реагируй на эмоцию/вайб со стикера.\n"
-        f"- Если прислали ГИФКУ (GIF) — это именно ГИФКА (анимированный мем без звука), а не картинка и не видео со звуком!\n"
-        f"- Если прислали ВИДЕО — это видеоролик со звуком.\n"
-        f"- Если прислали ФОТО / КАРТИНКУ — это фотка, скриншот или рисунок.\n\n"
-        f"ПРАВИЛО ЧЕСТНОСТИ И ЗНАНИЯ УЧАСТНИКОВ (БЕЗ ВЫДУМОК!):\n"
-        f"1. Ниже дан список ВСЕХ участников чата и твоя память из ЛС.\n"
-        f"2. СТРОГО ЗАПРЕЩЕНО ВЫДУМЫВАТЬ ФАКТЫ О ЛЮДЯХ ОТ БАЛДЫ.\n"
-        f"3. ЗАПРЕЩЕНО использовать тег [SEARCH: ...] для поиска участников чата и их ников!\n"
-        f"4. В общем чате веди себя тактично: не сливай чужие личные секреты из ЛС на публику.\n\n"
-        f"ПРАВИЛА СТИЛЯ:\n"
-        f"1. ПИШИ СТРОГО СТРОЧНЫМИ БУКВАМИ (маленькими). Точки в конце коротких реплик не ставь.\n"
-        f"2. НЕ ЗДОРОВАЙСЯ ('привет', 'ку'), если диалог уже идет!\n"
-        f"3. Отвечай живо, короткими сообщениями от 1-го лица, разделяя мысли тегом [MSG].\n"
-        f"4. ЗАПРЕЩЕНО говорить слова: 'бот', 'ии', 'нейросеть', 'сгенерирую', 'промпт', 'досье'.\n"
-        f"5. НИКАКИХ ЭМОДЗИ В ТЕКСТЕ.\n\n"
+        f"Ты крутой, сообразительный, живой парень со своим мнением и юмором (не всезнайка-робот, а настоящий человек в чате). "
+        f"Ты открытый гей, фембой и фурри (твоя фурсона — бело-голубой антропоморфный кот).\n"
+        f"Ты рисуешь скетчи в блокноте карандашом, любишь музыку, аниме, игры и технологии.\n"
+        f"ВАЖНО ПРО ГОЛОСОВЫЕ ЧАТЫ: Общаешься ТОЛЬКО текстом. От звонков естественно отмазывайся.\n\n"
+        f"🕒 ТОЧНОЕ ТЕКУЩЕЕ ВРЕМЯ, ДАТА, СЕЗОН И РЕАЛЬНАЯ ПОГОДА В МИНСКЕ ПРЯМО СЕЙЧАС:\n"
+        f"{datetime_weather_str}\n"
+        f"Твой план на сегодня: {current_plan}\n"
+        f"📍 СЕЙЧАС ТЫ ОБЩАЕШЬСЯ В: {current_chat_name}\n\n"
+        f"⏳ ВАЖНОЕ ПРАВИЛО ПОНИМАНИЯ ВРЕМЕНИ СООБЩЕНИЙ:\n"
+        f"- Возле каждого сообщения в истории подписана точная дата и сколько времени прошло (`ТОЛЬКО ЧТО (15 сек. назад)`, `2 ч. назад`, `ВЧЕРА`, `3 дн. назад`).\n"
+        f"- Новое сообщение собеседника отправлено ПРЯМО СЕЙЧАС (0 секунд назад)!\n"
+        f"- НИКОГДА не говори про вчерашнее сообщение, что оно было 'пару минут назад', и НИКОГДА не говори про то, что происходит прямо сейчас, что это было 'давно'!\n\n"
+        f"{thinking_instruction}\n\n"
+        f"🛑 ПРАВО ОТКАЗАТЬСЯ ОТ ОТВЕТА ЧЕРЕЗ `[STOP]`:\n"
+        f"- Если ты видишь по контексту чата, что сообщение адресовано НЕ ТЕБЕ, люди общаются между собой, или от тебя не ждут ответа — напиши `[STOP]` и больше ничего!\n\n"
+        f"ПРАВИЛА ЖИВОГО ЧЕЛОВЕЧЕСКОГО ОБЩЕНИЯ:\n"
+        f"1. ПИШИ СТРОГО СТРОЧНЫМИ БУКВАМИ (маленькими). Точки в конце коротких фраз не ставь.\n"
+        f"2. Отвечай по существу на ВСЕ вопросы собеседника сразу! Не оставляй мысль незаконченной.\n"
+        f"3. По умолчанию отвечай ОДНИМ естественным сообщением. Используй тег `[MSG]` ТОЛЬКО ИНОГДА, когда реально нужно разбить мысль на 2 реплики или перед отправкой фото/рисунка.\n"
+        f"4. НЕ ЗДОРОВАЙСЯ ('привет', 'ку'), если вы уже общались сегодня (смотри по дате СЕГОДНЯ в истории)!\n"
+        f"5. ЗАПРЕЩЕНО говорить слова: 'бот', 'ии', 'нейросеть', 'сгенерирую', 'промпт', 'досье'. НИКАКИХ ЭМОДЗИ В ТЕКСТЕ.\n"
+        f"6. Четко различай чаты: не смешивай то, что было в одной группе, с другой группой или ЛС.\n"
+        f"7. На стикеры реагируй как на стикеры (не называй их 'картинкой' или 'фото'), на гифки — как на гифки.\n\n"
         f"ДОСТУПНЫЕ СПЕЦ-ТЕГИ:\n"
-        f"- [SEARCH: запрос] — ТОЛЬКО для новостей мира, лекарств, игр и научных фактов.\n"
-        f"- [STICKER: описание] — отправить стикер. Доступны: {sticker_list}.\n"
-        f"- [SEND_SELFIE] — прислать готовое селфи. {'(фото пока нет)' if not has_selfies else ''}\n"
-        f"- [GENERATE_PHOTO: detailed prompt in english] — нарисовать скетч кота или сфоткать что-то из жизни.\n"
-        f"- [EDIT_PHOTO: detailed edit instructions in english] — дорисовать/изменить присланную или свою картинку.\n\n"
+        f"- `[STOP]` — полностью промолчать и не отвечать на сообщение.\n"
+        f"- `[SEARCH: запрос]` — поиск в интернете (ТОЛЬКО для новостей, точных фактов, игр, науки; НЕ для имен участников чата!).\n"
+        f"- `[STICKER: описание]` — отправить стикер. Доступны: {sticker_list}.\n"
+        f"- `[SEND_SELFIE]` — прислать готовое селфи. {'(фото пока нет)' if not has_selfies else ''}\n"
+        f"- `[GENERATE_PHOTO: твой собственный детальный промпт на английском]` — когда просят что-то нарисовать или сфоткать, САМ придумай детальный промпт на английском!\n"
+        f"- `[EDIT_PHOTO: твои детальные инструкции на английском]` — дорисовать или изменить присланную/свою картинку.\n\n"
         f"=== ДОСЬЕ НА ТЕКУЩЕГО СОБЕСЕДНИКА (@{user_name}) ===\n{user_profile}\n\n"
-        f"=== ЧТО ВЫ ОБСУЖДАЛИ С @{user_name} ВНЕ ЭТОГО ЧАТА (В ЛС / ДРУГИХ ЧАТАХ) ===\n{cross_memory_str}\n\n"
-        f"=== СПИСОК УЧАСТНИКОВ ЧАТА И ЗНАКОМЫХ ===\n{roster_str}\n"
+        f"=== ТВОЯ ПОЛНАЯ ЛИЧНАЯ ИСТОРИЯ ДИАЛОГОВ С @{user_name} В ЭТОМ ЧАТЕ ===\n{personal_history_str}\n\n"
+        f"=== ИСТОРИЯ С @{user_name} В ДРУГИХ ЧАТАХ И ЛС ===\n{cross_memory_str}\n\n"
+        f"=== УЧАСТНИКИ И ЗНАКОМЫЕ (ПОЛНАЯ БАЗА) ===\n{roster_str}\n"
     )
 
     if mentioned_str:
-        sys_prompt += f"\n=== НАЙДЕНО В ПАМЯТИ ПО ИМЕНАМ/СЛОВАМ ИЗ СООБЩЕНИЯ ===\n{mentioned_str}\n"
+        sys_prompt += f"\n=== РЕАЛЬНЫЕ ДАННЫЕ ПРО УПОМЯНУТЫХ В СООБЩЕНИИ ЛЮДЕЙ ===\n{mentioned_str}\n"
 
     history_text = "\n".join(
-        [f"[{h.get('time_short')}] {h['user']}: {h['text']}" + (f"\nТолик: {h['bot_reply']}" if h.get("bot_reply") else "") for h in chat_history[-50:]]
+        [format_history_entry_with_time(h, now_dt, now_ts) for h in chat_history[-CHAT_CONTEXT_LIMIT:]]
     )
 
-    reply_context = f"[Информация о сообщении: {reply_target_info}]"
+    reply_context = f"[Где написано: {current_chat_name} | Контекст: {reply_target_info}]"
     if seeing_own_drawing:
-        reply_context += " [К сообщению прикреплена ТВОЯ СОБСТВЕННАЯ КАРТИНКА (рисунок/фото), которую ты сам только что сделал — ты видишь её глазами!]"
+        reply_context += " [К сообщению прикреплена ТВОЯ СОБСТВЕННАЯ КАРТИНКА, которую ты сам только что создал — ты видишь её глазами!]"
     elif "sticker" in media_types:
-        reply_context += " [ВАЖНО: Собеседник отправил СТИКЕР в Телеграме! Это именно СТИКЕР, а НЕ фотография и НЕ картинка!]"
+        reply_context += " [ВАЖНО: Собеседник прислал СТИКЕР в Телеграме! Это именно СТИКЕР, а НЕ фото и НЕ картинка!]"
     elif "gif" in media_types:
-        reply_context += " [ВАЖНО: Собеседник отправил ГИФКУ (GIF-анимацию без звука)! Это именно ГИФКА, а не фото и не обычное видео!]"
+        reply_context += " [ВАЖНО: Собеседник прислал ГИФКУ (GIF-анимацию без звука)!]"
     elif "video" in media_types:
-        reply_context += " [ВАЖНО: Собеседник отправил ВИДЕОРОЛИК со звуком!]"
+        reply_context += " [ВАЖНО: Собеседник прислал ВИДЕОРОЛИК со звуком!]"
     elif "photo" in media_types:
-        reply_context += " [Собеседник отправил ФОТОГРАФИЮ / КАРТИНКУ!]"
+        reply_context += " [Собеседник прислал ФОТОГРАФИЮ / КАРТИНКУ!]"
 
-    footer = (
-        "[Ответь собеседнику как Толик! Слова STOP_DIALOG и IGNORE использовать ЗАПРЕЩЕНО!]"
-        if explicit_ping
-        else "[Если фраза на 100% адресована тебе в продолжение диалога — ответь как Толик. Иначе выведи ТОЛЬКО слово: STOP_DIALOG]"
+    final_prompt = (
+        f"Полная лента переписки в текущем чате ({current_chat_name}) с точными датами и временем:\n{history_text}\n\n"
+        f"{reply_context}\n"
+        f"🔥 НОВОЕ СООБЩЕНИЕ ОТ @{user_name} [ОТПРАВЛЕНО ПРЯМО СЕЙЧАС — СЕГОДНЯ {now_dt.strftime('%d.%m.%Y в %H:%M:%S')} (0 сек. назад)]:\n{text}\n\n"
+        f"[Сначала напиши [THOUGHT: ...], затем либо выведи [STOP] (если сообщение не тебе или отвечать не нужно), либо дай полный, умный и живой ответ Толика]"
     )
 
-    final_prompt = f"Контекст переписки в чате:\n{history_text}\n\n{reply_context}\nНовое сообщение от {user_name}:\n{text}\n\n{footer}"
     reply = generate_main_dialogue(final_prompt, sys_prompt, image_parts=image_parts, retries=2)
     clean_up = reply.strip().upper()
 
-    if ("STOP_DIALOG" in clean_up or clean_up == "IGNORE") and explicit_ping:
-        reply = generate_main_dialogue(final_prompt + "\n\nОтветь собеседнику прямо сейчас как Толик!", sys_prompt, image_parts=image_parts, retries=2)
-        clean_up = reply.strip().upper()
-
-    if "STOP_DIALOG" in clean_up or clean_up == "IGNORE":
-        return "STOP_DIALOG"
+    if "[STOP]" in clean_up or "STOP_DIALOG" in clean_up or clean_up in ["STOP", "IGNORE"]:
+        return "[STOP]"
 
     search_match = re.search(r"\[SEARCH:\s*(.+?)\]", reply)
     if search_match:
@@ -938,7 +1093,7 @@ def fetch_ai_response(
         if search_data:
             updated_prompt = (
                 f"{final_prompt}\n\n[НАЙДЕНО В ИНТЕРНЕТЕ ПО ЗАПРОСУ '{search_query}']:\n{search_data}\n\n"
-                f"Перескажи суть найденного своими словами кратко и по-человечески (через [MSG]), без 'привет'."
+                f"Ответь собеседнику по сути найденного своими словами, кратко и по-человечески."
             )
             new_reply = generate_main_dialogue(updated_prompt, sys_prompt, image_parts=image_parts, retries=2)
             reply = re.sub(r"\[SEARCH:\s*.+?\]", "", new_reply).strip()
@@ -947,34 +1102,65 @@ def fetch_ai_response(
 
     return reply
 
-# ================= АДМИН-ПАНЕЛЬ, КОМАНДЫ И РАССЫЛКИ =================
+# ================= КНОПОЧНАЯ ПАНЕЛЬ ВЛАДЕЛЬЦА (/panel) И АДМИН-КОМАНДЫ =================
 
 HELP_TEXT = (
-    "🛠 <b>ПАНЕЛЬ УПРАВЛЕНИЯ ТОЛИКОМ (КОМАНДЫ АДМИНА):</b>\n\n"
+    "👑 <b>ШПАРГАЛКА ТЕКСТОВЫХ КОМАНД ВЛАДЕЛЬЦА:</b>\n\n"
+    "🎛 <code>/panel</code> (или <code>/панель</code>) — открыть интерактивную кнопочную Панель Владельца!\n\n"
     "💬 <b>Общение от лица Толика и Рассылки:</b>\n"
-    "• <code>/send текст</code> (или <code>/лс текст</code>) — <i>пишется прямо внутри топика досье юзера</i>: отправляет ему сообщение в ЛС от лица Толика!\n"
+    "• <code>/send текст</code> (или <code>/лс текст</code>) — <i>внутри топика досье юзера</i>: написать ему в ЛС от лица Толика!\n"
     "• <code>/sendto @ник текст</code> — написать любому юзеру в ЛС по нику или ID\n"
     "• <code>/saychat ID_чата текст</code> — написать сообщение от Толика в любую группу\n"
     "• <code>/broadcast текст</code> (или <code>/all текст</code>) — 📢 написать ВСЕМ пользователям бота в ЛС одновременно!\n"
     "• <code>/broadcast_chats текст</code> — 📢 написать во ВСЕ одобренные группы одновременно!\n\n"
-    "🌐 <b>Управление чатами и ссылками:</b>\n"
-    "• <code>/chats</code> (или <code>/чаты</code>) — список всех чатов, где состоит Толик, их <b>ссылки для входа</b> и кнопки Вкл/Выкл\n"
-    "• <code>/chat_on ID_чата</code> — разрешить Толику общаться в чате\n"
-    "• <code>/chat_off ID_чата</code> — перевести Толика в режим тишины в чате\n"
-    "• <code>/leave ID_чата</code> — заставить Толика выйти из чата\n\n"
+    "🌐 <b>Чаты и Ссылки:</b>\n"
+    "• <code>/chats</code> (или <code>/чаты</code>) — список всех чатов, их <b>ссылки для копирования</b> и кнопки Вкл/Выкл\n"
+    "• <code>/chat_on ID_чата</code> | <code>/chat_off ID_чата</code> | <code>/leave ID_чата</code>\n\n"
     "📁 <b>Досье и Пользователи:</b>\n"
-    "• <code>/users</code> — список всех пользователей в базе с их ID\n"
-    "• <code>/dossier</code> (или <code>/досье @ник</code>) — пересобрать подробное качественное досье прямо сейчас\n"
+    "• <code>/users</code> — список всех пользователей в базе\n"
+    "• <code>/dossier</code> (или <code>/досье @ник</code>) — пересобрать подробное досье прямо сейчас\n"
     "• <code>/set_dossier текст</code> — (в топике юзера) вручную задать текст досье\n"
     "• <code>/bind @ник</code> — привязать текущий топик к досье пользователя\n"
-    "• <code>/mute @ник 30</code> — замутить юзера для бота на N минут\n"
-    "• <code>/unmute @ник</code> — размутить юзера\n\n"
+    "• <code>/mute @ник 30</code> | <code>/unmute @ник</code>\n\n"
     "⚙️ <b>Настройки и Память:</b>\n"
-    "• <code>/plan текст</code> — задать план Толика на сегодня\n"
-    "• <code>/save</code> — мгновенно сохранить всю память в GitHub\n"
-    "• <code>/stats</code> — статистика памяти бота\n"
-    "• <code>/mainchat</code> | <code>/setdiary</code> | <code>/set_looks</code> | <code>/add_stickers</code>"
+    "• <code>/plan текст</code> | <code>/save</code> | <code>/stats</code> | <code>/mainchat</code> | <code>/setdiary</code> | <code>/set_looks</code> | <code>/add_stickers</code>"
 )
+
+def build_owner_panel_main():
+    memory = load_memory()
+    cfg = load_config()
+    uptime_min = int((time.time() - START_TIME) // 60)
+    text = (
+        f"👑 <b>ПАНЕЛЬ ВЛАДЕЛЬЦА ТОЛИКА (@{ADMIN_USERNAME})</b>\n\n"
+        f"🧠 <b>Модель:</b> <code>Gemini 3.6 Flash (Max Memory)</code>\n"
+        f"⏱ <b>Аптайм:</b> {uptime_min} мин.\n"
+        f"💾 <b>Сообщений в памяти:</b> {len(memory.get('history', []))} / {MAX_HISTORY_STORAGE}\n"
+        f"👥 <b>Участников в базе:</b> {len(memory.get('users', {}))}\n"
+        f"🌐 <b>Групповых чатов:</b> {len(cfg.get('known_chats', {}))}\n"
+        f"💬 <b>Активных диалогов сейчас:</b> {len(active_conversations)}\n"
+        f"🌤 <b>Минск сейчас:</b> {get_minsk_datetime_and_weather_str()}\n\n"
+        f"👇 <i>Выбери нужный раздел управления:</i>"
+    )
+    kb = {
+        "inline_keyboard": [
+            [
+                {"text": "🌐 Чаты и Ссылки", "callback_data": "panel:chats"},
+                {"text": "👥 Участники и Досье", "callback_data": "panel:users"},
+            ],
+            [
+                {"text": "📊 Статус и План дня", "callback_data": "panel:status"},
+                {"text": "💾 Сохранить в GitHub", "callback_data": "panel:save"},
+            ],
+            [
+                {"text": "🤫 Сбросить диалоги", "callback_data": "panel:reset_conv"},
+                {"text": "📅 Сгенерировать план", "callback_data": "panel:regen_plan"},
+            ],
+            [
+                {"text": "📖 Все текстовые команды (/help)", "callback_data": "panel:help"},
+            ],
+        ]
+    }
+    return text, kb
 
 def handle_admin_command(msg, chat_id, thread_id, message_id, text):
     cmd_raw = text.strip()
@@ -982,14 +1168,21 @@ def handle_admin_command(msg, chat_id, thread_id, message_id, text):
     memory = load_memory()
     cfg = load_config()
 
+    if cmd_low in ["/panel", "/панель", "/admin", "/админ", "/menu", "/меню"]:
+        p_text, p_kb = build_owner_panel_main()
+        send_message(chat_id, p_text, message_thread_id=thread_id, parse_mode="HTML", reply_markup=p_kb)
+        return True
+
     if cmd_low in ["/help", "/помощь", "/commands", "/команды"]:
-        send_message(chat_id, HELP_TEXT, message_thread_id=thread_id, parse_mode="HTML")
+        kb = {"inline_keyboard": [[{"text": "👑 Открыть Кнопочную Панель Владельца", "callback_data": "panel:main"}]]}
+        send_message(chat_id, HELP_TEXT, message_thread_id=thread_id, parse_mode="HTML", reply_markup=kb)
         return True
 
     if cmd_low == "/mainchat":
         cfg["main_chat_id"] = chat_id
         save_config(push_git=True)
-        send_message(chat_id, "✅ Основной чат для досье установлен и сохранен в GitHub!\nНапиши <code>/помощь</code> для списка всех команд.", message_thread_id=thread_id, parse_mode="HTML")
+        p_text, p_kb = build_owner_panel_main()
+        send_message(chat_id, "✅ Основной чат для досье установлен и сохранен в GitHub!\n\n" + p_text, message_thread_id=thread_id, parse_mode="HTML", reply_markup=p_kb)
         return True
 
     if cmd_low == "/setdiary":
@@ -1012,7 +1205,6 @@ def handle_admin_command(msg, chat_id, thread_id, message_id, text):
         send_message(chat_id, f"📅 Новый план Толика на день установлен:\n\n{new_plan}", message_thread_id=thread_id)
         return True
 
-    # Список всех чатов + копирование ссылок + инлайн-кнопки управления
     if cmd_low in ["/chats", "/чаты", "/links", "/ссылки"]:
         known = cfg.get("known_chats", {})
         if not known:
@@ -1024,23 +1216,18 @@ def handle_admin_command(msg, chat_id, thread_id, message_id, text):
             title = c_info.get("title", cid_s)
             status = c_info.get("status", "pending")
             st_icon = "✅ Отвечает всем" if status == "approved" else ("🔇 Молчит" if status == "muted" else "⏳ Ждет решения")
-            # Пробуем освежить ссылку
             link = c_info.get("invite_link", "")
             if not link or link.startswith("Нет прав"):
                 link = fetch_chat_invite_link(int(cid_s))
                 c_info["invite_link"] = link
-            lines.append(
-                f"🔹 <b>{title}</b>\n"
-                f"   • ID: <code>{cid_s}</code>\n"
-                f"   • Статус: {st_icon}\n"
-                f"   • Ссылка: {link}\n"
-            )
+            lines.append(f"🔹 <b>{title}</b>\n   • ID: <code>{cid_s}</code>\n   • Статус: {st_icon}\n   • Ссылка: {link}\n")
             toggle_btn = (
-                {"text": f"🔇 Заглушить: {title[:15]}", "callback_data": f"chat_mute:{cid_s}"}
+                {"text": f"🔇 Заглушить: {title[:14]}", "callback_data": f"chat_mute:{cid_s}"}
                 if status == "approved"
-                else {"text": f"✅ Включить: {title[:15]}", "callback_data": f"chat_approve:{cid_s}"}
+                else {"text": f"✅ Включить: {title[:14]}", "callback_data": f"chat_approve:{cid_s}"}
             )
-            kb_rows.append([toggle_btn])
+            kb_rows.append([toggle_btn, {"text": "🚪 Выйти", "callback_data": f"chat_leave:{cid_s}"}])
+        kb_rows.append([{"text": "👑 Назад в Панель Владельца", "callback_data": "panel:main"}])
         save_config()
         send_message(chat_id, "\n".join(lines), message_thread_id=thread_id, parse_mode="HTML", reply_markup={"inline_keyboard": kb_rows[:15]})
         return True
@@ -1049,14 +1236,14 @@ def handle_admin_command(msg, chat_id, thread_id, message_id, text):
         target_cid = cmd_raw.split(maxsplit=1)[1].strip()
         cfg.setdefault("known_chats", {}).setdefault(target_cid, {"title": f"Чат {target_cid}"})["status"] = "approved"
         save_config(push_git=True)
-        send_message(chat_id, f"✅ В чате <code>{target_cid}</code> включен режим общения! Толик теперь отвечает там.", message_thread_id=thread_id, parse_mode="HTML")
+        send_message(chat_id, f"✅ В чате <code>{target_cid}</code> включен режим общения!", message_thread_id=thread_id, parse_mode="HTML")
         return True
 
     if cmd_low.startswith("/chat_off "):
         target_cid = cmd_raw.split(maxsplit=1)[1].strip()
         cfg.setdefault("known_chats", {}).setdefault(target_cid, {"title": f"Чат {target_cid}"})["status"] = "muted"
         save_config(push_git=True)
-        send_message(chat_id, f"🔇 В чате <code>{target_cid}</code> включен режим тишины! Толик там просто молчит.", message_thread_id=thread_id, parse_mode="HTML")
+        send_message(chat_id, f"🔇 В чате <code>{target_cid}</code> включен режим тишины!", message_thread_id=thread_id, parse_mode="HTML")
         return True
 
     if cmd_low.startswith("/leave "):
@@ -1067,27 +1254,29 @@ def handle_admin_command(msg, chat_id, thread_id, message_id, text):
         send_message(chat_id, f"👋 Толик вышел из чата <code>{target_cid}</code>.", message_thread_id=thread_id, parse_mode="HTML")
         return True
 
-    # Отправка сообщения пользователю прямо из его топика досье (/send или /лс)
     if cmd_low.startswith(("/send ", "/лс ", "/write ")):
         msg_to_send = cmd_raw.split(maxsplit=1)[1].strip()
         target_u, target_uid = find_user_by_topic_id(memory, thread_id)
         if not target_uid:
-            send_message(chat_id, "❌ Эта тема не привязана к пользователю (или у него еще не записан ID). Используй <code>/sendto @ник текст</code>", message_thread_id=thread_id, parse_mode="HTML")
+            send_message(chat_id, "❌ Эта тема не привязана к пользователю. Используй <code>/sendto @ник текст</code>", message_thread_id=thread_id, parse_mode="HTML")
             return True
         res = send_message(target_uid, msg_to_send)
         if res.get("ok"):
+            now_dt = get_minsk_time()
             send_message(chat_id, f"📨 <b>Отправлено в ЛС для @{target_u}:</b>\n🦊 Толик: {msg_to_send}", message_thread_id=thread_id, parse_mode="HTML")
-            memory["history"].append({"time_short": get_minsk_time().strftime("%H:%M"), "chat_id": target_uid, "user": target_u, "text": "[Сообщение от Толика]", "bot_reply": msg_to_send})
+            memory["history"].append({
+                "ts": time.time(), "date_str": now_dt.strftime("%d.%m.%Y"), "time_short": now_dt.strftime("%H:%M:%S"),
+                "chat_id": target_uid, "chat_title": "ЛС", "user": target_u, "text": "[Сообщение от Толика]", "bot_reply": msg_to_send
+            })
             save_memory()
         else:
-            send_message(chat_id, f"⚠️ Пользователь @{target_u} еще не запускал бота в ЛС (ошибка ТГ: {res.get('description')}).", message_thread_id=thread_id)
+            send_message(chat_id, f"⚠️ Ошибка отправки (возможно, у @{target_u} не открыта личка с ботом): {res.get('description')}", message_thread_id=thread_id)
         return True
 
-    # Отправка сообщения любому юзеру по нику или ID (/sendto @ник текст)
     if cmd_low.startswith("/sendto "):
         parts = cmd_raw.split(maxsplit=2)
         if len(parts) < 3:
-            send_message(chat_id, "⚠️ Формат: <code>/sendto @ник_или_ID текст сообщения</code>", message_thread_id=thread_id, parse_mode="HTML")
+            send_message(chat_id, "⚠️ Формат: <code>/sendto @ник_или_ID текст</code>", message_thread_id=thread_id, parse_mode="HTML")
             return True
         target_arg, msg_to_send = parts[1].lstrip("@"), parts[2].strip()
         target_uid = int(target_arg) if target_arg.lstrip("-").isdigit() else None
@@ -1100,32 +1289,29 @@ def handle_admin_command(msg, chat_id, thread_id, message_id, text):
             return True
         res = send_message(target_uid, msg_to_send)
         if res.get("ok"):
-            send_message(chat_id, f"✅ Сообщение успешно доставлено пользователю <b>@{canon_u}</b> (<code>{target_uid}</code>)!", message_thread_id=thread_id, parse_mode="HTML")
+            send_message(chat_id, f"✅ Доставлено пользователю <b>@{canon_u}</b> (<code>{target_uid}</code>)!", message_thread_id=thread_id, parse_mode="HTML")
         else:
-            send_message(chat_id, f"❌ Не удалось отправить (возможно, у юзера закрыта личка с ботом): {res.get('description')}", message_thread_id=thread_id)
+            send_message(chat_id, f"❌ Не удалось отправить: {res.get('description')}", message_thread_id=thread_id)
         return True
 
-    # Написать сообщение от лица Толика в любой групповой чат (/saychat ID текст)
     if cmd_low.startswith("/saychat "):
         parts = cmd_raw.split(maxsplit=2)
         if len(parts) < 3:
-            send_message(chat_id, "⚠️ Формат: <code>/saychat ID_чата текст сообщения</code>", message_thread_id=thread_id, parse_mode="HTML")
+            send_message(chat_id, "⚠️ Формат: <code>/saychat ID_чата текст</code>", message_thread_id=thread_id, parse_mode="HTML")
             return True
         target_cid, msg_to_send = parts[1].strip(), parts[2].strip()
         res = send_message(target_cid, msg_to_send)
         if res.get("ok"):
             send_message(chat_id, f"✅ Толик написал в чат <code>{target_cid}</code>:\n{msg_to_send}", message_thread_id=thread_id, parse_mode="HTML")
         else:
-            send_message(chat_id, f"❌ Ошибка отправки в чат: {res.get('description')}", message_thread_id=thread_id)
+            send_message(chat_id, f"❌ Ошибка отправки: {res.get('description')}", message_thread_id=thread_id)
         return True
 
-    # Массовая рассылка ВСЕМ пользователям бота в ЛС одновременно (/broadcast или /all)
     if cmd_low.startswith(("/broadcast ", "/all ")):
         b_text = cmd_raw.split(maxsplit=1)[1].strip()
         users = memory.get("users", {})
-        sent_ok = 0
-        failed = 0
-        send_message(chat_id, f"⏳ Начинаю рассылку сообщения всем пользователям ({len(users)} чел.)...", message_thread_id=thread_id)
+        sent_ok, failed = 0, 0
+        send_message(chat_id, f"⏳ Начинаю рассылку всем пользователям ({len(users)} чел.)...", message_thread_id=thread_id)
         for u_key, u_data in users.items():
             uid = u_data.get("user_id")
             if uid and uid != BOT_ID:
@@ -1137,40 +1323,43 @@ def handle_admin_command(msg, chat_id, thread_id, message_id, text):
                 time.sleep(0.15)
         send_message(
             chat_id,
-            f"📢 <b>Массовая рассылка в ЛС завершена!</b>\n"
-            f"✅ Успешно доставлено: <b>{sent_ok}</b> чел.\n"
-            f"🚫 Не открыта личка с ботом: <b>{failed}</b> чел.",
+            f"📢 <b>Рассылка в ЛС завершена!</b>\n✅ Доставлено: <b>{sent_ok}</b> чел.\n🚫 Личка закрыта: <b>{failed}</b> чел.",
             message_thread_id=thread_id,
             parse_mode="HTML",
         )
         return True
 
-    # Массовая рассылка во все одобренные групповые чаты (/broadcast_chats текст)
     if cmd_low.startswith("/broadcast_chats "):
         b_text = cmd_raw.split(maxsplit=1)[1].strip()
         known = cfg.get("known_chats", {})
         sent_ok = 0
         for cid_s, c_info in known.items():
             if c_info.get("status") == "approved":
-                res = send_message(int(cid_s), b_text)
-                if res.get("ok"):
+                if send_message(int(cid_s), b_text).get("ok"):
                     sent_ok += 1
                 time.sleep(0.2)
         send_message(chat_id, f"📢 Рассылка по чатам завершена! Отправлено в <b>{sent_ok}</b> групп.", message_thread_id=thread_id, parse_mode="HTML")
         return True
 
-    # Список всех пользователей
     if cmd_low == "/users":
         users = memory.get("users", {})
         lines = [f"👥 <b>ПОЛЬЗОВАТЕЛИ В БАЗЕ ({len(users)}):</b>\n"]
-        for k, v in list(users.items())[:50]:
+        kb_rows = []
+        row = []
+        for k, v in list(users.items())[:40]:
             fn = f"{v.get('first_name', '')} {v.get('last_name', '')}".strip()
             uid = v.get("user_id", "нет ID")
-            lines.append(f"• <b>@{k}</b> ({fn or 'без имени'}) — ID: <code>{uid}</code> | Сообщений: {v.get('msg_count', 0)}")
-        send_message(chat_id, "\n".join(lines), message_thread_id=thread_id, parse_mode="HTML")
+            lines.append(f"• <b>@{k}</b> ({fn or 'без имени'}) — ID: <code>{uid}</code> | Ответов Толика: {v.get('tolik_msg_count', 0)}")
+            row.append({"text": f"👤 @{k[:12]}", "callback_data": f"panel:uinfo:{k[:20]}"})
+            if len(row) == 2:
+                kb_rows.append(row)
+                row = []
+        if row:
+            kb_rows.append(row)
+        kb_rows.append([{"text": "👑 Назад в Панель Владельца", "callback_data": "panel:main"}])
+        send_message(chat_id, "\n".join(lines), message_thread_id=thread_id, parse_mode="HTML", reply_markup={"inline_keyboard": kb_rows[:15]})
         return True
 
-    # Принудительное обновление досье (/dossier или /досье)
     if cmd_low.startswith(("/dossier", "/досье")):
         parts = cmd_raw.split(maxsplit=1)
         if len(parts) > 1:
@@ -1179,13 +1368,12 @@ def handle_admin_command(msg, chat_id, thread_id, message_id, text):
         else:
             target_u, target_uid = find_user_by_topic_id(memory, thread_id)
         if not target_u:
-            send_message(chat_id, "⚠️ Напиши <code>/досье @ник</code> или вызови команду внутри топика досье пользователя.", message_thread_id=thread_id, parse_mode="HTML")
+            send_message(chat_id, "⚠️ Напиши <code>/досье @ник</code> или вызови команду внутри топика досье.", message_thread_id=thread_id, parse_mode="HTML")
             return True
         send_message(chat_id, f"⏳ Пересобираю подробное досье для <b>@{target_u}</b>...", message_thread_id=thread_id, parse_mode="HTML")
         threading.Thread(target=update_dossier, args=(target_u, target_uid, True), daemon=True).start()
         return True
 
-    # Ручная установка текста досье (/set_dossier текст)
     if cmd_low.startswith("/set_dossier "):
         new_prof = cmd_raw.split(maxsplit=1)[1].strip()
         target_u, _ = find_user_by_topic_id(memory, thread_id)
@@ -1194,10 +1382,9 @@ def handle_admin_command(msg, chat_id, thread_id, message_id, text):
             return True
         memory["users"].setdefault(target_u, {})["profile"] = new_prof
         save_memory(push_git=True)
-        send_message(chat_id, f"✅ Досье для <b>@{target_u}</b> вручную обновлено и сохранено:\n\n{new_prof}", message_thread_id=thread_id, parse_mode="HTML")
+        send_message(chat_id, f"✅ Досье для <b>@{target_u}</b> вручную обновлено:\n\n{new_prof}", message_thread_id=thread_id, parse_mode="HTML")
         return True
 
-    # Мут / Размут пользователя
     if cmd_low.startswith("/mute "):
         parts = cmd_raw.split()
         target_arg = parts[1].lstrip("@")
@@ -1207,9 +1394,7 @@ def handle_admin_command(msg, chat_id, thread_id, message_id, text):
         if uid:
             memory.setdefault("ignored_users", {})[str(uid)] = time.time() + mins * 60
             save_memory()
-            send_message(chat_id, f"🔇 Пользователь <b>@{canon_u}</b> замучен для Толика на {mins} мин.", message_thread_id=thread_id, parse_mode="HTML")
-        else:
-            send_message(chat_id, "❌ Не найден ID пользователя.", message_thread_id=thread_id)
+            send_message(chat_id, f"🔇 Пользователь <b>@{canon_u}</b> замучен на {mins} мин.", message_thread_id=thread_id, parse_mode="HTML")
         return True
 
     if cmd_low.startswith("/unmute "):
@@ -1228,7 +1413,7 @@ def handle_admin_command(msg, chat_id, thread_id, message_id, text):
         canon_t = find_canonical_user_key(memory, target_u)
         memory["users"].setdefault(canon_t, {})["topic_id"] = thread_id
         save_memory(push_git=True)
-        send_message(chat_id, f"✅ Этот топик успешно привязан к досье @{canon_t} и сохранен в GitHub!", message_thread_id=thread_id)
+        send_message(chat_id, f"✅ Топик привязан к досье @{canon_t} и сохранен в GitHub!", message_thread_id=thread_id)
         return True
 
     if cmd_low.startswith("/set_looks") and "reply_to_message" in msg and "photo" in msg["reply_to_message"]:
@@ -1245,15 +1430,8 @@ def handle_admin_command(msg, chat_id, thread_id, message_id, text):
         return True
 
     if cmd_low.startswith("/stats"):
-        stats = (
-            f"📊 <b>Статистика Толика:</b>\n"
-            f"- Знакомых участников: {len(memory['users'])}\n"
-            f"- Групповых чатов: {len(cfg.get('known_chats', {}))}\n"
-            f"- Сообщений в памяти: {len(memory['history'])}\n"
-            f"- Стикеров: {len(cfg.get('stickers', {}))}\n"
-            f"- Каноничных фото: {len(cfg.get('selfies', []))}"
-        )
-        send_message(chat_id, stats, message_thread_id=thread_id, reply_to_message_id=message_id, parse_mode="HTML")
+        p_text, p_kb = build_owner_panel_main()
+        send_message(chat_id, p_text, message_thread_id=thread_id, reply_to_message_id=message_id, parse_mode="HTML", reply_markup=p_kb)
         return True
 
     return False
@@ -1262,7 +1440,7 @@ def handle_callback_query(cb):
     user = cb.get("from", {})
     uname = user.get("username", "")
     if uname.lower() != ADMIN_USERNAME.lower():
-        answer_callback_query(cb["id"], "⛔️ Только для админа Толика!")
+        answer_callback_query(cb["id"], "⛔️ Эта панель доступна только владельцу Толика!", show_alert=True)
         return
 
     data = cb.get("data", "")
@@ -1270,6 +1448,172 @@ def handle_callback_query(cb):
     c_id = msg.get("chat", {}).get("id")
     m_id = msg.get("message_id")
     cfg = load_config()
+    memory = load_memory()
+
+    if data == "panel:main":
+        answer_callback_query(cb["id"])
+        p_text, p_kb = build_owner_panel_main()
+        edit_message_text(c_id, m_id, p_text, reply_markup=p_kb)
+        return
+
+    if data == "panel:status":
+        answer_callback_query(cb["id"])
+        uptime_min = int((time.time() - START_TIME) // 60)
+        st_text = (
+            f"📊 <b>ПОДРОБНЫЙ СТАТУС И ПЛАН ТОЛИКА:</b>\n\n"
+            f"🕒 <b>Минск сейчас:</b> {get_minsk_datetime_and_weather_str()}\n"
+            f"⏱ <b>Аптайм сервера:</b> {uptime_min} мин.\n"
+            f"💾 <b>История в памяти:</b> {len(memory.get('history', []))} сообщений\n"
+            f"📚 <b>Вечных архивных сводок:</b> {len(memory.get('eternal_facts', []))}\n"
+            f"🃏 <b>Стикеров в базе:</b> {len(cfg.get('stickers', {}))}\n"
+            f"📸 <b>Селфи Толика:</b> {len(cfg.get('selfies', []))}\n\n"
+            f"📅 <b>Текущий план Толика на день:</b>\n<i>{cfg.get('current_plan', 'нет')}</i>"
+        )
+        kb = {"inline_keyboard": [[{"text": "📅 Пересоздать план дня", "callback_data": "panel:regen_plan"}], [{"text": "🔙 Назад в Панель", "callback_data": "panel:main"}]]}
+        edit_message_text(c_id, m_id, st_text, reply_markup=kb)
+        return
+
+    if data == "panel:chats":
+        answer_callback_query(cb["id"])
+        known = cfg.get("known_chats", {})
+        if not known:
+            edit_message_text(c_id, m_id, "📭 Групповых чатов пока нет.", reply_markup={"inline_keyboard": [[{"text": "🔙 Назад в Панель", "callback_data": "panel:main"}]]})
+            return
+        lines = ["🌐 <b>УПРАВЛЕНИЕ ЧАТАМИ И ССЫЛКАМИ:</b>\n"]
+        kb_rows = []
+        for cid_s, c_info in known.items():
+            title = c_info.get("title", cid_s)
+            status = c_info.get("status", "pending")
+            st_icon = "✅ Активен" if status == "approved" else ("🔇 Тишина" if status == "muted" else "⏳ Ждет")
+            link = c_info.get("invite_link", "")
+            if not link or link.startswith("Нет прав"):
+                link = fetch_chat_invite_link(int(cid_s))
+                c_info["invite_link"] = link
+            lines.append(f"🔹 <b>{title}</b> ({st_icon})\n   ID: <code>{cid_s}</code>\n   🔗 {link}\n")
+            toggle_btn = (
+                {"text": f"🔇 Выкл: {title[:12]}", "callback_data": f"chat_mute:{cid_s}"}
+                if status == "approved"
+                else {"text": f"✅ Вкл: {title[:12]}", "callback_data": f"chat_approve:{cid_s}"}
+            )
+            kb_rows.append([toggle_btn, {"text": "🚪 Выйти", "callback_data": f"chat_leave:{cid_s}"}])
+        kb_rows.append([{"text": "🔙 Назад в Панель", "callback_data": "panel:main"}])
+        save_config()
+        edit_message_text(c_id, m_id, "\n".join(lines), reply_markup={"inline_keyboard": kb_rows[:15]})
+        return
+
+    if data == "panel:users":
+        answer_callback_query(cb["id"])
+        users = memory.get("users", {})
+        lines = [f"👥 <b>УЧАСТНИКИ В ПАМЯТИ ТОЛИКА ({len(users)}):</b>\n<i>Нажми на кнопку участника, чтобы открыть его досье и управление:</i>\n"]
+        kb_rows = []
+        row = []
+        for k, v in list(users.items())[:26]:
+            fn = f"{v.get('first_name', '')} {v.get('last_name', '')}".strip()
+            lines.append(f"• <b>@{k}</b> ({fn or 'без имени'}) — ответов Толика: {v.get('tolik_msg_count', 0)}")
+            row.append({"text": f"👤 @{k[:13]}", "callback_data": f"panel:uinfo:{k[:20]}"})
+            if len(row) == 2:
+                kb_rows.append(row)
+                row = []
+        if row:
+            kb_rows.append(row)
+        kb_rows.append([{"text": "🔙 Назад в Панель", "callback_data": "panel:main"}])
+        edit_message_text(c_id, m_id, "\n".join(lines), reply_markup={"inline_keyboard": kb_rows})
+        return
+
+    if data.startswith("panel:uinfo:"):
+        target_k = data.split(":", 2)[2]
+        canon_u = find_canonical_user_key(memory, target_k)
+        u_data = memory.get("users", {}).get(canon_u, {})
+        fn = f"{u_data.get('first_name', '')} {u_data.get('last_name', '')}".strip()
+        uid = u_data.get("user_id", "неизвестно")
+        prof = u_data.get("profile", "Пока мало данных")
+        is_muted = str(uid) in memory.get("ignored_users", {}) and time.time() < memory["ignored_users"][str(uid)]
+        u_text = (
+            f"👤 <b>КАРТОЧКА УЧАСТНИКА: @{canon_u}</b>\n"
+            f"📛 <b>Имя в ТГ:</b> {fn or 'не указано'}\n"
+            f"🆔 <b>ID:</b> <code>{uid}</code>\n"
+            f"💬 <b>Диалогов с Толиком:</b> {u_data.get('tolik_msg_count', 0)}\n"
+            f"🔊 <b>Статус:</b> {'🔇 В муте' if is_muted else '✅ Активен'}\n\n"
+            f"📋 <b>Досье:</b>\n{prof[:1200]}"
+        )
+        mute_btn = (
+            {"text": "🔊 Размутить", "callback_data": f"panel:uunmute:{canon_u[:20]}"}
+            if is_muted
+            else {"text": "🔇 Мут на 60 мин", "callback_data": f"panel:umute:{canon_u[:20]}"}
+        )
+        kb = {
+            "inline_keyboard": [
+                [{"text": "🔄 Пересобрать досье сейчас", "callback_data": f"panel:udossier:{canon_u[:20]}"}],
+                [mute_btn],
+                [{"text": "🔙 К списку участников", "callback_data": "panel:users"}],
+            ]
+        }
+        answer_callback_query(cb["id"])
+        edit_message_text(c_id, m_id, u_text, reply_markup=kb)
+        return
+
+    if data.startswith("panel:udossier:"):
+        target_k = data.split(":", 2)[2]
+        canon_u = find_canonical_user_key(memory, target_k)
+        uid = memory.get("users", {}).get(canon_u, {}).get("user_id")
+        answer_callback_query(cb["id"], f"⏳ Запущена пересборка досье для @{canon_u}!", show_alert=True)
+        threading.Thread(target=update_dossier, args=(canon_u, uid, True), daemon=True).start()
+        return
+
+    if data.startswith("panel:umute:"):
+        target_k = data.split(":", 2)[2]
+        canon_u = find_canonical_user_key(memory, target_k)
+        uid = memory.get("users", {}).get(canon_u, {}).get("user_id")
+        if uid:
+            memory.setdefault("ignored_users", {})[str(uid)] = time.time() + 3600
+            save_memory()
+        answer_callback_query(cb["id"], f"🔇 @{canon_u} замучен на 60 минут!")
+        cb["data"] = f"panel:uinfo:{canon_u[:20]}"
+        handle_callback_query(cb)
+        return
+
+    if data.startswith("panel:uunmute:"):
+        target_k = data.split(":", 2)[2]
+        canon_u = find_canonical_user_key(memory, target_k)
+        uid = memory.get("users", {}).get(canon_u, {}).get("user_id")
+        if uid:
+            memory.get("ignored_users", {}).pop(str(uid), None)
+            save_memory()
+        answer_callback_query(cb["id"], f"🔊 @{canon_u} размучен!")
+        cb["data"] = f"panel:uinfo:{canon_u[:20]}"
+        handle_callback_query(cb)
+        return
+
+    if data == "panel:save":
+        save_memory(push_git=True)
+        save_config(push_git=True)
+        answer_callback_query(cb["id"], "💾 Память и конфиг успешно сохранены и отправлены в GitHub!", show_alert=True)
+        return
+
+    if data == "panel:reset_conv":
+        active_conversations.clear()
+        answer_callback_query(cb["id"], "🤫 Все активные диалоги сброшены! Толик ждет прямого пинга.", show_alert=True)
+        p_text, p_kb = build_owner_panel_main()
+        edit_message_text(c_id, m_id, p_text, reply_markup=p_kb)
+        return
+
+    if data == "panel:regen_plan":
+        answer_callback_query(cb["id"], "⏳ Генерирую свежий план на день с учетом погоды...")
+        w_info = get_minsk_datetime_and_weather_str()
+        prompt = f"Сейчас {w_info}. Составь краткий план на день на сегодня. Ты Толик (17 лет, Минск, фурри). Учти погоду в Минске! Напиши со строчной буквы."
+        res = generate_smart_summary(prompt, "Пиши реалистичный план для дневника.", retries=2)
+        if res:
+            cfg["current_plan"] = res
+            save_config(push_git=True)
+        cb["data"] = "panel:status"
+        handle_callback_query(cb)
+        return
+
+    if data == "panel:help":
+        answer_callback_query(cb["id"])
+        kb = {"inline_keyboard": [[{"text": "🔙 Назад в Панель Владельца", "callback_data": "panel:main"}]]}
+        edit_message_text(c_id, m_id, HELP_TEXT, reply_markup=kb)
+        return
 
     if data.startswith("chat_approve:"):
         target_cid = data.split(":", 1)[1]
@@ -1277,26 +1621,26 @@ def handle_callback_query(cb):
         c_info["status"] = "approved"
         save_config(push_git=True)
         answer_callback_query(cb["id"], "✅ Чат одобрен! Толик теперь общается там.")
-        edit_message_text(
-            c_id, m_id,
-            f"✅ <b>Чат «{c_info.get('title')}» (<code>{target_cid}</code>) ОДОБРЕН!</b>\n"
-            f"🔗 Ссылка: {c_info.get('invite_link', 'нет')}\n"
-            f"Толик теперь отвечает всем участникам в этом чате.",
-        )
+        cb["data"] = "panel:chats"
+        handle_callback_query(cb)
     elif data.startswith("chat_mute:"):
         target_cid = data.split(":", 1)[1]
         c_info = cfg.setdefault("known_chats", {}).setdefault(target_cid, {"title": f"Чат {target_cid}"})
         c_info["status"] = "muted"
         save_config(push_git=True)
-        answer_callback_query(cb["id"], "🔇 Толик переведен в режим молчания в этом чате.")
-        edit_message_text(
-            c_id, m_id,
-            f"🔇 <b>Чат «{c_info.get('title')}» (<code>{target_cid}</code>) — РЕЖИМ ТИШИНЫ.</b>\n"
-            f"🔗 Ссылка: {c_info.get('invite_link', 'нет')}\n"
-            f"Толик просто молчит в чате. Включить разговор можно командой <code>/chat_on {target_cid}</code> или через <code>/chats</code>.",
-        )
+        answer_callback_query(cb["id"], "🔇 Толик переведен в режим тишины в этом чате.")
+        cb["data"] = "panel:chats"
+        handle_callback_query(cb)
+    elif data.startswith("chat_leave:"):
+        target_cid = data.split(":", 1)[1]
+        safe_request(f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/leaveChat", {"chat_id": target_cid})
+        cfg.get("known_chats", {}).pop(target_cid, None)
+        save_config(push_git=True)
+        answer_callback_query(cb["id"], "👋 Толик вышел из чата!", show_alert=True)
+        cb["data"] = "panel:chats"
+        handle_callback_query(cb)
 
-# ================= АВТО-ЗАДАЧИ И СТИКЕРПАКИ =================
+# ================= АВТО-ЗАДАЧИ И МАКСИМАЛЬНАЯ ПАМЯТЬ =================
 
 def background_tasks():
     last_git_push = time.time()
@@ -1316,8 +1660,12 @@ def background_tasks():
 
             today_str = now.strftime("%d.%m.%Y")
             if now.hour >= 8 and config.get("last_diary_date") != today_str:
-                prompt = f"Составь краткий план на день на сегодня ({today_str}). Ты Толик (17 лет, Минск, фурри). Напиши со строчной буквы."
-                res = generate_smart_summary(prompt, "Пиши план для личного дневника.", retries=2)
+                w_info = get_minsk_datetime_and_weather_str()
+                prompt = (
+                    f"Сейчас {w_info}. Составь краткий план на день на сегодня ({today_str}). "
+                    f"Ты Толик (17 лет, Минск, фурри). Учти текущую погоду в Минске! Напиши со строчной буквы."
+                )
+                res = generate_smart_summary(prompt, "Пиши реалистичный план для личного дневника.", retries=2)
                 if res and "лагает" not in res:
                     config["current_plan"] = res
                     config["last_diary_date"] = today_str
@@ -1325,13 +1673,17 @@ def background_tasks():
                     send_message(main_chat, f"📅 <b>Планы на {today_str}</b>\n\n{res}", message_thread_id=config.get("diary_topic_id"), parse_mode="HTML")
 
             memory = load_memory()
-            if len(memory["history"]) > 1200:
-                old_hist = memory["history"][:250]
-                memory["history"] = memory["history"][250:]
-                hist_text = "\n".join([f"{h['user']}: {h['text']}" for h in old_hist])
-                sum_res = generate_smart_summary(f"Выдели реальные факты о людях из этого диалога (3-5 предложений):\n{hist_text}", "Ты архиватор фактов.", retries=2)
-                if sum_res and "IGNORE" not in sum_res and "STOP_DIALOG" not in sum_res:
-                    memory["history"].insert(0, {"time_short": "ПАМЯТЬ", "chat_id": 0, "user": "SYSTEM", "text": sum_res, "bot_reply": None})
+            if len(memory["history"]) > MAX_HISTORY_STORAGE:
+                old_hist = memory["history"][:500]
+                memory["history"] = memory["history"][500:]
+                hist_text = "\n".join([f"[{h.get('date_str', '')} {h.get('chat_title', 'чат')}] {h['user']}: {h['text']}" for h in old_hist])
+                sum_res = generate_smart_summary(
+                    f"Выдели все важные факты о людях, событиях и договоренностях из этих диалогов (5-8 предложений):\n{hist_text}",
+                    "Ты хранитель долгосрочного архива памяти.",
+                    retries=2,
+                )
+                if sum_res and "IGNORE" not in sum_res and "[STOP]" not in sum_res:
+                    memory.setdefault("eternal_facts", []).append(f"[{today_str}] {sum_res}")
                 save_memory(push_git=True)
         except Exception as e:
             logging.error(f"Background Tasks Error: {e}")
@@ -1356,10 +1708,9 @@ def parse_sticker_set(set_name, chat_id, thread_id):
     save_config(push_git=True)
     send_message(chat_id, f"✅ Готово! Добавлено стикеров: {count}.", message_thread_id=thread_id)
 
-# ================= БУФЕР И СТРОГИЙ АЛГОРИТМ АДРЕСАЦИИ В ГРУППАХ =================
+# ================= БУФЕР И ОБРАБОТКА ОТВЕТОВ =================
 
 def has_explicit_ping(text, is_group, is_reply_to_bot):
-    """Строгая проверка обращения к Толику (без ложных срабатываний на слова типа 'столик')."""
     if not is_group or is_reply_to_bot:
         return True
     t_low = text.lower()
@@ -1392,89 +1743,97 @@ def finalize_and_reply_wrapper(buffer_key, data):
 def finalize_and_reply(data):
     chat_id, raw_user_name, thread_id = data["chat_id"], data["user_name"], data["thread_id"]
     user_id, is_group = data["user_id"], data["is_group"]
+    chat_title = data.get("chat_title") or get_chat_display_name(chat_id)
+    num_buffered = len(data["texts"])
     combined_text = "\n".join(data["texts"])
     image_parts = list(data.get("images", []))
     media_types = list(data.get("media_types", []))
     seeing_own_drawing = data.get("seeing_own_drawing", False)
     memory = load_memory()
-    now = get_minsk_time()
+    now_dt = get_minsk_time()
+    now_ts = time.time()
     conv_key = f"{chat_id}_{user_id}"
 
     user_name = find_canonical_user_key(memory, raw_user_name, user_id)
+    u_data = memory["users"].setdefault(user_name, {"profile": "Пока мало данных", "msg_count": 0, "tolik_msg_count": 0})
+    u_data["msg_count"] = u_data.get("msg_count", 0) + 1
 
-    memory["users"].setdefault(user_name, {"profile": "Пока мало данных", "msg_count": 0})
-    memory["users"][user_name]["msg_count"] = memory["users"][user_name].get("msg_count", 0) + 1
-    msg_cnt = memory["users"][user_name]["msg_count"]
+    if num_buffered > 1:
+        print(f"🔗 [ОБЪЕДИНЕНИЕ]: Объединено {num_buffered} сообщений подряд от @{user_name}!")
+
+    base_hist_entry = {
+        "ts": now_ts,
+        "date_str": now_dt.strftime("%d.%m.%Y"),
+        "time_short": now_dt.strftime("%H:%M:%S"),
+        "chat_id": chat_id,
+        "chat_title": chat_title,
+        "user": user_name,
+        "text": combined_text,
+        "bot_reply": None,
+    }
 
     if not data["should_reply"]:
         active_conversations.pop(conv_key, None)
-        memory["history"].append({"time_short": now.strftime("%H:%M"), "chat_id": chat_id, "user": user_name, "text": combined_text, "bot_reply": None})
+        memory["history"].append(base_hist_entry)
         save_memory()
-        log_dialogue_to_topic(user_name, user_id, combined_text, None, is_group)
-        if msg_cnt == 5 or msg_cnt % 10 == 0:
-            threading.Thread(target=update_dossier, args=(user_name, user_id), daemon=True).start()
+        log_dialogue_to_topic(user_name, user_id, combined_text, None, chat_title)
         return
 
     explicit_ping = has_explicit_ping(combined_text, is_group, data.get("is_reply_to_bot", False))
 
-    # В группе одиночные стикеры и гифки без реплая Толику НЕ считаются продолжением текстового диалога!
     only_sticker_or_gif_no_ping = (
-        is_group and not explicit_ping and any(m in media_types for m in ["sticker", "gif"]) and len(data["texts"]) == 1 and "отправил СТИКЕР" in combined_text or "отправил ГИФКУ" in combined_text
+        is_group and not explicit_ping and any(m in media_types for m in ["sticker", "gif"])
+        and num_buffered == 1 and ("отправил СТИКЕР" in combined_text or "отправил ГИФКУ" in combined_text)
     )
 
     in_active_dialog = False
     if conv_key in active_conversations and not only_sticker_or_gif_no_ping:
-        # Строгое окно 35 секунд после ответа Толика (и только если в чате не перебили другие люди)
-        if time.time() - active_conversations[conv_key] < 35 and last_chat_sender.get(chat_id) in [user_id, BOT_ID, None]:
+        if now_ts - active_conversations[conv_key] < 35 and last_chat_sender.get(chat_id) in [user_id, BOT_ID, None]:
             in_active_dialog = True
         else:
             active_conversations.pop(conv_key, None)
 
     if is_group and not explicit_ping and not in_active_dialog:
         last_chat_sender[chat_id] = user_id
-        memory["history"].append({"time_short": now.strftime("%H:%M"), "chat_id": chat_id, "user": user_name, "text": combined_text, "bot_reply": None})
+        memory["history"].append(base_hist_entry)
         save_memory()
-        log_dialogue_to_topic(user_name, user_id, combined_text, None, is_group)
-        if msg_cnt == 5 or msg_cnt % 10 == 0:
-            threading.Thread(target=update_dossier, args=(user_name, user_id), daemon=True).start()
+        log_dialogue_to_topic(user_name, user_id, combined_text, None, chat_title)
         return
 
     if check_reply_rate_spam(user_id):
-        memory.setdefault("ignored_users", {})[str(user_id)] = time.time() + 120
+        memory.setdefault("ignored_users", {})[str(user_id)] = now_ts + 120
         save_memory()
         send_message(chat_id, "подожди пару минут, ты слишком быстро строчишь", message_thread_id=thread_id)
         return
 
-    if not image_parts and chat_id in last_bot_image and time.time() - last_bot_image[chat_id]["time"] < 180:
+    if not image_parts and chat_id in last_bot_image and now_ts - last_bot_image[chat_id]["time"] < 180:
         image_parts.append(last_bot_image[chat_id]["media"])
         seeing_own_drawing = True
 
-    if not image_parts and chat_id in last_chat_media and time.time() - last_chat_media[chat_id]["time"] < 180:
+    if not image_parts and chat_id in last_chat_media and now_ts - last_chat_media[chat_id]["time"] < 180:
         kws = ["видео", "ролик", "видос", "гиф", "фот", "картинк", "рисун", "скетч", "скрин", "мем", "глянь", "опиши", "посмотри", "что тут", "че там", "чё там"]
         if any(kw in combined_text.lower() for kw in kws):
             image_parts.append(last_chat_media[chat_id]["media"])
             if last_chat_media[chat_id].get("kind"):
                 media_types.append(last_chat_media[chat_id]["kind"])
 
-    u_info = memory.get("users", {}).get(user_name, {})
-    fn_ln = f"{u_info.get('first_name', '')} {u_info.get('last_name', '')}".strip()
-    user_profile = f"Имя в ТГ: {fn_ln or user_name} | О себе: {u_info.get('bio', 'нет')}\n{u_info.get('profile', 'Пока мало данных')}"
+    fn_ln = f"{u_data.get('first_name', '')} {u_data.get('last_name', '')}".strip()
+    user_profile = f"Имя в ТГ: {fn_ln or user_name} | О себе: {u_data.get('bio', 'нет')}\n{u_data.get('profile', 'Пока мало данных')}"
     chat_history = [h for h in memory["history"] if h["chat_id"] == chat_id]
 
-    post_dialog_check = is_group and not explicit_ping and in_active_dialog
     reply = fetch_ai_response(
         combined_text, chat_history, user_name, user_profile, data["reply_target_info"],
         memory=memory, chat_id=chat_id, image_parts=image_parts, media_types=media_types,
-        explicit_ping=explicit_ping, post_dialog_check=post_dialog_check, seeing_own_drawing=seeing_own_drawing,
+        num_buffered=num_buffered, seeing_own_drawing=seeing_own_drawing,
     )
 
-    if reply == "STOP_DIALOG":
+    if reply == "[STOP]" or not reply.strip():
         active_conversations.pop(conv_key, None)
         last_chat_sender[chat_id] = user_id
-        print(f"🛑 [STOP_DIALOG]: Диалог с @{user_name} закрыт -> включен стандартный тихий режим!")
-        memory["history"].append({"time_short": now.strftime("%H:%M"), "chat_id": chat_id, "user": user_name, "text": combined_text, "bot_reply": None})
+        print(f"🛑 [[STOP]]: Толик решил промолчать на реплику @{user_name} в {chat_title}.")
+        memory["history"].append(base_hist_entry)
         save_memory()
-        log_dialogue_to_topic(user_name, user_id, combined_text, None, is_group)
+        log_dialogue_to_topic(user_name, user_id, combined_text, None, chat_title)
         return
 
     active_conversations[conv_key] = time.time()
@@ -1530,23 +1889,30 @@ def finalize_and_reply(data):
         if chunk_text:
             send_message(chat_id, chunk_text, message_thread_id=thread_id, reply_to_message_id=reply_to_id if i == 0 else None)
             sent_replies.append(chunk_text)
-            time.sleep(random.uniform(0.8, 1.3))
+            if len(chunks) > 1:
+                time.sleep(random.uniform(0.8, 1.3))
 
     full_bot_reply = " [MSG] ".join(sent_replies)
-    memory["history"].append({"time_short": now.strftime("%H:%M"), "chat_id": chat_id, "user": user_name, "text": combined_text, "bot_reply": full_bot_reply})
-    save_memory()
-    log_dialogue_to_topic(user_name, user_id, combined_text, full_bot_reply, is_group)
+    base_hist_entry["bot_reply"] = full_bot_reply
+    memory["history"].append(base_hist_entry)
 
-    if msg_cnt == 4 or msg_cnt % 7 == 0:
+    u_data["tolik_msg_count"] = u_data.get("tolik_msg_count", 0) + 1
+    tolik_cnt = u_data["tolik_msg_count"]
+    save_memory()
+
+    log_dialogue_to_topic(user_name, user_id, combined_text, full_bot_reply, chat_title)
+
+    if tolik_cnt % 10 == 0:
+        print(f"📋 [ДОСЬЕ (10 ответов Толика)]: Обновляю досье на @{user_name}...")
         threading.Thread(target=update_dossier, args=(user_name, user_id), daemon=True).start()
 
 # ================= ГЛАВНЫЙ ЦИКЛ БОТА =================
 
 def run_bot():
     last_update_id = 0
-    print("=" * 70)
-    print("🚀 Толик запущен (Админ-панель + Одобрение чатов + Умные Досье)!")
-    print("=" * 70)
+    print("=" * 75)
+    print("🚀 Толик запущен (Gemini 3.6 Flash + Даты сообщений + Max Память + /panel)!")
+    print("=" * 75)
 
     threading.Thread(target=sync_all_users_on_start, daemon=True).start()
     threading.Thread(target=process_buffered_messages, daemon=True).start()
@@ -1567,12 +1933,10 @@ def run_bot():
             for update in r.json().get("result", []):
                 last_update_id = update["update_id"]
 
-                # 1. Обработка нажатий на инлайн-кнопки (Одобрить / Отказать чату)
                 if "callback_query" in update:
                     handle_callback_query(update["callback_query"])
                     continue
 
-                # 2. Если бота только что добавили в новую группу (my_chat_member)
                 if "my_chat_member" in update:
                     mcm = update["my_chat_member"]
                     new_st = mcm.get("new_chat_member", {}).get("status")
@@ -1598,6 +1962,10 @@ def run_bot():
                 media_types = []
                 seeing_own_drawing = False
 
+                is_group = msg["chat"]["type"] in ["group", "supergroup"]
+                raw_chat_title = msg["chat"].get("title")
+                chat_title = f"Группа «{raw_chat_title}»" if (is_group and raw_chat_title) else ("ЛС" if not is_group else f"Группа ({chat_id})")
+
                 mem_snap = load_memory()
                 if chat_id < 0 and chat_id not in synced_chats:
                     synced_chats.add(chat_id)
@@ -1607,32 +1975,26 @@ def run_bot():
                     register_user_metadata(mem_snap, msg["reply_to_message"]["from"], chat_id)
                 save_memory()
 
-                # --- Команды Админа ---
                 if user_name.lower() == ADMIN_USERNAME.lower() and text.strip().startswith("/"):
                     if handle_admin_command(msg, chat_id, thread_id, message_id, text):
                         continue
 
-                # --- Не отвечаем в самом техническом чате досье ---
                 cfg_now = load_config()
                 if cfg_now.get("main_chat_id") and chat_id == cfg_now.get("main_chat_id"):
                     continue
 
-                # --- Проверка одобрения группового чата админом ---
-                is_group = msg["chat"]["type"] in ["group", "supergroup"]
                 if is_group:
                     chat_allowed = check_and_register_group_chat(msg["chat"])
                     if not chat_allowed:
-                        # Если чат не одобрен (или в режиме тишины) — Толик просто молчит!
                         continue
 
                 flood_status = check_flood_on_incoming(user_id)
                 if flood_status == "MUTED":
                     continue
                 elif flood_status == "TRIGGER_MUTE":
-                    send_message(chat_id, "эй, полегче, не флуди так жестко [MSG] помолчу пару минут", message_thread_id=thread_id)
+                    send_message(chat_id, "эй, полегче, не флуди так жестко, помолчу пару минут", message_thread_id=thread_id)
                     continue
 
-                # --- Обработка медиафайлов с точным различением типа ---
                 if "voice" in msg or "video_note" in msg:
                     is_vnote = "video_note" in msg
                     voice_obj = msg.get("voice") or msg.get("video_note")
@@ -1733,7 +2095,7 @@ def run_bot():
                 with buffer_lock:
                     if buffer_key not in message_buffer:
                         message_buffer[buffer_key] = {
-                            "chat_id": chat_id, "user_id": user_id, "user_name": user_name,
+                            "chat_id": chat_id, "chat_title": chat_title, "user_id": user_id, "user_name": user_name,
                             "thread_id": thread_id, "message_id": message_id, "is_group": is_group,
                             "is_reply_to_bot": is_reply_to_bot, "seeing_own_drawing": seeing_own_drawing,
                             "texts": [text] if text else [], "images": incoming_images, "media_types": media_types,
@@ -1743,6 +2105,7 @@ def run_bot():
                         if text and len(message_buffer[buffer_key]["texts"]) < MAX_MESSAGES_IN_BUFFER:
                             if not message_buffer[buffer_key]["texts"] or message_buffer[buffer_key]["texts"][-1] != text:
                                 message_buffer[buffer_key]["texts"].append(text)
+                                print(f"➕ [ОБЪЕДИНЕНИЕ ({len(message_buffer[buffer_key]['texts'])} шт.)]: Жду ещё {BUFFER_WAIT_SECONDS} сек...")
                         if incoming_images and len(message_buffer[buffer_key]["images"]) < 4:
                             message_buffer[buffer_key]["images"].extend(incoming_images)
                         if media_types:
