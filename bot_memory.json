@@ -7633,6 +7633,16 @@
       "user": "alexmard",
       "text": "лучше",
       "bot_reply": null
+    },
+    {
+      "ts": 1794071447.3247104,
+      "date_str": "07.11.2026",
+      "time_short": "20:10:47",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "alexmard",
+      "text": "фурри бот как человек",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -7890,7 +7900,7 @@
     },
     "alexmard": {
       "profile": "**ДОСЬЕ ПОЛЬЗОВАТЕЛЯ @alexmard**\n\n👤 **Основное:**\nПользователь зарегистрирован",
-      "msg_count": 192,
+      "msg_count": 193,
       "user_id": 7014663496,
       "username": "alexmard",
       "first_name": "Alex",
