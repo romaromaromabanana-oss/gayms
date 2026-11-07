@@ -7678,6 +7678,20 @@
       "user": "Statist323",
       "text": "Очевидно",
       "bot_reply": null
+    },
+    {
+      "time_short": "14:28",
+      "chat_id": -1003733973211,
+      "user": "Statist323",
+      "text": "Вот есть вопрос посложнее",
+      "bot_reply": null
+    },
+    {
+      "time_short": "14:28",
+      "chat_id": -1003733973211,
+      "user": "Statist323",
+      "text": "Рогал Дорн или Пертурабо?",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -8456,7 +8470,7 @@
     },
     "Statist323": {
       "profile": "Вот обновленное психоаналитическое досье на пользователя **@Statist323**, составленное строго на основе предоставленных",
-      "msg_count": 6,
+      "msg_count": 8,
       "user_id": 5559288909,
       "username": "Statist323",
       "first_name": "Statist",
