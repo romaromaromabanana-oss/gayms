@@ -7412,6 +7412,27 @@
       "user": "madsciencetist",
       "text": "блять\nя забыл",
       "bot_reply": null
+    },
+    {
+      "time_short": "19:34",
+      "chat_id": -1002626154604,
+      "user": "madsciencetist",
+      "text": "мне тут кидали анимацию по дельтаруну",
+      "bot_reply": null
+    },
+    {
+      "time_short": "19:35",
+      "chat_id": -1002626154604,
+      "user": "madsciencetist",
+      "text": "где гастер забирает крис и ноэлль с острова эпштейна",
+      "bot_reply": null
+    },
+    {
+      "time_short": "19:35",
+      "chat_id": -1002626154604,
+      "user": "alexmard",
+      "text": "ъаъа",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -7668,7 +7689,7 @@
     },
     "alexmard": {
       "profile": "**ДОСЬЕ ПОЛЬЗОВАТЕЛЯ @alexmard**\n\n👤 **Основное:**\nПользователь зарегистрирован",
-      "msg_count": 186,
+      "msg_count": 187,
       "user_id": 7014663496,
       "username": "alexmard",
       "first_name": "Alex",
@@ -8374,7 +8395,7 @@
     },
     "madsciencetist": {
       "profile": "Пока мало данных",
-      "msg_count": 1,
+      "msg_count": 3,
       "user_id": 998419291,
       "username": "madsciencetist",
       "first_name": "Who?",
