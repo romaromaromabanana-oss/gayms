@@ -6950,6 +6950,13 @@
       "user": "Guest_Sgfffcgfdxxxx",
       "text": "Нет",
       "bot_reply": null
+    },
+    {
+      "time_short": "11:56",
+      "chat_id": -1002626154604,
+      "user": "eliisa43",
+      "text": "У тебя есть опровержение моей теории?",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -7750,7 +7757,7 @@
     },
     "eliisa43": {
       "profile": "Вот подробное психологическое досье на пользователя **@eliisa43**, составленное на основе предоставленных данных.\n\n👤",
-      "msg_count": 7,
+      "msg_count": 8,
       "user_id": 6085948161,
       "username": "eliisa43",
       "first_name": "🜇 Игор Чичко",
