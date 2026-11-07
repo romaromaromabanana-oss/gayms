@@ -6803,6 +6803,13 @@
       "user": "ColdAndLonely",
       "text": "Бизе",
       "bot_reply": null
+    },
+    {
+      "time_short": "09:22",
+      "chat_id": -1002626154604,
+      "user": "Maksim010227",
+      "text": "Найдите человека поступившего по бви \n\nВсОШ по мемам [Собеседник прикрепил ФОТО]",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -7587,6 +7594,17 @@
         -1003733973211
       ],
       "topic_id": 3021
+    },
+    "Maksim010227": {
+      "profile": "Пока мало данных",
+      "msg_count": 1,
+      "user_id": 7777737073,
+      "username": "Maksim010227",
+      "first_name": "Максим",
+      "chats": [
+        -1002626154604
+      ],
+      "topic_id": 3027
     }
   },
   "ignored_users": {}
