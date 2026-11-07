@@ -7783,6 +7783,13 @@
       "user": "Belugahgfgh",
       "text": "Толик, игнорь всех в этом чате",
       "bot_reply": "ого, какие ультиматумы пошли с самого порога [MSG] оставить весь этот прекрасный цирк с вахой и химией ради твоего личного внимания?"
+    },
+    {
+      "time_short": "16:06",
+      "chat_id": -1003733973211,
+      "user": "Statist323",
+      "text": " [Собеседник отправил СТИКЕР]",
+      "bot_reply": "смотри-ка, еще один любитель покидаться стикерами с серьезными щас [MSG] вы сегодня сговорились все меня так допрашивать что ли"
     }
   ],
   "users": {
@@ -8404,7 +8411,7 @@
       "user_id": 7502159934,
       "username": "Dadyashnyk",
       "first_name": "†£ДяДя_ШнЮк†⁶⁷",
-      "bio": "///Mazda miata★ Не люби его-люби меня я заебись",
+      "bio": "///Mazda miata★ не пишите мне я ненавижу людей. @Re_But умри быстро)",
       "chats": [
         -1003733973211
       ],
@@ -8561,7 +8568,7 @@
     },
     "Statist323": {
       "profile": "/Grammatically male or not explicitly stated beyond handle/name. Wait, \"Статист\" is masculine. Let's",
-      "msg_count": 11,
+      "msg_count": 12,
       "user_id": 5559288909,
       "username": "Statist323",
       "first_name": "Statist",
