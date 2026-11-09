@@ -14093,6 +14093,16 @@
       "user": "Pistolass",
       "text": "Где где?",
       "bot_reply": null
+    },
+    {
+      "ts": 1794209338.0052464,
+      "date_str": "09.11.2026",
+      "time_short": "10:28:58",
+      "chat_id": -1002373626230,
+      "chat_title": "Группа «Фурри Минск сообщество»",
+      "user": "QuantumTheF0x",
+      "text": "Окак",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -15075,7 +15085,7 @@
     },
     "QuantumTheF0x": {
       "profile": "/Drama*:\n            *   Left for an *vocational school / college / academy* («училище») for 1.5 months; didn",
-      "msg_count": 188,
+      "msg_count": 189,
       "tolik_msg_count": 36,
       "user_id": 5975030677,
       "username": "QuantumTheF0x",
