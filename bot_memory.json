@@ -15243,6 +15243,16 @@
       "user": "Pistolass",
       "text": "Прикольно вышло",
       "bot_reply": null
+    },
+    {
+      "ts": 1794320176.6674871,
+      "date_str": "10.11.2026",
+      "time_short": "17:16:16",
+      "chat_id": -1002373626230,
+      "chat_title": "Группа «Фурри Минск сообщество»",
+      "user": "ven3x21",
+      "text": "Вроде нет, я не в курсе",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -16354,7 +16364,7 @@
     },
     "ven3x21": {
       "profile": "Пока мало данных",
-      "msg_count": 9,
+      "msg_count": 10,
       "tolik_msg_count": 1,
       "user_id": 8261871802,
       "username": "ven3x21",
