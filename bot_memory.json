@@ -17633,6 +17633,17 @@
       "chats": [
         -1002626154604
       ]
+    },
+    "smartspeech_sber_bot": {
+      "profile": "Пока мало данных",
+      "msg_count": 0,
+      "tolik_msg_count": 0,
+      "user_id": 5244379085,
+      "username": "smartspeech_sber_bot",
+      "first_name": "SaluteSpeech Bot",
+      "chats": [
+        -1002626154604
+      ]
     }
   },
   "ignored_users": {
