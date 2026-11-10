@@ -16103,6 +16103,16 @@
       "user": "Belugahgfgh",
       "text": "А",
       "bot_reply": null
+    },
+    {
+      "ts": 1794344846.408524,
+      "date_str": "11.11.2026",
+      "time_short": "00:07:26",
+      "chat_id": -1002373626230,
+      "chat_title": "Группа «Фурри Минск сообщество»",
+      "user": "ven3x21",
+      "text": "Тебе нравятся новеллы?",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -17214,7 +17224,7 @@
     },
     "ven3x21": {
       "profile": "Пока мало данных",
-      "msg_count": 23,
+      "msg_count": 24,
       "tolik_msg_count": 1,
       "user_id": 8261871802,
       "username": "ven3x21",
