@@ -15313,6 +15313,46 @@
       "user": "QuantumTheF0x",
       "text": " [Голосовое сообщение: \"Хе-хе. Чебурашка. Чебурашка. Чебурашка. Чебурашка.\"]",
       "bot_reply": null
+    },
+    {
+      "ts": 1794337688.0129132,
+      "date_str": "10.11.2026",
+      "time_short": "22:08:08",
+      "chat_id": -1002373626230,
+      "chat_title": "Группа «Фурри Минск сообщество»",
+      "user": "QuantumTheF0x",
+      "text": " [Собеседник прикрепил ФОТО]\nБля а может? [Собеседник прикрепил ФОТО]",
+      "bot_reply": null
+    },
+    {
+      "ts": 1794337693.2151113,
+      "date_str": "10.11.2026",
+      "time_short": "22:08:13",
+      "chat_id": -1002373626230,
+      "chat_title": "Группа «Фурри Минск сообщество»",
+      "user": "QuantumTheF0x",
+      "text": "Стоит делать такую или нет",
+      "bot_reply": null
+    },
+    {
+      "ts": 1794337751.635587,
+      "date_str": "10.11.2026",
+      "time_short": "22:09:11",
+      "chat_id": -1002373626230,
+      "chat_title": "Группа «Фурри Минск сообщество»",
+      "user": "ven3x21",
+      "text": "Нет",
+      "bot_reply": null
+    },
+    {
+      "ts": 1794337760.4390717,
+      "date_str": "10.11.2026",
+      "time_short": "22:09:20",
+      "chat_id": -1002373626230,
+      "chat_title": "Группа «Фурри Минск сообщество»",
+      "user": "ven3x21",
+      "text": "Набей фурри",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -16295,7 +16335,7 @@
     },
     "QuantumTheF0x": {
       "profile": "/Drama*:\n            *   Left for an *vocational school / college / academy* («училище») for 1.5 months; didn",
-      "msg_count": 214,
+      "msg_count": 216,
       "tolik_msg_count": 39,
       "user_id": 5975030677,
       "username": "QuantumTheF0x",
@@ -16424,7 +16464,7 @@
     },
     "ven3x21": {
       "profile": "Пока мало данных",
-      "msg_count": 10,
+      "msg_count": 12,
       "tolik_msg_count": 1,
       "user_id": 8261871802,
       "username": "ven3x21",
