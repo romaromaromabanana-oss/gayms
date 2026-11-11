@@ -15403,6 +15403,16 @@
       "user": "QuantumTheF0x",
       "text": " [Собеседник прикрепил ФОТО]",
       "bot_reply": null
+    },
+    {
+      "ts": 1794387848.2512102,
+      "date_str": "11.11.2026",
+      "time_short": "12:04:08",
+      "chat_id": 8189959073,
+      "chat_title": "ЛС",
+      "user": "13",
+      "text": "/start\nПривет\nЛох\nЛол\nПидор\nГей\nФурри\nСука",
+      "bot_reply": "ну привет, перечислил мой базовый сетап) а лох и сука тут к чему вообще? зайти забыл нормально или шо?"
     }
   ],
   "users": {
@@ -16945,6 +16955,18 @@
       "chats": [
         -1002626154604
       ]
+    },
+    "13": {
+      "profile": "Пока мало данных",
+      "msg_count": 1,
+      "tolik_msg_count": 1,
+      "user_id": 8189959073,
+      "first_name": "13",
+      "bio": "Happiness is in money, it's true. Well, and also in their quantity",
+      "chats": [
+        8189959073
+      ],
+      "topic_id": 4623
     }
   },
   "ignored_users": {
