@@ -15923,6 +15923,16 @@
       "user": "Pistolass",
       "text": "Сижу пытаюсь как-то что-то сделать",
       "bot_reply": null
+    },
+    {
+      "ts": 1794416153.5269253,
+      "date_str": "11.11.2026",
+      "time_short": "19:55:53",
+      "chat_id": -1002373626230,
+      "chat_title": "Группа «Фурри Минск сообщество»",
+      "user": "QuantumTheF0x",
+      "text": " [Голосовое сообщение: \"Из Борисова выбранаху бабруйск.\"]",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -16905,7 +16915,7 @@
     },
     "QuantumTheF0x": {
       "profile": "**ПСИХОЛОГО-АНАЛИТИЧЕСКОЕ ДОСЬЕ ПОЛЬЗОВАТЕЛЯ**\n\n---",
-      "msg_count": 220,
+      "msg_count": 221,
       "tolik_msg_count": 41,
       "user_id": 5975030677,
       "username": "QuantumTheF0x",
