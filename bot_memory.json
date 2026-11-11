@@ -15633,6 +15633,16 @@
       "user": "ven3x21",
       "text": "В лс",
       "bot_reply": null
+    },
+    {
+      "ts": 1794399691.9655552,
+      "date_str": "11.11.2026",
+      "time_short": "15:21:31",
+      "chat_id": 5975030677,
+      "chat_title": "ЛС",
+      "user": "QuantumTheF0x",
+      "text": "Толя, какие учреждения для поступления на сварщика в Борисове? (Минская область) И что туда надо знать и сдавать?",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -16615,7 +16625,7 @@
     },
     "QuantumTheF0x": {
       "profile": "/Drama*:\n            *   Left for an *vocational school / college / academy* («училище») for 1.5 months; didn",
-      "msg_count": 217,
+      "msg_count": 218,
       "tolik_msg_count": 39,
       "user_id": 5975030677,
       "username": "QuantumTheF0x",
