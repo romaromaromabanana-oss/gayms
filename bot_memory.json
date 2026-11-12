@@ -18377,6 +18377,17 @@
         -1002626154604
       ],
       "topic_id": 3279
+    },
+    "iris_cm_bot": {
+      "profile": "Пока мало данных",
+      "msg_count": 0,
+      "tolik_msg_count": 0,
+      "user_id": 707693258,
+      "username": "iris_cm_bot",
+      "first_name": "Iris | Чат-менеджер",
+      "chats": [
+        -1003733973211
+      ]
     }
   },
   "ignored_users": {},
