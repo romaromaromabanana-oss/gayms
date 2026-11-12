@@ -16483,6 +16483,16 @@
       "user": "Pistolass",
       "text": "И это ещё малая часть",
       "bot_reply": null
+    },
+    {
+      "ts": 1794484755.0707424,
+      "date_str": "12.11.2026",
+      "time_short": "14:59:15",
+      "chat_id": -1002373626230,
+      "chat_title": "Группа «Фурри Минск сообщество»",
+      "user": "QuantumTheF0x",
+      "text": "Моя статья",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -17466,7 +17476,7 @@
     },
     "QuantumTheF0x": {
       "profile": "**ПСИХОЛОГО-АНАЛИТИЧЕСКОЕ ДОСЬЕ ПОЛЬЗОВАТЕЛЯ**\n\n---",
-      "msg_count": 233,
+      "msg_count": 234,
       "tolik_msg_count": 42,
       "user_id": 5975030677,
       "username": "QuantumTheF0x",
