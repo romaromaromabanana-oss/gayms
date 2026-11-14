@@ -19302,6 +19302,17 @@
       "chats": [
         -1002626154604
       ]
+    },
+    "sister_of_kador_bot": {
+      "profile": "Пока мало данных",
+      "msg_count": 0,
+      "tolik_msg_count": 0,
+      "user_id": 8765420845,
+      "username": "sister_of_kador_bot",
+      "first_name": "💎👑",
+      "chats": [
+        -1002626154604
+      ]
     }
   },
   "ignored_users": {},
