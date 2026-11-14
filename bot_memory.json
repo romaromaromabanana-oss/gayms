@@ -17463,6 +17463,16 @@
       "user": "Furryfunboy",
       "text": "Нет",
       "bot_reply": null
+    },
+    {
+      "ts": 1794644763.4222922,
+      "date_str": "14.11.2026",
+      "time_short": "11:26:03",
+      "chat_id": -1002373626230,
+      "chat_title": "Группа «Фурри Минск сообщество»",
+      "user": "QuantumTheF0x",
+      "text": "А мне",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -18425,7 +18435,7 @@
     },
     "QuantumTheF0x": {
       "profile": "**ПСИХОЛОГО-АНАЛИТИЧЕСКОЕ ДОСЬЕ ПОЛЬЗОВАТЕЛЯ**\n\n---",
-      "msg_count": 246,
+      "msg_count": 247,
       "tolik_msg_count": 42,
       "user_id": 5975030677,
       "username": "QuantumTheF0x",
