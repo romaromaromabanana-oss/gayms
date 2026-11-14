@@ -19493,6 +19493,17 @@
       "chats": [
         -1002626154604
       ]
+    },
+    "alisa": {
+      "profile": "Пока мало данных",
+      "msg_count": 0,
+      "tolik_msg_count": 0,
+      "user_id": 8310045254,
+      "username": "alisa",
+      "first_name": "Алиса AI",
+      "chats": [
+        -1002626154604
+      ]
     }
   },
   "ignored_users": {},
