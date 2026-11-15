@@ -33793,6 +33793,56 @@
       "user": "gagarvin",
       "text": "глебас пж stop talking",
       "bot_reply": null
+    },
+    {
+      "ts": 1794777624.0480235,
+      "date_str": "16.11.2026",
+      "time_short": "00:20:24",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "madsciencetist",
+      "text": "ок",
+      "bot_reply": null
+    },
+    {
+      "ts": 1794777624.8486035,
+      "date_str": "16.11.2026",
+      "time_short": "00:20:24",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "gagarvin",
+      "text": "сириус?))",
+      "bot_reply": null
+    },
+    {
+      "ts": 1794777635.2518654,
+      "date_str": "16.11.2026",
+      "time_short": "00:20:35",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "Georg_chem",
+      "text": "Почти",
+      "bot_reply": null
+    },
+    {
+      "ts": 1794777637.657703,
+      "date_str": "16.11.2026",
+      "time_short": "00:20:37",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "madsciencetist",
+      "text": " [Собеседник отправил ГИФКУ (GIF)]\nну мое личное мнение",
+      "bot_reply": null
+    },
+    {
+      "ts": 1794777642.4602504,
+      "date_str": "16.11.2026",
+      "time_short": "00:20:42",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "Llisztt",
+      "text": "Воронеж?",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -34099,7 +34149,7 @@
     },
     "gagarvin": {
       "profile": "Пока мало данных",
-      "msg_count": 37,
+      "msg_count": 38,
       "user_id": 1387522917,
       "username": "gagarvin",
       "first_name": "✡️︎𝐀𝐥₂[𝐁𝐞₃(𝐒𝐢₆𝐎₁₈)]",
@@ -34741,7 +34791,7 @@
     },
     "madsciencetist": {
       "profile": "Пока мало данных",
-      "msg_count": 35,
+      "msg_count": 37,
       "user_id": 998419291,
       "username": "madsciencetist",
       "first_name": "Who?",
@@ -34970,7 +35020,7 @@
     },
     "Georg_chem": {
       "profile": "Пока мало данных",
-      "msg_count": 5,
+      "msg_count": 6,
       "tolik_msg_count": 0,
       "user_id": 5742279651,
       "username": "Georg_chem",
@@ -35009,7 +35059,7 @@
     },
     "Llisztt": {
       "profile": "Пока мало данных",
-      "msg_count": 0,
+      "msg_count": 1,
       "tolik_msg_count": 0,
       "user_id": 7817847456,
       "username": "Llisztt",
@@ -35017,7 +35067,8 @@
       "bio": "я без каких-либо психических отклонений",
       "chats": [
         -1002626154604
-      ]
+      ],
+      "topic_id": 6539
     },
     "The_Maxwell_Cat": {
       "profile": "Пока мало данных",
