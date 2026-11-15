@@ -22683,6 +22683,16 @@
       "user": "C6H12O8",
       "text": " [Собеседник отправил ГИФКУ (GIF)]",
       "bot_reply": null
+    },
+    {
+      "ts": 1794749485.069849,
+      "date_str": "15.11.2026",
+      "time_short": "16:31:25",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "C6H12O8",
+      "text": " [Собеседник прикрепил ФОТО]",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -24586,7 +24596,7 @@
     },
     "C6H12O8": {
       "profile": "Пока мало данных",
-      "msg_count": 1,
+      "msg_count": 2,
       "tolik_msg_count": 0,
       "user_id": 8239891364,
       "username": "C6H12O8",
