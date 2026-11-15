@@ -19373,6 +19373,16 @@
       "user": "tilcayo_cat2048",
       "text": "ок",
       "bot_reply": null
+    },
+    {
+      "ts": 1794735658.2385464,
+      "date_str": "15.11.2026",
+      "time_short": "12:40:58",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "maxcyou",
+      "text": "хуевый",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -21222,7 +21232,7 @@
     },
     "maxcyou": {
       "profile": "Пока мало данных",
-      "msg_count": 0,
+      "msg_count": 1,
       "tolik_msg_count": 0,
       "user_id": 7906608399,
       "username": "maxcyou",
@@ -21230,7 +21240,8 @@
       "bio": "building stuff & breaking stuff | maxcyou.ru",
       "chats": [
         -1002626154604
-      ]
+      ],
+      "topic_id": 5045
     },
     "eblangptrobot": {
       "profile": "Пока мало данных",
