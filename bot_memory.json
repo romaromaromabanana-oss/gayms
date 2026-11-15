@@ -31913,6 +31913,96 @@
       "user": "cr1972627",
       "text": " [Собеседник отправил СТИКЕР]",
       "bot_reply": null
+    },
+    {
+      "ts": 1794769430.890313,
+      "date_str": "15.11.2026",
+      "time_short": "22:03:50",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "kristina_1539",
+      "text": "Гумы не дегенераты",
+      "bot_reply": null
+    },
+    {
+      "ts": 1794769454.8984923,
+      "date_str": "15.11.2026",
+      "time_short": "22:04:14",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "kristina_1539",
+      "text": "А я",
+      "bot_reply": null
+    },
+    {
+      "ts": 1794769475.7065,
+      "date_str": "15.11.2026",
+      "time_short": "22:04:35",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "Daniel_Matan",
+      "text": "Ты тоже",
+      "bot_reply": null
+    },
+    {
+      "ts": 1794769482.1087792,
+      "date_str": "15.11.2026",
+      "time_short": "22:04:42",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "Daniel_Matan",
+      "text": "Но я умнее.",
+      "bot_reply": null
+    },
+    {
+      "ts": 1794769506.5171924,
+      "date_str": "15.11.2026",
+      "time_short": "22:05:06",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "sele_n1um",
+      "text": "А я",
+      "bot_reply": null
+    },
+    {
+      "ts": 1794769556.933789,
+      "date_str": "15.11.2026",
+      "time_short": "22:05:56",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "kristina_1539",
+      "text": "Ладно",
+      "bot_reply": null
+    },
+    {
+      "ts": 1794769567.7378507,
+      "date_str": "15.11.2026",
+      "time_short": "22:06:07",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "kristina_1539",
+      "text": "Все мы когда-то ошибаемся",
+      "bot_reply": null
+    },
+    {
+      "ts": 1794769598.147812,
+      "date_str": "15.11.2026",
+      "time_short": "22:06:38",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "Daniel_Matan",
+      "text": "У меня не бывает ошибок",
+      "bot_reply": null
+    },
+    {
+      "ts": 1794769605.350535,
+      "date_str": "15.11.2026",
+      "time_short": "22:06:45",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "Daniel_Matan",
+      "text": "Я не такой же человек, как вы",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -32269,7 +32359,7 @@
     },
     "Daniel_Matan": {
       "profile": "Пока мало данных",
-      "msg_count": 15,
+      "msg_count": 19,
       "user_id": 6090411206,
       "username": "Daniel_Matan",
       "first_name": "Daniel",
@@ -32912,7 +33002,7 @@
     },
     "kristina_1539": {
       "profile": "Пока мало данных",
-      "msg_count": 7,
+      "msg_count": 11,
       "tolik_msg_count": 0,
       "user_id": 8171021224,
       "username": "kristina_1539",
@@ -33262,7 +33352,7 @@
     },
     "sele_n1um": {
       "profile": "Пока мало данных",
-      "msg_count": 82,
+      "msg_count": 83,
       "tolik_msg_count": 0,
       "user_id": 5623068183,
       "username": "sele_n1um",
