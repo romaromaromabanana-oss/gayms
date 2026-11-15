@@ -33013,6 +33013,16 @@
       "user": "winraiz",
       "text": "Когда пришёл на егэ но ты аудитори брейкер",
       "bot_reply": null
+    },
+    {
+      "ts": 1794773641.8119602,
+      "date_str": "15.11.2026",
+      "time_short": "23:14:01",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "roma126479627",
+      "text": "памагите",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -34732,14 +34742,15 @@
     },
     "roma126479627": {
       "profile": "Пока мало данных",
-      "msg_count": 0,
+      "msg_count": 1,
       "tolik_msg_count": 0,
       "user_id": 8166230937,
       "username": "roma126479627",
       "first_name": "User299373863991827336647482828",
       "chats": [
         -1002626154604
-      ]
+      ],
+      "topic_id": 6455
     },
     "hidislo": {
       "profile": "Пока мало данных",
