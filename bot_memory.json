@@ -23123,6 +23123,36 @@
       "user": "grindhardee",
       "text": "иди нах",
       "bot_reply": null
+    },
+    {
+      "ts": 1794751173.5952063,
+      "date_str": "15.11.2026",
+      "time_short": "16:59:33",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "Chase_the_sunset",
+      "text": "я с этой Японией скоро повешусь",
+      "bot_reply": null
+    },
+    {
+      "ts": 1794751179.9973278,
+      "date_str": "15.11.2026",
+      "time_short": "16:59:39",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "C6H12O8",
+      "text": "Почему",
+      "bot_reply": null
+    },
+    {
+      "ts": 1794751187.9999201,
+      "date_str": "15.11.2026",
+      "time_short": "16:59:47",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "Chase_the_sunset",
+      "text": "сори триггер слвоо сказалт",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -25029,7 +25059,7 @@
     },
     "C6H12O8": {
       "profile": "Пока мало данных",
-      "msg_count": 15,
+      "msg_count": 16,
       "tolik_msg_count": 0,
       "user_id": 8239891364,
       "username": "C6H12O8",
@@ -25041,7 +25071,7 @@
     },
     "Chase_the_sunset": {
       "profile": "Пока мало данных",
-      "msg_count": 3,
+      "msg_count": 5,
       "tolik_msg_count": 0,
       "user_id": 1822627444,
       "username": "Chase_the_sunset",
