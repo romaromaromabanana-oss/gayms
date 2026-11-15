@@ -20068,6 +20068,17 @@
       "chats": [
         -1002626154604
       ]
+    },
+    "eblangptrobot": {
+      "profile": "Пока мало данных",
+      "msg_count": 0,
+      "tolik_msg_count": 0,
+      "user_id": 8896071926,
+      "username": "eblangptrobot",
+      "first_name": "EblanGPT",
+      "chats": [
+        -1002626154604
+      ]
     }
   },
   "ignored_users": {},
