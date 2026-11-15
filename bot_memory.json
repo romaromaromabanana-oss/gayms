@@ -20056,6 +20056,18 @@
         6385496035
       ],
       "topic_id": 4908
+    },
+    "maxcyou": {
+      "profile": "Пока мало данных",
+      "msg_count": 0,
+      "tolik_msg_count": 0,
+      "user_id": 7906608399,
+      "username": "maxcyou",
+      "first_name": "Max",
+      "bio": "building stuff & breaking stuff | maxcyou.ru",
+      "chats": [
+        -1002626154604
+      ]
     }
   },
   "ignored_users": {},
