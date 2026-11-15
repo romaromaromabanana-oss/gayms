@@ -35583,6 +35583,16 @@
       "user": "alexmard",
       "text": "Что фосфин на первом месте делает",
       "bot_reply": null
+    },
+    {
+      "ts": 1794783172.9149423,
+      "date_str": "16.11.2026",
+      "time_short": "01:52:52",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "Llisztt",
+      "text": "хвастаюсь незаметно [Собеседник прикрепил ФОТО]",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -36799,7 +36809,7 @@
     },
     "Llisztt": {
       "profile": "Пока мало данных",
-      "msg_count": 59,
+      "msg_count": 60,
       "tolik_msg_count": 0,
       "user_id": 7817847456,
       "username": "Llisztt",
