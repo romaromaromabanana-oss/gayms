@@ -35643,6 +35643,16 @@
       "user": "madsciencetist",
       "text": "Я дорешал\nГосподь\nКакого хуя\nЗа что ты так со мной",
       "bot_reply": null
+    },
+    {
+      "ts": 1794787259.9603755,
+      "date_str": "16.11.2026",
+      "time_short": "03:00:59",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "Guest_djs",
+      "text": "Круто,я бы почитал если бы не химия",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -37539,18 +37549,6 @@
         -1002626154604
       ]
     },
-    "Guest_Sdkdkdkdlggff": {
-      "profile": "Пока мало данных",
-      "msg_count": 4,
-      "user_id": 8025602731,
-      "username": "Guest_Sdkdkdkdlggff",
-      "first_name": "NewUser",
-      "chats": [
-        -1002626154604
-      ],
-      "topic_id": 3057,
-      "bio": "No one cares"
-    },
     "C6H12O8": {
       "profile": "Пока мало данных",
       "msg_count": 64,
@@ -37601,6 +37599,18 @@
         -1002626154604
       ],
       "topic_id": 3199
+    },
+    "Guest_djs": {
+      "profile": "Пока мало данных",
+      "msg_count": 5,
+      "user_id": 8025602731,
+      "username": "Guest_djs",
+      "first_name": "NewUser",
+      "chats": [
+        -1002626154604
+      ],
+      "topic_id": 3057,
+      "bio": "No one cares"
     }
   },
   "ignored_users": {},
