@@ -37123,6 +37123,26 @@
       "user": "Maksim010227",
       "text": " [Собеседник отправил СТИКЕР]\nМррммрррмррр\nАаэаэа\n [Собеседник отправил ГИФКУ (GIF)]",
       "bot_reply": null
+    },
+    {
+      "ts": 1794823260.3459907,
+      "date_str": "16.11.2026",
+      "time_short": "13:01:00",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "maxcyou",
+      "text": " [Собеседник отправил СТИКЕР]",
+      "bot_reply": null
+    },
+    {
+      "ts": 1794823413.5919962,
+      "date_str": "16.11.2026",
+      "time_short": "13:03:33",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "C6H12O8",
+      "text": " [Собеседник отправил СТИКЕР]",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -38987,7 +39007,7 @@
     },
     "maxcyou": {
       "profile": "Пока мало данных",
-      "msg_count": 19,
+      "msg_count": 20,
       "tolik_msg_count": 0,
       "user_id": 7906608399,
       "username": "maxcyou",
@@ -39021,7 +39041,7 @@
     },
     "C6H12O8": {
       "profile": "Пока мало данных",
-      "msg_count": 65,
+      "msg_count": 66,
       "tolik_msg_count": 0,
       "user_id": 8239891364,
       "username": "C6H12O8",
