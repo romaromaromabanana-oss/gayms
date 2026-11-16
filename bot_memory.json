@@ -36273,6 +36273,146 @@
       "user": "noktusss",
       "text": "Можешь с Д подсобить?",
       "bot_reply": null
+    },
+    {
+      "ts": 1794813670.9712346,
+      "date_str": "16.11.2026",
+      "time_short": "10:21:10",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "Infinitychim",
+      "text": "Разве?",
+      "bot_reply": null
+    },
+    {
+      "ts": 1794813697.3802245,
+      "date_str": "16.11.2026",
+      "time_short": "10:21:37",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "Infinitychim",
+      "text": "Да нет, я не решал муники",
+      "bot_reply": null
+    },
+    {
+      "ts": 1794813707.3837936,
+      "date_str": "16.11.2026",
+      "time_short": "10:21:47",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "Infinitychim",
+      "text": "А это как будто вчера/позавчера видел",
+      "bot_reply": null
+    },
+    {
+      "ts": 1794813833.0245712,
+      "date_str": "16.11.2026",
+      "time_short": "10:23:53",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "Infinitychim",
+      "text": " [Собеседник прикрепил ФОТО]",
+      "bot_reply": null
+    },
+    {
+      "ts": 1794813833.8251226,
+      "date_str": "16.11.2026",
+      "time_short": "10:23:53",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "madsciencetist",
+      "text": "Да",
+      "bot_reply": null
+    },
+    {
+      "ts": 1794813850.2317734,
+      "date_str": "16.11.2026",
+      "time_short": "10:24:10",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "noktusss",
+      "text": " [Собеседник прикрепил ФОТО]",
+      "bot_reply": null
+    },
+    {
+      "ts": 1794813926.257482,
+      "date_str": "16.11.2026",
+      "time_short": "10:25:26",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "noktusss",
+      "text": "Дап",
+      "bot_reply": null
+    },
+    {
+      "ts": 1794813934.2605681,
+      "date_str": "16.11.2026",
+      "time_short": "10:25:34",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "madsciencetist",
+      "text": "@ColdAndLonely, [Собеседник прикрепил ФОТО]",
+      "bot_reply": null
+    },
+    {
+      "ts": 1794813958.6696572,
+      "date_str": "16.11.2026",
+      "time_short": "10:25:58",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "noktusss",
+      "text": "Можешь объяснить механизм пж?",
+      "bot_reply": null
+    },
+    {
+      "ts": 1794813985.4789019,
+      "date_str": "16.11.2026",
+      "time_short": "10:26:25",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "Infinitychim",
+      "text": "Да просто восстановление тетрагидроборатом",
+      "bot_reply": null
+    },
+    {
+      "ts": 1794814028.6932452,
+      "date_str": "16.11.2026",
+      "time_short": "10:27:08",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "noktusss",
+      "text": "А снизу тогда что делает спирт? И зачем кислота в предыдущей реакции?",
+      "bot_reply": null
+    },
+    {
+      "ts": 1794814034.2951605,
+      "date_str": "16.11.2026",
+      "time_short": "10:27:14",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "noktusss",
+      "text": "Тупая цепочка",
+      "bot_reply": null
+    },
+    {
+      "ts": 1794814161.9349303,
+      "date_str": "16.11.2026",
+      "time_short": "10:29:21",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "Infinitychim",
+      "text": "Почему у меня хлор не в пара положении..., ладно, он в пара ели что, видно чтоб не мельчить",
+      "bot_reply": null
+    },
+    {
+      "ts": 1794814184.7425568,
+      "date_str": "16.11.2026",
+      "time_short": "10:29:44",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "noktusss",
+      "text": "Там хлор и ацетил группа в пара положениях",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -36691,7 +36831,7 @@
     },
     "Infinitychim": {
       "profile": "**ПСИХОЛОГИЧЕСКОЕ ДОСЬЕ ПОЛЬЗОВАТЕЛЯ**\n\n👤 **Основ",
-      "msg_count": 21,
+      "msg_count": 27,
       "user_id": 8478021420,
       "username": "Infinitychim",
       "first_name": "Korshin",
@@ -37221,7 +37361,7 @@
     },
     "madsciencetist": {
       "profile": "Пока мало данных",
-      "msg_count": 46,
+      "msg_count": 48,
       "user_id": 998419291,
       "username": "madsciencetist",
       "first_name": "Who?",
@@ -37554,7 +37694,7 @@
     },
     "noktusss": {
       "profile": "Пока мало данных",
-      "msg_count": 10,
+      "msg_count": 16,
       "tolik_msg_count": 0,
       "user_id": 2011560005,
       "username": "noktusss",
