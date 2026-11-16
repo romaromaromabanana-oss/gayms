@@ -35753,6 +35753,16 @@
       "user": "Chase_the_sunset",
       "text": " [Собеседник отправил СТИКЕР]",
       "bot_reply": null
+    },
+    {
+      "ts": 1794801191.7229745,
+      "date_str": "16.11.2026",
+      "time_short": "06:53:11",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "Andrey_Shevelkov",
+      "text": "Там Максим Алексеев?",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -36033,7 +36043,7 @@
     },
     "Andrey_Shevelkov": {
       "profile": "Вот подробное структурированное психолого-аналитическое досье на пользователя **@Andrey_Shevelkov**, составленное на основе",
-      "msg_count": 77,
+      "msg_count": 78,
       "user_id": 7492917700,
       "username": "Andrey_Shevelkov",
       "first_name": "SOCl₂",
