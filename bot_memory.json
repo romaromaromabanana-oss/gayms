@@ -35813,6 +35813,66 @@
       "user": "Diana",
       "text": "Привет!",
       "bot_reply": null
+    },
+    {
+      "ts": 1794809544.43171,
+      "date_str": "16.11.2026",
+      "time_short": "09:12:24",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "Andrey_Shevelkov",
+      "text": "Полностью собранный в одну книгу перевод \"Неорганической химии\" от Катерины Хаускрофт\nот @alexmard и @gagarvin",
+      "bot_reply": null
+    },
+    {
+      "ts": 1794809558.0364993,
+      "date_str": "16.11.2026",
+      "time_short": "09:12:38",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "Infinitychim",
+      "text": "Мне весело, я пару недель назад пробник писал по русскому",
+      "bot_reply": null
+    },
+    {
+      "ts": 1794809563.238669,
+      "date_str": "16.11.2026",
+      "time_short": "09:12:43",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "Infinitychim",
+      "text": "17 баллов",
+      "bot_reply": null
+    },
+    {
+      "ts": 1794809606.0532544,
+      "date_str": "16.11.2026",
+      "time_short": "09:13:26",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "Infinitychim",
+      "text": "Ого",
+      "bot_reply": null
+    },
+    {
+      "ts": 1794809660.871931,
+      "date_str": "16.11.2026",
+      "time_short": "09:14:20",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "Andrey_Shevelkov",
+      "text": "271 Мгб🤩",
+      "bot_reply": null
+    },
+    {
+      "ts": 1794809776.1094885,
+      "date_str": "16.11.2026",
+      "time_short": "09:16:16",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "maxcyou",
+      "text": "271к 🤩",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -36093,7 +36153,7 @@
     },
     "Andrey_Shevelkov": {
       "profile": "Вот подробное структурированное психолого-аналитическое досье на пользователя **@Andrey_Shevelkov**, составленное на основе",
-      "msg_count": 78,
+      "msg_count": 80,
       "user_id": 7492917700,
       "username": "Andrey_Shevelkov",
       "first_name": "SOCl₂",
@@ -36231,7 +36291,7 @@
     },
     "Infinitychim": {
       "profile": "**ПСИХОЛОГИЧЕСКОЕ ДОСЬЕ ПОЛЬЗОВАТЕЛЯ**\n\n👤 **Основ",
-      "msg_count": 16,
+      "msg_count": 19,
       "user_id": 8478021420,
       "username": "Infinitychim",
       "first_name": "Korshin",
@@ -37677,7 +37737,7 @@
     },
     "maxcyou": {
       "profile": "Пока мало данных",
-      "msg_count": 13,
+      "msg_count": 14,
       "tolik_msg_count": 0,
       "user_id": 7906608399,
       "username": "maxcyou",
