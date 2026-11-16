@@ -35783,6 +35783,16 @@
       "user": "Shaken4",
       "text": " [Собеседник отправил СТИКЕР]",
       "bot_reply": null
+    },
+    {
+      "ts": 1794807671.819936,
+      "date_str": "16.11.2026",
+      "time_short": "08:41:11",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "Shaken4",
+      "text": "От ии и ии",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -37395,7 +37405,7 @@
     },
     "Shaken4": {
       "profile": "Пока мало данных",
-      "msg_count": 2,
+      "msg_count": 3,
       "tolik_msg_count": 0,
       "user_id": 7373282640,
       "username": "Shaken4",
