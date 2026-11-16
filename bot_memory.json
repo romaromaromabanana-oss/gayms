@@ -37503,6 +37503,16 @@
       "user": "world_kotofei4",
       "text": "Ахаххахаха",
       "bot_reply": null
+    },
+    {
+      "ts": 1794830205.6370082,
+      "date_str": "16.11.2026",
+      "time_short": "14:56:45",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "imag3ryy",
+      "text": "Хахахахаха нет вообще нет вообще неправильно удали не позорься",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -39010,7 +39020,7 @@
     },
     "imag3ryy": {
       "profile": "Пока мало данных",
-      "msg_count": 2,
+      "msg_count": 3,
       "tolik_msg_count": 0,
       "user_id": 5988561021,
       "username": "imag3ryy",
