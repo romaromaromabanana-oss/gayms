@@ -36233,6 +36233,46 @@
       "user": "noktusss",
       "text": "Вот хз",
       "bot_reply": null
+    },
+    {
+      "ts": 1794813141.5989256,
+      "date_str": "16.11.2026",
+      "time_short": "10:12:21",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "Infinitychim",
+      "text": "Демовышки?\nИли рег",
+      "bot_reply": null
+    },
+    {
+      "ts": 1794813152.8024437,
+      "date_str": "16.11.2026",
+      "time_short": "10:12:32",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "Infinitychim",
+      "text": "Я помню решение, а откуда не помню",
+      "bot_reply": null
+    },
+    {
+      "ts": 1794813623.355765,
+      "date_str": "16.11.2026",
+      "time_short": "10:20:23",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "noktusss",
+      "text": "Вообще муницип",
+      "bot_reply": null
+    },
+    {
+      "ts": 1794813630.9583368,
+      "date_str": "16.11.2026",
+      "time_short": "10:20:30",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "noktusss",
+      "text": "Можешь с Д подсобить?",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -36651,7 +36691,7 @@
     },
     "Infinitychim": {
       "profile": "**ПСИХОЛОГИЧЕСКОЕ ДОСЬЕ ПОЛЬЗОВАТЕЛЯ**\n\n👤 **Основ",
-      "msg_count": 19,
+      "msg_count": 21,
       "user_id": 8478021420,
       "username": "Infinitychim",
       "first_name": "Korshin",
@@ -37514,7 +37554,7 @@
     },
     "noktusss": {
       "profile": "Пока мало данных",
-      "msg_count": 8,
+      "msg_count": 10,
       "tolik_msg_count": 0,
       "user_id": 2011560005,
       "username": "noktusss",
