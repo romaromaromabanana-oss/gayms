@@ -48043,6 +48043,26 @@
       "user": "ColdAndLonely",
       "text": "Знаем",
       "bot_reply": null
+    },
+    {
+      "ts": 1794908623.3810596,
+      "date_str": "17.11.2026",
+      "time_short": "12:43:43",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "madsciencetist",
+      "text": "Блять ну нельзя же сказать что это неверно",
+      "bot_reply": null
+    },
+    {
+      "ts": 1794908632.985999,
+      "date_str": "17.11.2026",
+      "time_short": "12:43:52",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "madsciencetist",
+      "text": "Потому что не указано по какому аргументу производная",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -48980,7 +49000,7 @@
     },
     "madsciencetist": {
       "profile": "Пока мало данных",
-      "msg_count": 72,
+      "msg_count": 74,
       "user_id": 998419291,
       "username": "madsciencetist",
       "first_name": "Who?",
