@@ -47133,6 +47133,16 @@
       "user": "cr1972627",
       "text": "Это давно блять было уже",
       "bot_reply": null
+    },
+    {
+      "ts": 1794887892.107402,
+      "date_str": "17.11.2026",
+      "time_short": "06:58:12",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "all-grown",
+      "text": "@Alex_DiabloBot 4a55249b3d",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -49111,6 +49121,18 @@
         -1002626154604
       ],
       "topic_id": 7197
+    },
+    "all-grown": {
+      "profile": "Пока мало данных",
+      "msg_count": 1,
+      "tolik_msg_count": 0,
+      "user_id": 7536956686,
+      "first_name": "all-grown",
+      "bio": "unknown",
+      "chats": [
+        -1002626154604
+      ],
+      "topic_id": 8575
     }
   },
   "ignored_users": {
