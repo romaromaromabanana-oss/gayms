@@ -47493,6 +47493,36 @@
       "user": "ColdAndLonely",
       "text": "респы",
       "bot_reply": null
+    },
+    {
+      "ts": 1794899865.2195175,
+      "date_str": "17.11.2026",
+      "time_short": "10:17:45",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "winraiz",
+      "text": " [Собеседник прикрепил ФОТО]",
+      "bot_reply": null
+    },
+    {
+      "ts": 1794899876.823995,
+      "date_str": "17.11.2026",
+      "time_short": "10:17:56",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "winraiz",
+      "text": "Verify my level zoink",
+      "bot_reply": null
+    },
+    {
+      "ts": 1794899965.254216,
+      "date_str": "17.11.2026",
+      "time_short": "10:19:25",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "winraiz",
+      "text": "мастер отзывов 1-го уровня 🔥💯\n\nВсОШ по мемам [Собеседник прикрепил ФОТО]\n [Собеседник прикрепил ФОТО]",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -48204,7 +48234,7 @@
     },
     "winraiz": {
       "profile": "\", \"рофляный\", \"всос\").\n        *   Continues using visual media (gifs, photos).",
-      "msg_count": 42,
+      "msg_count": 45,
       "user_id": 5140445673,
       "username": "winraiz",
       "first_name": "winraiz",
