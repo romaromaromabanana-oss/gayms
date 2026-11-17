@@ -47623,6 +47623,26 @@
       "user": "slizzennn008",
       "text": "Это 9 класс?",
       "bot_reply": null
+    },
+    {
+      "ts": 1794906760.314411,
+      "date_str": "17.11.2026",
+      "time_short": "12:12:40",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "Chernenikiy",
+      "text": "10",
+      "bot_reply": null
+    },
+    {
+      "ts": 1794906780.3215811,
+      "date_str": "17.11.2026",
+      "time_short": "12:13:00",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "slizzennn008",
+      "text": "Поняла, спасибо",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -48766,7 +48786,7 @@
     },
     "Chernenikiy": {
       "profile": "Пока мало данных",
-      "msg_count": 22,
+      "msg_count": 23,
       "tolik_msg_count": 0,
       "user_id": 5164277864,
       "username": "Chernenikiy",
@@ -49628,7 +49648,7 @@
     },
     "slizzennn008": {
       "profile": "Пока мало данных",
-      "msg_count": 1,
+      "msg_count": 2,
       "tolik_msg_count": 0,
       "user_id": 5910488149,
       "username": "slizzennn008",
