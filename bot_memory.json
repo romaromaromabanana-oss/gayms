@@ -47613,6 +47613,16 @@
       "user": "Chernenikiy",
       "text": " [Собеседник прикрепил ФОТО]",
       "bot_reply": null
+    },
+    {
+      "ts": 1794906751.5107503,
+      "date_str": "17.11.2026",
+      "time_short": "12:12:31",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "slizzennn008",
+      "text": "Это 9 класс?",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -49615,6 +49625,18 @@
       ],
       "topic_id": 3041,
       "tolik_msg_count": 5
+    },
+    "slizzennn008": {
+      "profile": "Пока мало данных",
+      "msg_count": 1,
+      "tolik_msg_count": 0,
+      "user_id": 5910488149,
+      "username": "slizzennn008",
+      "first_name": "Елизавета",
+      "chats": [
+        -1002626154604
+      ],
+      "topic_id": 8628
     }
   },
   "ignored_users": {
