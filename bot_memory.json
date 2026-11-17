@@ -47223,6 +47223,16 @@
       "user": "imag3ryy",
       "text": "Извини",
       "bot_reply": null
+    },
+    {
+      "ts": 1794891429.8579695,
+      "date_str": "17.11.2026",
+      "time_short": "07:57:09",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "Georg_chem",
+      "text": "Извинись перед боровом",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -48391,7 +48401,7 @@
     },
     "Georg_chem": {
       "profile": "Пока мало данных",
-      "msg_count": 10,
+      "msg_count": 11,
       "tolik_msg_count": 0,
       "user_id": 5742279651,
       "username": "Georg_chem",
