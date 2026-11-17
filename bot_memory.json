@@ -48203,6 +48203,36 @@
       "user": "cr1972627",
       "text": " [Собеседник отправил СТИКЕР]",
       "bot_reply": null
+    },
+    {
+      "ts": 1794916378.953509,
+      "date_str": "17.11.2026",
+      "time_short": "14:52:58",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "g4xhj1l",
+      "text": "Ну как всм",
+      "bot_reply": null
+    },
+    {
+      "ts": 1794916394.9602568,
+      "date_str": "17.11.2026",
+      "time_short": "14:53:14",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "g4xhj1l",
+      "text": " [Собеседник отправил СТИКЕР]",
+      "bot_reply": null
+    },
+    {
+      "ts": 1794916584.2271943,
+      "date_str": "17.11.2026",
+      "time_short": "14:56:24",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "sele_n1um",
+      "text": " [Собеседник отправил СТИКЕР]",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -49180,7 +49210,7 @@
     },
     "g4xhj1l": {
       "profile": "Пока мало данных",
-      "msg_count": 9,
+      "msg_count": 11,
       "tolik_msg_count": 0,
       "user_id": 8218214954,
       "username": "g4xhj1l",
@@ -49546,7 +49576,7 @@
     },
     "sele_n1um": {
       "profile": "Пока мало данных",
-      "msg_count": 158,
+      "msg_count": 159,
       "tolik_msg_count": 0,
       "user_id": 5623068183,
       "username": "sele_n1um",
