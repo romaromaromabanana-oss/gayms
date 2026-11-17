@@ -47563,6 +47563,26 @@
       "user": "Hiopirett",
       "text": "Да, там будет соль молибдена в этой с.о",
       "bot_reply": null
+    },
+    {
+      "ts": 1794905349.0171945,
+      "date_str": "17.11.2026",
+      "time_short": "11:49:09",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "Chernenikiy",
+      "text": "Здрасьте",
+      "bot_reply": null
+    },
+    {
+      "ts": 1794905359.421367,
+      "date_str": "17.11.2026",
+      "time_short": "11:49:19",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "Chernenikiy",
+      "text": "Я написал муницип по физике кинуть?",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -48706,7 +48726,7 @@
     },
     "Chernenikiy": {
       "profile": "Пока мало данных",
-      "msg_count": 19,
+      "msg_count": 21,
       "tolik_msg_count": 0,
       "user_id": 5164277864,
       "username": "Chernenikiy",
