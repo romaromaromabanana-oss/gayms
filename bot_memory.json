@@ -47543,6 +47543,26 @@
       "user": "world_kotofei4",
       "text": "Ахпхпхахаха",
       "bot_reply": null
+    },
+    {
+      "ts": 1794904482.7329323,
+      "date_str": "17.11.2026",
+      "time_short": "11:34:42",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "Hiopirett",
+      "text": "База",
+      "bot_reply": null
+    },
+    {
+      "ts": 1794904539.9506712,
+      "date_str": "17.11.2026",
+      "time_short": "11:35:39",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "Hiopirett",
+      "text": "Да, там будет соль молибдена в этой с.о",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -49389,7 +49409,7 @@
     },
     "Hiopirett": {
       "profile": "Пока мало данных",
-      "msg_count": 50,
+      "msg_count": 52,
       "tolik_msg_count": 1,
       "user_id": 6385496035,
       "username": "Hiopirett",
