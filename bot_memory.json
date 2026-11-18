@@ -46589,6 +46589,26 @@
       "user": "madsciencetist",
       "text": "хотя он расплавиться быстро",
       "bot_reply": null
+    },
+    {
+      "ts": 1795045045.3903594,
+      "date_str": "19.11.2026",
+      "time_short": "02:37:25",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "madsciencetist",
+      "text": "Сука\nУснуть не могу",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795045054.9938214,
+      "date_str": "19.11.2026",
+      "time_short": "02:37:34",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "madsciencetist",
+      "text": "Как же я ебал это все",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -47527,7 +47547,7 @@
     },
     "madsciencetist": {
       "profile": "Пока мало данных",
-      "msg_count": 179,
+      "msg_count": 181,
       "user_id": 998419291,
       "username": "madsciencetist",
       "first_name": "Who?",
