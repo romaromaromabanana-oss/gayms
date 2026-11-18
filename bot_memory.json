@@ -49509,6 +49509,16 @@
       "user": "your_milash",
       "text": "А ты?)",
       "bot_reply": null
+    },
+    {
+      "ts": 1795029190.94522,
+      "date_str": "18.11.2026",
+      "time_short": "22:13:10",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "madsciencetist",
+      "text": "а ты что то против меня имеешь?",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -50447,7 +50457,7 @@
     },
     "madsciencetist": {
       "profile": "Пока мало данных",
-      "msg_count": 127,
+      "msg_count": 128,
       "user_id": 998419291,
       "username": "madsciencetist",
       "first_name": "Who?",
