@@ -46239,6 +46239,26 @@
       "user": "Maksim010227",
       "text": "Мямяу\nСпасибо\n [Собеседник отправил СТИКЕР]",
       "bot_reply": null
+    },
+    {
+      "ts": 1794993509.1989152,
+      "date_str": "18.11.2026",
+      "time_short": "12:18:29",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "sele_n1um",
+      "text": " [Собеседник отправил СТИКЕР]",
+      "bot_reply": null
+    },
+    {
+      "ts": 1794993641.6405687,
+      "date_str": "18.11.2026",
+      "time_short": "12:20:41",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "Infinitychim",
+      "text": "Че учиняем?",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -46658,7 +46678,7 @@
     },
     "Infinitychim": {
       "profile": "**ПСИХОЛОГИЧЕСКОЕ ДОСЬЕ ПОЛЬЗОВАТЕЛЯ**\n\n👤 **Основ",
-      "msg_count": 55,
+      "msg_count": 56,
       "user_id": 8478021420,
       "username": "Infinitychim",
       "first_name": "Korshin",
@@ -47582,7 +47602,7 @@
     },
     "sele_n1um": {
       "profile": "Пока мало данных",
-      "msg_count": 250,
+      "msg_count": 251,
       "tolik_msg_count": 0,
       "user_id": 5623068183,
       "username": "sele_n1um",
