@@ -47349,6 +47349,16 @@
       "user": "t3hge",
       "text": "То есть только из-за этого черновики сдавали",
       "bot_reply": null
+    },
+    {
+      "ts": 1795007531.561062,
+      "date_str": "18.11.2026",
+      "time_short": "16:12:11",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "winraiz",
+      "text": "Ну типа дай мне задачи и у меня такие же будут",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -48061,7 +48071,7 @@
     },
     "winraiz": {
       "profile": "\", \"рофляный\", \"всос\").\n        *   Continues using visual media (gifs, photos).",
-      "msg_count": 52,
+      "msg_count": 53,
       "user_id": 5140445673,
       "username": "winraiz",
       "first_name": "winraiz",
