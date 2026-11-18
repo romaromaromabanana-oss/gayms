@@ -46219,6 +46219,26 @@
       "user": "madsciencetist",
       "text": "девочка сама по себе холодная, это из за нее снег выпал",
       "bot_reply": null
+    },
+    {
+      "ts": 1795036664.4510477,
+      "date_str": "19.11.2026",
+      "time_short": "00:17:44",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "madsciencetist",
+      "text": "бубубу",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795036681.6544802,
+      "date_str": "19.11.2026",
+      "time_short": "00:18:01",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "madsciencetist",
+      "text": "чето я сегодня слишком добрый",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -47157,7 +47177,7 @@
     },
     "madsciencetist": {
       "profile": "Пока мало данных",
-      "msg_count": 171,
+      "msg_count": 173,
       "user_id": 998419291,
       "username": "madsciencetist",
       "first_name": "Who?",
