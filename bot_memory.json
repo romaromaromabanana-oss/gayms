@@ -46169,6 +46169,16 @@
       "user": "madsciencetist",
       "text": "старые",
       "bot_reply": null
+    },
+    {
+      "ts": 1795035829.097318,
+      "date_str": "19.11.2026",
+      "time_short": "00:03:49",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "sele_n1um",
+      "text": "А если я отвечу да мне дадут соучастие в диктатура?",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -47513,7 +47523,7 @@
     },
     "sele_n1um": {
       "profile": "Пока мало данных",
-      "msg_count": 264,
+      "msg_count": 265,
       "tolik_msg_count": 0,
       "user_id": 5623068183,
       "username": "sele_n1um",
