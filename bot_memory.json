@@ -49969,6 +49969,16 @@
       "user": "Maksim010227",
       "text": " [Собеседник отправил ГИФКУ (GIF)]",
       "bot_reply": null
+    },
+    {
+      "ts": 1794964444.0564234,
+      "date_str": "18.11.2026",
+      "time_short": "04:14:04",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "madsciencetist",
+      "text": "@cr1972627, я выебал Трисс\nСюда",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -50906,7 +50916,7 @@
     },
     "madsciencetist": {
       "profile": "Пока мало данных",
-      "msg_count": 74,
+      "msg_count": 75,
       "user_id": 998419291,
       "username": "madsciencetist",
       "first_name": "Who?",
