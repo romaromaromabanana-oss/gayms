@@ -46619,6 +46619,16 @@
       "user": "cr1972627",
       "text": "Спасибо бро что веришь",
       "bot_reply": null
+    },
+    {
+      "ts": 1795001496.8778672,
+      "date_str": "18.11.2026",
+      "time_short": "14:31:36",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "lirameru",
+      "text": "Смотрим за небом",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -47001,14 +47011,15 @@
     },
     "lirameru": {
       "profile": "Пока мало данных",
-      "msg_count": 0,
+      "msg_count": 1,
       "user_id": 7014654861,
       "username": "lirameru",
       "first_name": "Disasss",
       "custom_title": "6-классник",
       "chats": [
         -1002626154604
-      ]
+      ],
+      "topic_id": 9991
     },
     "JJKApsolutka": {
       "profile": "Пока мало данных",
