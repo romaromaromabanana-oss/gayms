@@ -49599,6 +49599,16 @@
       "user": "Channel_Bot",
       "text": "Ну тип вот",
       "bot_reply": null
+    },
+    {
+      "ts": 1795103760.862662,
+      "date_str": "19.11.2026",
+      "time_short": "18:56:00",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "Infinitychim",
+      "text": "И где тут история, общество и тд?",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -50019,7 +50029,7 @@
     },
     "Infinitychim": {
       "profile": "**ПСИХОЛОГИЧЕСКОЕ ДОСЬЕ ПОЛЬЗОВАТЕЛЯ**\n\n👤 **Основ",
-      "msg_count": 66,
+      "msg_count": 67,
       "user_id": 8478021420,
       "username": "Infinitychim",
       "first_name": "Korshin",
