@@ -48569,6 +48569,26 @@
       "user": "Organyt",
       "text": "Строгий?",
       "bot_reply": null
+    },
+    {
+      "ts": 1795084927.383307,
+      "date_str": "19.11.2026",
+      "time_short": "13:42:07",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "Organyt",
+      "text": "А ой\nУже сказали же",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795084957.7915494,
+      "date_str": "19.11.2026",
+      "time_short": "13:42:37",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "Organyt",
+      "text": " [Собеседник отправил СТИКЕР]",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -49726,7 +49746,7 @@
     },
     "Organyt": {
       "profile": "Пока мало данных",
-      "msg_count": 113,
+      "msg_count": 115,
       "tolik_msg_count": 0,
       "user_id": 5463003745,
       "username": "Organyt",
