@@ -48499,6 +48499,16 @@
       "user": "cr1972627",
       "text": "Или Легаси\nНорм",
       "bot_reply": null
+    },
+    {
+      "ts": 1795079686.7246938,
+      "date_str": "19.11.2026",
+      "time_short": "12:14:46",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "madsciencetist",
+      "text": "Бля\nБратан\nЭто пизда\n5 баллов по матану\nИз 20\nЧе за нахуй",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -49437,7 +49447,7 @@
     },
     "madsciencetist": {
       "profile": "Пока мало данных",
-      "msg_count": 193,
+      "msg_count": 194,
       "user_id": 998419291,
       "username": "madsciencetist",
       "first_name": "Who?",
