@@ -48449,6 +48449,16 @@
       "user": "TotalTrash_Mammal",
       "text": "Да",
       "bot_reply": null
+    },
+    {
+      "ts": 1795119371.2634885,
+      "date_str": "19.11.2026",
+      "time_short": "23:16:11",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "nsifsa",
+      "text": " [Собеседник отправил СТИКЕР]",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -50496,7 +50506,7 @@
     },
     "nsifsa": {
       "profile": "Пока мало данных",
-      "msg_count": 0,
+      "msg_count": 1,
       "tolik_msg_count": 0,
       "user_id": 8371997148,
       "username": "nsifsa",
@@ -50504,7 +50514,8 @@
       "bio": "Щитпост : @cult4057",
       "chats": [
         -1002626154604
-      ]
+      ],
+      "topic_id": 11682
     }
   },
   "ignored_users": {},
