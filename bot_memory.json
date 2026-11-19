@@ -50039,6 +50039,16 @@
       "user": "ssm_08",
       "text": "ты всегда хочешь в шахматы?",
       "bot_reply": null
+    },
+    {
+      "ts": 1795107306.5459461,
+      "date_str": "19.11.2026",
+      "time_short": "19:55:06",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "winraiz",
+      "text": "@sixseven",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -50751,7 +50761,7 @@
     },
     "winraiz": {
       "profile": "\", \"рофляный\", \"всос\").\n        *   Continues using visual media (gifs, photos).",
-      "msg_count": 70,
+      "msg_count": 71,
       "user_id": 5140445673,
       "username": "winraiz",
       "first_name": "winraiz",
