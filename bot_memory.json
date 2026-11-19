@@ -47269,6 +47269,16 @@
       "user": "MiliKotikAbormotik",
       "text": ":(",
       "bot_reply": null
+    },
+    {
+      "ts": 1795115302.0201066,
+      "date_str": "19.11.2026",
+      "time_short": "22:08:22",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "Gkamil17",
+      "text": "Дайте прокси четкий пж",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -48380,14 +48390,15 @@
     },
     "Gkamil17": {
       "profile": "Пока мало данных",
-      "msg_count": 0,
+      "msg_count": 1,
       "tolik_msg_count": 0,
       "user_id": 5140293590,
       "username": "Gkamil17",
       "first_name": "..",
       "chats": [
         -1002626154604
-      ]
+      ],
+      "topic_id": 11562
     },
     "ttsavebot": {
       "profile": "Пока мало данных",
