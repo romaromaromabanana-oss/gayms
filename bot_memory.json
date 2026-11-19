@@ -48459,6 +48459,16 @@
       "user": "nsifsa",
       "text": " [Собеседник отправил СТИКЕР]",
       "bot_reply": null
+    },
+    {
+      "ts": 1795119449.2834768,
+      "date_str": "19.11.2026",
+      "time_short": "23:17:29",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "diplom_Vsosha",
+      "text": "Привет\n [Собеседник отправил СТИКЕР]",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -50466,20 +50476,6 @@
       ],
       "topic_id": 8628
     },
-    "Hacker_Eror_404": {
-      "profile": "Пока мало данных",
-      "msg_count": 12,
-      "tolik_msg_count": 0,
-      "user_id": 7445434016,
-      "username": "Hacker_Eror_404",
-      "first_name": "𝕽𝖊𝖔𝖃𝖀",
-      "custom_title": "Qqaaa",
-      "bio": "EROR404_OF/ONN",
-      "chats": [
-        -1002626154604
-      ],
-      "topic_id": 10204
-    },
     "Slrku": {
       "profile": "Пока мало данных",
       "msg_count": 66,
@@ -50516,6 +50512,20 @@
         -1002626154604
       ],
       "topic_id": 11682
+    },
+    "diplom_Vsosha": {
+      "profile": "Пока мало данных",
+      "msg_count": 13,
+      "tolik_msg_count": 0,
+      "user_id": 7445434016,
+      "username": "diplom_Vsosha",
+      "first_name": "Умный кот в очках скачать бесплатно",
+      "custom_title": "Qqaaa",
+      "bio": "EROR404_OF/ONN",
+      "chats": [
+        -1002626154604
+      ],
+      "topic_id": 10204
     }
   },
   "ignored_users": {},
