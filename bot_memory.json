@@ -48539,6 +48539,36 @@
       "user": "Channel_Bot",
       "text": "гадолиний🥶🥶🥶",
       "bot_reply": null
+    },
+    {
+      "ts": 1795083949.5194712,
+      "date_str": "19.11.2026",
+      "time_short": "13:25:49",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "Router_07belifS",
+      "text": "Лютеций?",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795084403.2568133,
+      "date_str": "19.11.2026",
+      "time_short": "13:33:23",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "Organyt",
+      "text": "Стронций?",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795084440.8686266,
+      "date_str": "19.11.2026",
+      "time_short": "13:34:00",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "Organyt",
+      "text": "Строгий?",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -49696,7 +49726,7 @@
     },
     "Organyt": {
       "profile": "Пока мало данных",
-      "msg_count": 111,
+      "msg_count": 113,
       "tolik_msg_count": 0,
       "user_id": 5463003745,
       "username": "Organyt",
@@ -50194,7 +50224,7 @@
     },
     "Router_07belifS": {
       "profile": "Пока мало данных",
-      "msg_count": 2,
+      "msg_count": 3,
       "tolik_msg_count": 0,
       "user_id": 5748051619,
       "username": "Router_07belifS",
