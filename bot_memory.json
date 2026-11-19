@@ -50493,6 +50493,18 @@
       ],
       "username": "ssm_08",
       "topic_id": 11336
+    },
+    "nsifsa": {
+      "profile": "Пока мало данных",
+      "msg_count": 0,
+      "tolik_msg_count": 0,
+      "user_id": 8371997148,
+      "username": "nsifsa",
+      "first_name": "Евгений",
+      "bio": "Щитпост : @cult4057",
+      "chats": [
+        -1002626154604
+      ]
     }
   },
   "ignored_users": {},
