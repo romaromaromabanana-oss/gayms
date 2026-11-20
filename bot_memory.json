@@ -49009,6 +49009,26 @@
       "user": "MiliKotikAbormotik",
       "text": "С добрым утром! :3",
       "bot_reply": null
+    },
+    {
+      "ts": 1795145252.2808163,
+      "date_str": "20.11.2026",
+      "time_short": "06:27:32",
+      "chat_id": -1002373626230,
+      "chat_title": "Группа «Фурри Минск сообщество»",
+      "user": "QuantumTheF0x",
+      "text": "Ладно",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795145260.6832323,
+      "date_str": "20.11.2026",
+      "time_short": "06:27:40",
+      "chat_id": -1002373626230,
+      "chat_title": "Группа «Фурри Минск сообщество»",
+      "user": "QuantumTheF0x",
+      "text": " [Собеседник отправил СТИКЕР]",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -49961,7 +49981,7 @@
     },
     "QuantumTheF0x": {
       "profile": "**ПСИХОЛОГО-АНАЛИТИЧЕСКОЕ ДОСЬЕ ПОЛЬЗОВАТЕЛЯ**\n\n---",
-      "msg_count": 284,
+      "msg_count": 286,
       "tolik_msg_count": 42,
       "user_id": 5975030677,
       "username": "QuantumTheF0x",
