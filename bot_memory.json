@@ -49669,6 +49669,26 @@
       "user": "madsciencetist",
       "text": "ДЕЛАЕТ С МОЕЙ ЛЮБИМОЙ ШИНОБУ",
       "bot_reply": null
+    },
+    {
+      "ts": 1795218847.763672,
+      "date_str": "21.11.2026",
+      "time_short": "02:54:07",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "madsciencetist",
+      "text": "НЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕТ\nНЕЕЕЕЕЕЕЕЕЕЕТ\nМОЯ ШИНОБУ\nБЛЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯ",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795218953.796066,
+      "date_str": "21.11.2026",
+      "time_short": "02:55:53",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "chemdraw",
+      "text": "вызывали?",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -50607,7 +50627,7 @@
     },
     "madsciencetist": {
       "profile": "Пока мало данных",
-      "msg_count": 374,
+      "msg_count": 375,
       "user_id": 998419291,
       "username": "madsciencetist",
       "first_name": "Who?",
@@ -50932,7 +50952,7 @@
     },
     "chemdraw": {
       "profile": "Пока мало данных",
-      "msg_count": 7,
+      "msg_count": 8,
       "tolik_msg_count": 0,
       "user_id": 1037678370,
       "username": "chemdraw",
