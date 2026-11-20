@@ -46999,6 +46999,26 @@
       "user": "Negative Dream",
       "text": "Я",
       "bot_reply": null
+    },
+    {
+      "ts": 1795189294.574479,
+      "date_str": "20.11.2026",
+      "time_short": "18:41:34",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "Chernenikiy",
+      "text": "Химики\nОлимпиадники",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795189310.1804442,
+      "date_str": "20.11.2026",
+      "time_short": "18:41:50",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "Chernenikiy",
+      "text": " [Собеседник прикрепил ФОТО]\nТакие чб на олимпиадах?",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -48145,7 +48165,7 @@
     },
     "Chernenikiy": {
       "profile": "Пока мало данных",
-      "msg_count": 53,
+      "msg_count": 55,
       "tolik_msg_count": 0,
       "user_id": 5164277864,
       "username": "Chernenikiy",
