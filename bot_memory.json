@@ -49069,6 +49069,16 @@
       "user": "Belugahgfgh",
       "text": "Моя статья",
       "bot_reply": null
+    },
+    {
+      "ts": 1795151806.57067,
+      "date_str": "20.11.2026",
+      "time_short": "08:16:46",
+      "chat_id": -1002373626230,
+      "chat_title": "Группа «Фурри Минск сообщество»",
+      "user": "QuantumTheF0x",
+      "text": "Моя статья",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -50021,7 +50031,7 @@
     },
     "QuantumTheF0x": {
       "profile": "**ПСИХОЛОГО-АНАЛИТИЧЕСКОЕ ДОСЬЕ ПОЛЬЗОВАТЕЛЯ**\n\n---",
-      "msg_count": 286,
+      "msg_count": 287,
       "tolik_msg_count": 42,
       "user_id": 5975030677,
       "username": "QuantumTheF0x",
