@@ -49359,6 +49359,26 @@
       "user": "t3hge",
       "text": "О чем и спрашивать",
       "bot_reply": null
+    },
+    {
+      "ts": 1795164102.1351733,
+      "date_str": "20.11.2026",
+      "time_short": "11:41:42",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "Glent_tag",
+      "text": "А еще",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795164232.1765676,
+      "date_str": "20.11.2026",
+      "time_short": "11:43:52",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "kvat1k",
+      "text": "Кфу вроде",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -50778,7 +50798,7 @@
     },
     "Glent_tag": {
       "profile": "Пока мало данных",
-      "msg_count": 28,
+      "msg_count": 29,
       "tolik_msg_count": 0,
       "user_id": 6155153225,
       "username": "Glent_tag",
@@ -50849,7 +50869,7 @@
     },
     "kvat1k": {
       "profile": "Пока мало данных",
-      "msg_count": 2,
+      "msg_count": 3,
       "tolik_msg_count": 0,
       "user_id": 8327828756,
       "username": "kvat1k",
