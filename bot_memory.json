@@ -49029,6 +49029,16 @@
       "user": "QuantumTheF0x",
       "text": " [Собеседник отправил СТИКЕР]",
       "bot_reply": null
+    },
+    {
+      "ts": 1795146885.171089,
+      "date_str": "20.11.2026",
+      "time_short": "06:54:45",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "brg1092",
+      "text": "Запускаю акцию \"береги ебало\" подходите по одному 😈",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -49720,7 +49730,7 @@
     },
     "brg1092": {
       "profile": "Age/Location: High school age (15–18) or university student background in Russia (linked to ВСОШ). Interested",
-      "msg_count": 81,
+      "msg_count": 82,
       "user_id": 5867861906,
       "username": "brg1092",
       "first_name": "B= {|x|>M}",
