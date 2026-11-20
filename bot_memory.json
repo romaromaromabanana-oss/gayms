@@ -47479,6 +47479,16 @@
       "user": "oakub",
       "text": "Не-а",
       "bot_reply": null
+    },
+    {
+      "ts": 1795194707.6860611,
+      "date_str": "20.11.2026",
+      "time_short": "20:11:47",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "Hiopirett",
+      "text": "Ок..",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -49317,7 +49327,7 @@
     },
     "Hiopirett": {
       "profile": "Пока мало данных",
-      "msg_count": 65,
+      "msg_count": 66,
       "tolik_msg_count": 1,
       "user_id": 6385496035,
       "username": "Hiopirett",
