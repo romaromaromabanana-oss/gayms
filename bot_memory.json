@@ -45419,6 +45419,36 @@
       "user": "your_milash",
       "text": "Думать это тяжело",
       "bot_reply": null
+    },
+    {
+      "ts": 1795206103.1379907,
+      "date_str": "20.11.2026",
+      "time_short": "23:21:43",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "grindhardee",
+      "text": "невкусность",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795206198.7727237,
+      "date_str": "20.11.2026",
+      "time_short": "23:23:18",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "madsciencetist",
+      "text": "согл",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795206268.3997562,
+      "date_str": "20.11.2026",
+      "time_short": "23:24:28",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "OlgaNikolaevna1077",
+      "text": "Го реакции",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -46357,7 +46387,7 @@
     },
     "madsciencetist": {
       "profile": "Пока мало данных",
-      "msg_count": 289,
+      "msg_count": 290,
       "user_id": 998419291,
       "username": "madsciencetist",
       "first_name": "Who?",
@@ -46436,7 +46466,7 @@
     },
     "grindhardee": {
       "profile": "Пока мало данных",
-      "msg_count": 110,
+      "msg_count": 111,
       "tolik_msg_count": 0,
       "user_id": 1630995303,
       "username": "grindhardee",
@@ -46604,7 +46634,7 @@
     },
     "OlgaNikolaevna1077": {
       "profile": "Пока мало данных",
-      "msg_count": 16,
+      "msg_count": 17,
       "tolik_msg_count": 0,
       "user_id": 6495059738,
       "username": "OlgaNikolaevna1077",
