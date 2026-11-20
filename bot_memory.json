@@ -46929,6 +46929,36 @@
       "user": "alexmard",
       "text": "Это ии или что",
       "bot_reply": null
+    },
+    {
+      "ts": 1795181908.285333,
+      "date_str": "20.11.2026",
+      "time_short": "16:38:28",
+      "chat_id": -1002373626230,
+      "chat_title": "Группа «Фурри Минск сообщество»",
+      "user": "Sergoniy",
+      "text": "Предсказание для @Sergoniy:\n\nЖди встреч с интересными людьми! А вот интересным людям стоит ждать встречи с тобой...",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795182112.3584914,
+      "date_str": "20.11.2026",
+      "time_short": "16:41:52",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "Hiopirett",
+      "text": "Давай",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795182153.975095,
+      "date_str": "20.11.2026",
+      "time_short": "16:42:33",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "Hiopirett",
+      "text": "Ребят, а кто специально хотел щёлочь тронуть? Или кислоту\nЧтоб понять как сильно жжет",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -47165,7 +47195,7 @@
     },
     "Sergoniy": {
       "profile": "Пока мало данных",
-      "msg_count": 5,
+      "msg_count": 6,
       "user_id": 5197040940,
       "username": "Sergoniy",
       "first_name": "Serjoniy☕ 🇧🇾",
@@ -48766,7 +48796,7 @@
     },
     "Hiopirett": {
       "profile": "Пока мало данных",
-      "msg_count": 63,
+      "msg_count": 65,
       "tolik_msg_count": 1,
       "user_id": 6385496035,
       "username": "Hiopirett",
