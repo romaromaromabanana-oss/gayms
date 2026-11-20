@@ -46969,6 +46969,16 @@
       "user": "karasi_58",
       "text": "мацуда не смей",
       "bot_reply": null
+    },
+    {
+      "ts": 1795183368.3990326,
+      "date_str": "20.11.2026",
+      "time_short": "17:02:48",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "teorist_aspiretoreachtheheights",
+      "text": "по какому",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -49019,7 +49029,7 @@
     },
     "teorist_aspiretoreachtheheights": {
       "profile": "Пока мало данных",
-      "msg_count": 14,
+      "msg_count": 15,
       "tolik_msg_count": 0,
       "user_id": 7717065910,
       "username": "teorist_aspiretoreachtheheights",
