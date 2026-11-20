@@ -48409,6 +48409,66 @@
       "user": "Suslik_067",
       "text": "/qtop@QuotLyBot",
       "bot_reply": null
+    },
+    {
+      "ts": 1795200130.0243044,
+      "date_str": "20.11.2026",
+      "time_short": "21:42:10",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "madsciencetist",
+      "text": "https://youtu.be/ljbsn7qpUY8\nсука",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795200147.2314267,
+      "date_str": "20.11.2026",
+      "time_short": "21:42:27",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "madsciencetist",
+      "text": "что значит ты живешь в моих грезах \nты уходишь когда я засыпаю",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795200160.4364414,
+      "date_str": "20.11.2026",
+      "time_short": "21:42:40",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "madsciencetist",
+      "text": "когда ты спишь я пою\nэто под чем писалось",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795200189.6496856,
+      "date_str": "20.11.2026",
+      "time_short": "21:43:09",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "madsciencetist",
+      "text": "как можно писать лирику в стиле припева smels like teen spirit",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795200227.6644433,
+      "date_str": "20.11.2026",
+      "time_short": "21:43:47",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "madsciencetist",
+      "text": "а блять\nя понял",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795200242.4705858,
+      "date_str": "20.11.2026",
+      "time_short": "21:44:02",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "madsciencetist",
+      "text": " [Собеседник отправил ГИФКУ (GIF)]\nлучше бы не понял",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -49347,7 +49407,7 @@
     },
     "madsciencetist": {
       "profile": "Пока мало данных",
-      "msg_count": 262,
+      "msg_count": 268,
       "user_id": 998419291,
       "username": "madsciencetist",
       "first_name": "Who?",
