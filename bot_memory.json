@@ -48239,6 +48239,146 @@
       "user": "nsifsa",
       "text": "Зачем менятььь",
       "bot_reply": null
+    },
+    {
+      "ts": 1795199224.0752492,
+      "date_str": "20.11.2026",
+      "time_short": "21:27:04",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "nsifsa",
+      "text": "Новый в данной ситуации это сколько дней отлёжки",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795199234.0798154,
+      "date_str": "20.11.2026",
+      "time_short": "21:27:14",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "madsciencetist",
+      "text": "а вот хуй знает кстати",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795199255.6881669,
+      "date_str": "20.11.2026",
+      "time_short": "21:27:35",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "nsifsa",
+      "text": "Моему пол месяца было и похуй всем",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795199286.8998966,
+      "date_str": "20.11.2026",
+      "time_short": "21:28:06",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "madsciencetist",
+      "text": "ну бля",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795199294.9031227,
+      "date_str": "20.11.2026",
+      "time_short": "21:28:14",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "madsciencetist",
+      "text": "мне просто яп надо написать\nдо 29",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795199316.9117749,
+      "date_str": "20.11.2026",
+      "time_short": "21:28:36",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "nsifsa",
+      "text": "Тяжко\nУдачи там",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795199438.156461,
+      "date_str": "20.11.2026",
+      "time_short": "21:30:38",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "C0Cl2",
+      "text": "У кого есть сливы инфы по егэ от умскул?\nУ меня знакомы просит киньте по братски",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795199449.3615217,
+      "date_str": "20.11.2026",
+      "time_short": "21:30:49",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "madsciencetist",
+      "text": "нихуя инфа?",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795199461.7669966,
+      "date_str": "20.11.2026",
+      "time_short": "21:31:01",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "madsciencetist",
+      "text": "фу блять\nнихуя от умскул?",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795199522.990558,
+      "date_str": "20.11.2026",
+      "time_short": "21:32:02",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "C0Cl2",
+      "text": "Хз, просит именно от умскул",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795199554.6026883,
+      "date_str": "20.11.2026",
+      "time_short": "21:32:34",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "cvvc555",
+      "text": "Так и скажи что для себя",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795199565.8069618,
+      "date_str": "20.11.2026",
+      "time_short": "21:32:45",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "cvvc555",
+      "text": "Все свои",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795199581.4134297,
+      "date_str": "20.11.2026",
+      "time_short": "21:33:01",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "C0Cl2",
+      "text": "ХАХХАХАХАХАХХА\nХАХАХАХАХХАХА\nСуссс",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795199773.0874352,
+      "date_str": "20.11.2026",
+      "time_short": "21:36:13",
+      "chat_id": -1002373626230,
+      "chat_title": "Группа «Фурри Минск сообщество»",
+      "user": "ven3x21",
+      "text": "Сколько",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -48559,7 +48699,7 @@
     },
     "C0Cl2": {
       "profile": "Пока мало данных",
-      "msg_count": 106,
+      "msg_count": 109,
       "user_id": 1096109068,
       "username": "C0Cl2",
       "first_name": "Фосген",
@@ -49084,7 +49224,7 @@
     },
     "cvvc555": {
       "profile": "Пока мало данных",
-      "msg_count": 10,
+      "msg_count": 12,
       "user_id": 5187313411,
       "username": "cvvc555",
       "first_name": "Станислав",
@@ -49177,7 +49317,7 @@
     },
     "madsciencetist": {
       "profile": "Пока мало данных",
-      "msg_count": 257,
+      "msg_count": 262,
       "user_id": 998419291,
       "username": "madsciencetist",
       "first_name": "Who?",
@@ -49326,7 +49466,7 @@
     },
     "ven3x21": {
       "profile": "Пока мало данных",
-      "msg_count": 20,
+      "msg_count": 21,
       "tolik_msg_count": 1,
       "user_id": 8261871802,
       "username": "ven3x21",
@@ -50262,7 +50402,7 @@
     },
     "nsifsa": {
       "profile": "Пока мало данных",
-      "msg_count": 12,
+      "msg_count": 15,
       "tolik_msg_count": 0,
       "user_id": 8371997148,
       "username": "nsifsa",
