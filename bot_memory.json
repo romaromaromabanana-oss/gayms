@@ -49769,6 +49769,26 @@
       "user": "madsciencetist",
       "text": "хеллсинга я смотрел",
       "bot_reply": null
+    },
+    {
+      "ts": 1795220519.4700136,
+      "date_str": "21.11.2026",
+      "time_short": "03:21:59",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "chemdraw",
+      "text": "это к чему было",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795220535.4751017,
+      "date_str": "21.11.2026",
+      "time_short": "03:22:15",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "chemdraw",
+      "text": "я ещё не досмотрел",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -51032,7 +51052,7 @@
     },
     "chemdraw": {
       "profile": "Пока мало данных",
-      "msg_count": 11,
+      "msg_count": 13,
       "tolik_msg_count": 0,
       "user_id": 1037678370,
       "username": "chemdraw",
