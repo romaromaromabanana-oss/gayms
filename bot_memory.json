@@ -49829,6 +49829,16 @@
       "user": "madsciencetist",
       "text": " [Собеседник отправил ГИФКУ (GIF)]",
       "bot_reply": null
+    },
+    {
+      "ts": 1795226926.6098957,
+      "date_str": "21.11.2026",
+      "time_short": "05:08:46",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "madsciencetist",
+      "text": "это че",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -50767,7 +50777,7 @@
     },
     "madsciencetist": {
       "profile": "Пока мало данных",
-      "msg_count": 382,
+      "msg_count": 383,
       "user_id": 998419291,
       "username": "madsciencetist",
       "first_name": "Who?",
