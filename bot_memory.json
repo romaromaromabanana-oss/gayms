@@ -49739,6 +49739,36 @@
       "user": "chemdraw",
       "text": "ты позер",
       "bot_reply": null
+    },
+    {
+      "ts": 1795220189.3687844,
+      "date_str": "21.11.2026",
+      "time_short": "03:16:29",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "madsciencetist",
+      "text": "всмысле",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795220202.973128,
+      "date_str": "21.11.2026",
+      "time_short": "03:16:42",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "madsciencetist",
+      "text": "у меня из хееллсинга чел",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795220208.175073,
+      "date_str": "21.11.2026",
+      "time_short": "03:16:48",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "madsciencetist",
+      "text": "хеллсинга я смотрел",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -50677,7 +50707,7 @@
     },
     "madsciencetist": {
       "profile": "Пока мало данных",
-      "msg_count": 377,
+      "msg_count": 380,
       "user_id": 998419291,
       "username": "madsciencetist",
       "first_name": "Who?",
