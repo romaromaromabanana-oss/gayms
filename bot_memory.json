@@ -48789,6 +48789,26 @@
       "user": "t3hge",
       "text": "У меня могут спокойно задать на следующий день страниц 100",
       "bot_reply": null
+    },
+    {
+      "ts": 1795302958.9088724,
+      "date_str": "22.11.2026",
+      "time_short": "02:15:58",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "Chernenikiy",
+      "text": "Спит кто?",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795302980.5149863,
+      "date_str": "22.11.2026",
+      "time_short": "02:16:20",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "Chernenikiy",
+      "text": "Мне нужен срочно кто скажет будет ли считаться за ошибку 0 баллов или просто сколько то сниму",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -49935,7 +49955,7 @@
     },
     "Chernenikiy": {
       "profile": "Пока мало данных",
-      "msg_count": 168,
+      "msg_count": 170,
       "tolik_msg_count": 0,
       "user_id": 5164277864,
       "username": "Chernenikiy",
