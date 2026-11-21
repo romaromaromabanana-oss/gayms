@@ -45499,6 +45499,26 @@
       "user": "cr1972627",
       "text": "🤤",
       "bot_reply": null
+    },
+    {
+      "ts": 1795257531.2833242,
+      "date_str": "21.11.2026",
+      "time_short": "13:38:51",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "sele_n1um",
+      "text": "Нет",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795257633.3140416,
+      "date_str": "21.11.2026",
+      "time_short": "13:40:33",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "HokageLen",
+      "text": "шша попадёт в аниме:\nДоктор стоун",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -46845,7 +46865,7 @@
     },
     "sele_n1um": {
       "profile": "Пока мало данных",
-      "msg_count": 447,
+      "msg_count": 448,
       "tolik_msg_count": 0,
       "user_id": 5623068183,
       "username": "sele_n1um",
@@ -47608,6 +47628,19 @@
       "chats": [
         -1002626154604
       ]
+    },
+    "HokageLen": {
+      "profile": "Пока мало данных",
+      "msg_count": 1,
+      "tolik_msg_count": 0,
+      "user_id": 5872401181,
+      "username": "HokageLen",
+      "first_name": "fn",
+      "bio": "Колени прострелила духовная нищанка",
+      "chats": [
+        -1002626154604
+      ],
+      "topic_id": 12974
     }
   },
   "ignored_users": {},
