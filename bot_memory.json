@@ -48809,6 +48809,46 @@
       "user": "Chernenikiy",
       "text": "Мне нужен срочно кто скажет будет ли считаться за ошибку 0 баллов или просто сколько то сниму",
       "bot_reply": null
+    },
+    {
+      "ts": 1795303110.1563747,
+      "date_str": "22.11.2026",
+      "time_short": "02:18:30",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "Chernenikiy",
+      "text": "А нет\nЯ понял",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795303130.9640005,
+      "date_str": "22.11.2026",
+      "time_short": "02:18:50",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "Gkamil17",
+      "text": "Ну давай",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795303142.5681102,
+      "date_str": "22.11.2026",
+      "time_short": "02:19:02",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "Gkamil17",
+      "text": "Шо там",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795303190.9836268,
+      "date_str": "22.11.2026",
+      "time_short": "02:19:50",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "Chernenikiy",
+      "text": "В лс легче",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -49920,7 +49960,7 @@
     },
     "Gkamil17": {
       "profile": "Пока мало данных",
-      "msg_count": 2,
+      "msg_count": 4,
       "tolik_msg_count": 0,
       "user_id": 5140293590,
       "username": "Gkamil17",
@@ -49955,7 +49995,7 @@
     },
     "Chernenikiy": {
       "profile": "Пока мало данных",
-      "msg_count": 170,
+      "msg_count": 172,
       "tolik_msg_count": 0,
       "user_id": 5164277864,
       "username": "Chernenikiy",
