@@ -49789,6 +49789,16 @@
       "user": "chemdraw",
       "text": "я ещё не досмотрел",
       "bot_reply": null
+    },
+    {
+      "ts": 1795220863.1728642,
+      "date_str": "21.11.2026",
+      "time_short": "03:27:43",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "madsciencetist",
+      "text": "я бесконечный замок смотрю",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -50727,7 +50737,7 @@
     },
     "madsciencetist": {
       "profile": "Пока мало данных",
-      "msg_count": 380,
+      "msg_count": 381,
       "user_id": 998419291,
       "username": "madsciencetist",
       "first_name": "Who?",
