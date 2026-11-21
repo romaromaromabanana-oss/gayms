@@ -49689,6 +49689,56 @@
       "user": "chemdraw",
       "text": "вызывали?",
       "bot_reply": null
+    },
+    {
+      "ts": 1795219101.4401765,
+      "date_str": "21.11.2026",
+      "time_short": "02:58:21",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "madsciencetist",
+      "text": "а кто ты",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795219217.875434,
+      "date_str": "21.11.2026",
+      "time_short": "03:00:17",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "chemdraw",
+      "text": "ошино оуги",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795219234.6807842,
+      "date_str": "21.11.2026",
+      "time_short": "03:00:34",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "chemdraw",
+      "text": " [Собеседник отправил ГИФКУ (GIF)]",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795219247.885018,
+      "date_str": "21.11.2026",
+      "time_short": "03:00:47",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "madsciencetist",
+      "text": "я не смотрел монотогари",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795219578.3855643,
+      "date_str": "21.11.2026",
+      "time_short": "03:06:18",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "chemdraw",
+      "text": "ты позер",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -50627,7 +50677,7 @@
     },
     "madsciencetist": {
       "profile": "Пока мало данных",
-      "msg_count": 375,
+      "msg_count": 377,
       "user_id": 998419291,
       "username": "madsciencetist",
       "first_name": "Who?",
@@ -50952,7 +51002,7 @@
     },
     "chemdraw": {
       "profile": "Пока мало данных",
-      "msg_count": 8,
+      "msg_count": 11,
       "tolik_msg_count": 0,
       "user_id": 1037678370,
       "username": "chemdraw",
