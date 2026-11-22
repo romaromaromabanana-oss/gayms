@@ -49169,6 +49169,26 @@
       "user": "cr1972627",
       "text": "Хз",
       "bot_reply": null
+    },
+    {
+      "ts": 1795338484.5756407,
+      "date_str": "22.11.2026",
+      "time_short": "12:08:04",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "dipllom_Vsosha",
+      "text": "Если тебе нужна именно хуйня то гигачат, а так нано банана или в AI seek вроде какая то модель делала норм",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795338498.9923172,
+      "date_str": "22.11.2026",
+      "time_short": "12:08:18",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "dipllom_Vsosha",
+      "text": "Кайф\nКак дела?",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -50983,7 +51003,7 @@
     },
     "dipllom_Vsosha": {
       "profile": "Пока мало данных",
-      "msg_count": 58,
+      "msg_count": 60,
       "tolik_msg_count": 0,
       "user_id": 7942662318,
       "username": "dipllom_Vsosha",
