@@ -48849,6 +48849,26 @@
       "user": "Chernenikiy",
       "text": "В лс легче",
       "bot_reply": null
+    },
+    {
+      "ts": 1795317126.0440252,
+      "date_str": "22.11.2026",
+      "time_short": "06:12:06",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "Guest_djsgktcbj",
+      "text": " [Собеседник прикрепил ФОТО]",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795317161.6584513,
+      "date_str": "22.11.2026",
+      "time_short": "06:12:41",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "Guest_djsgktcbj",
+      "text": "Потому что гавно",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -50775,18 +50795,6 @@
       ],
       "topic_id": 3199
     },
-    "Guest_djs": {
-      "profile": "Пока мало данных",
-      "msg_count": 5,
-      "user_id": 8025602731,
-      "username": "Guest_djs",
-      "first_name": "NewUser",
-      "chats": [
-        -1002626154604
-      ],
-      "topic_id": 3057,
-      "bio": "No one cares"
-    },
     "gidrid_bora": {
       "profile": "Пока мало данных",
       "msg_count": 4,
@@ -50983,6 +50991,18 @@
       "chats": [
         -1002626154604
       ]
+    },
+    "Guest_djsgktcbj": {
+      "profile": "Пока мало данных",
+      "msg_count": 7,
+      "user_id": 8025602731,
+      "username": "Guest_djsgktcbj",
+      "first_name": "NewUser",
+      "chats": [
+        -1002626154604
+      ],
+      "topic_id": 3057,
+      "bio": "No one cares"
     }
   },
   "ignored_users": {},
