@@ -49209,6 +49209,16 @@
       "user": "cr1972627",
       "text": "Да сойдёт пока что",
       "bot_reply": null
+    },
+    {
+      "ts": 1795341832.1653693,
+      "date_str": "22.11.2026",
+      "time_short": "13:03:52",
+      "chat_id": -1002373626230,
+      "chat_title": "Группа «Фурри Минск сообщество»",
+      "user": "QuantumTheF0x",
+      "text": " [Собеседник отправил ГИФКУ (GIF)]",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -50161,7 +50171,7 @@
     },
     "QuantumTheF0x": {
       "profile": "**ПСИХОЛОГО-АНАЛИТИЧЕСКОЕ ДОСЬЕ ПОЛЬЗОВАТЕЛЯ**\n\n---",
-      "msg_count": 290,
+      "msg_count": 291,
       "tolik_msg_count": 42,
       "user_id": 5975030677,
       "username": "QuantumTheF0x",
