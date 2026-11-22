@@ -49889,6 +49889,36 @@
       "user": "Router_07belifS",
       "text": "Здесь находится информация о новых заливках на олимпиадный склад.\n\nАдрес склада: http://tiny.cc/bcho\nhttps://drive.google.com/drive/folders/1hhSUCbSyc66r5feksjd8bVXDnpnUiHLl?usp=sharing\n\nНедостающее: http://tiny.cc/bcho-help\nhttps://docs.google.com/spreadsheets/d/1uGk_l_Lxp64iJjDewvrzPmICpDf-jEZuMuY4hO-oUKM/edit?usp=sharing\nМожно отсюда просто брать",
       "bot_reply": null
+    },
+    {
+      "ts": 1795362212.3697073,
+      "date_str": "22.11.2026",
+      "time_short": "18:43:32",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "sele_n1um",
+      "text": "Спс",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795362221.1729114,
+      "date_str": "22.11.2026",
+      "time_short": "18:43:41",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "sele_n1um",
+      "text": "Нет",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795362366.4203472,
+      "date_str": "22.11.2026",
+      "time_short": "18:46:06",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "sele_n1um",
+      "text": "И все таки повезло что в 10 не было решеток",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -51224,7 +51254,7 @@
     },
     "sele_n1um": {
       "profile": "Пока мало данных",
-      "msg_count": 497,
+      "msg_count": 500,
       "tolik_msg_count": 0,
       "user_id": 5623068183,
       "username": "sele_n1um",
