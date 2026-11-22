@@ -46069,6 +46069,16 @@
       "user": "Chernenikiy",
       "text": "Интересный случай",
       "bot_reply": null
+    },
+    {
+      "ts": 1795370452.3522694,
+      "date_str": "22.11.2026",
+      "time_short": "21:00:52",
+      "chat_id": -1002373626230,
+      "chat_title": "Группа «Фурри Минск сообщество»",
+      "user": "andoreniy",
+      "text": "всем здарова",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -48229,6 +48239,18 @@
         -1002626154604
       ],
       "topic_id": 2185
+    },
+    "andoreniy": {
+      "profile": "Пока мало данных",
+      "msg_count": 1,
+      "tolik_msg_count": 0,
+      "user_id": 9131385273,
+      "username": "andoreniy",
+      "first_name": "Miva",
+      "chats": [
+        -1002373626230
+      ],
+      "topic_id": 14539
     }
   },
   "ignored_users": {},
