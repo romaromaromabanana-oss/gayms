@@ -49469,6 +49469,26 @@
       "user": "sele_n1um",
       "text": "Чево",
       "bot_reply": null
+    },
+    {
+      "ts": 1795380099.928653,
+      "date_str": "22.11.2026",
+      "time_short": "23:41:39",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "kristina_1539",
+      "text": "Очев",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795380490.4522686,
+      "date_str": "22.11.2026",
+      "time_short": "23:48:10",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "madsciencetist",
+      "text": "Люблю вас\nНо ебу жендоса",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -50396,7 +50416,7 @@
     },
     "madsciencetist": {
       "profile": "Пока мало данных",
-      "msg_count": 490,
+      "msg_count": 491,
       "user_id": 998419291,
       "username": "madsciencetist",
       "first_name": "Who?",
@@ -50449,7 +50469,7 @@
     },
     "kristina_1539": {
       "profile": "Пока мало данных",
-      "msg_count": 40,
+      "msg_count": 41,
       "tolik_msg_count": 0,
       "user_id": 8171021224,
       "username": "kristina_1539",
