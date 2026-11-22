@@ -49829,6 +49829,16 @@
       "user": "Maksim010227",
       "text": " [Собеседник отправил ГИФКУ (GIF)]",
       "bot_reply": null
+    },
+    {
+      "ts": 1795361282.0563552,
+      "date_str": "22.11.2026",
+      "time_short": "18:28:02",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "sele_n1um",
+      "text": "@Router_07belifS у тебя случайно нет заданий респы нашей всех классов?",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -51164,7 +51174,7 @@
     },
     "sele_n1um": {
       "profile": "Пока мало данных",
-      "msg_count": 496,
+      "msg_count": 497,
       "tolik_msg_count": 0,
       "user_id": 5623068183,
       "username": "sele_n1um",
