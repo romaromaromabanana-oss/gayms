@@ -46019,6 +46019,56 @@
       "user": "diplom_Vsosha",
       "text": " [Собеседник отправил СТИКЕР]",
       "bot_reply": null
+    },
+    {
+      "ts": 1795370065.4220264,
+      "date_str": "22.11.2026",
+      "time_short": "20:54:25",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "Chernenikiy",
+      "text": "/app@QuotLyBot",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795370131.0453274,
+      "date_str": "22.11.2026",
+      "time_short": "20:55:31",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "Chernenikiy",
+      "text": "А что это мне в лс мы говорили?",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795370187.4641914,
+      "date_str": "22.11.2026",
+      "time_short": "20:56:27",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "Chernenikiy",
+      "text": "Либо здесь",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795370195.06718,
+      "date_str": "22.11.2026",
+      "time_short": "20:56:35",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "diplom_Vsosha",
+      "text": "Здесь)\n [Собеседник отправил СТИКЕР]",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795370205.0708015,
+      "date_str": "22.11.2026",
+      "time_short": "20:56:45",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "Chernenikiy",
+      "text": "Интересный случай",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -47154,7 +47204,7 @@
     },
     "Chernenikiy": {
       "profile": "Пока мало данных",
-      "msg_count": 190,
+      "msg_count": 194,
       "tolik_msg_count": 0,
       "user_id": 5164277864,
       "username": "Chernenikiy",
@@ -48034,7 +48084,7 @@
     },
     "diplom_Vsosha": {
       "profile": "Пока мало данных",
-      "msg_count": 51,
+      "msg_count": 52,
       "tolik_msg_count": 0,
       "user_id": 7445434016,
       "username": "diplom_Vsosha",
