@@ -48969,6 +48969,16 @@
       "user": "alexmard",
       "text": "Треш",
       "bot_reply": null
+    },
+    {
+      "ts": 1795335097.3877294,
+      "date_str": "22.11.2026",
+      "time_short": "11:11:37",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "nsifsa",
+      "text": "а окей",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -50981,7 +50991,7 @@
     },
     "nsifsa": {
       "profile": "Пока мало данных",
-      "msg_count": 15,
+      "msg_count": 16,
       "tolik_msg_count": 0,
       "user_id": 8371997148,
       "username": "nsifsa",
