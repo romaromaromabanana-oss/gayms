@@ -49489,6 +49489,66 @@
       "user": "madsciencetist",
       "text": "Люблю вас\nНо ебу жендоса",
       "bot_reply": null
+    },
+    {
+      "ts": 1795380942.60177,
+      "date_str": "22.11.2026",
+      "time_short": "23:55:42",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "cvvc555",
+      "text": "Что тут [Собеседник прикрепил ФОТО]",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795380955.8063676,
+      "date_str": "22.11.2026",
+      "time_short": "23:55:55",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "cvvc555",
+      "text": "Алкен?",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795380995.0191948,
+      "date_str": "22.11.2026",
+      "time_short": "23:56:35",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "cvvc555",
+      "text": "Я понял, там на прошлой стадии ещё солянка",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795381012.6265025,
+      "date_str": "22.11.2026",
+      "time_short": "23:56:52",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "Chernenikiy",
+      "text": "Есть",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795381013.4270513,
+      "date_str": "22.11.2026",
+      "time_short": "23:56:53",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "cvvc555",
+      "text": "Уксус",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795381037.0350626,
+      "date_str": "22.11.2026",
+      "time_short": "23:57:17",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "cvvc555",
+      "text": "Винилюензол",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -50323,7 +50383,7 @@
     },
     "cvvc555": {
       "profile": "Пока мало данных",
-      "msg_count": 105,
+      "msg_count": 110,
       "user_id": 5187313411,
       "username": "cvvc555",
       "first_name": "Станислав",
@@ -50624,7 +50684,7 @@
     },
     "Chernenikiy": {
       "profile": "Пока мало данных",
-      "msg_count": 203,
+      "msg_count": 204,
       "tolik_msg_count": 0,
       "user_id": 5164277864,
       "username": "Chernenikiy",
