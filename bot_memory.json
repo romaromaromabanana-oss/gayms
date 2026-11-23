@@ -47359,6 +47359,16 @@
       "user": "cvvc555",
       "text": "За слишком большое обилие вопросов",
       "bot_reply": null
+    },
+    {
+      "ts": 1795421837.715874,
+      "date_str": "23.11.2026",
+      "time_short": "11:17:17",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "madsciencetist",
+      "text": "Гемини бы так не поступил",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -48286,7 +48296,7 @@
     },
     "madsciencetist": {
       "profile": "Пока мало данных",
-      "msg_count": 508,
+      "msg_count": 509,
       "user_id": 998419291,
       "username": "madsciencetist",
       "first_name": "Who?",
