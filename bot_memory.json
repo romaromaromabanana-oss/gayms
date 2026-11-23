@@ -46809,6 +46809,26 @@
       "user": "Maksim010227",
       "text": "Он был несколько дней назад\nЭто на обычном уроке было",
       "bot_reply": null
+    },
+    {
+      "ts": 1795410517.3406425,
+      "date_str": "23.11.2026",
+      "time_short": "08:08:37",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "madsciencetist",
+      "text": "бля\nживот заболел",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795410533.3464634,
+      "date_str": "23.11.2026",
+      "time_short": "08:08:53",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "madsciencetist",
+      "text": "не стоило пить молоко фембоя",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -47736,7 +47756,7 @@
     },
     "madsciencetist": {
       "profile": "Пока мало данных",
-      "msg_count": 491,
+      "msg_count": 493,
       "user_id": 998419291,
       "username": "madsciencetist",
       "first_name": "Who?",
