@@ -47069,6 +47069,76 @@
       "user": "madsciencetist",
       "text": "НИХУЯ [Собеседник прикрепил ФОТО]",
       "bot_reply": null
+    },
+    {
+      "ts": 1795414521.543475,
+      "date_str": "23.11.2026",
+      "time_short": "09:15:21",
+      "chat_id": -1002373626230,
+      "chat_title": "Группа «Фурри Минск сообщество»",
+      "user": "andoreniy",
+      "text": "моя статья",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795414542.3509328,
+      "date_str": "23.11.2026",
+      "time_short": "09:15:42",
+      "chat_id": -1002373626230,
+      "chat_title": "Группа «Фурри Минск сообщество»",
+      "user": "andoreniy",
+      "text": "ну такое",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795414556.3562412,
+      "date_str": "23.11.2026",
+      "time_short": "09:15:56",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "Infinitychim",
+      "text": "дальше интересней",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795414575.1644983,
+      "date_str": "23.11.2026",
+      "time_short": "09:16:15",
+      "chat_id": -1002373626230,
+      "chat_title": "Группа «Фурри Минск сообщество»",
+      "user": "andoreniy",
+      "text": " [Собеседник отправил СТИКЕР]",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795414614.378801,
+      "date_str": "23.11.2026",
+      "time_short": "09:16:54",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "madsciencetist",
+      "text": "Как ее отпинали?",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795414651.1925535,
+      "date_str": "23.11.2026",
+      "time_short": "09:17:31",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "Infinitychim",
+      "text": "да как будто с ней делали все что только можно",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795414664.7974994,
+      "date_str": "23.11.2026",
+      "time_short": "09:17:44",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "madsciencetist",
+      "text": "Чего\n [Собеседник отправил СТИКЕР]",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -47489,7 +47559,7 @@
     },
     "Infinitychim": {
       "profile": "**ПСИХОЛОГИЧЕСКОЕ ДОСЬЕ ПОЛЬЗОВАТЕЛЯ**\n\n👤 **Основ",
-      "msg_count": 74,
+      "msg_count": 76,
       "user_id": 8478021420,
       "username": "Infinitychim",
       "first_name": "Korshin",
@@ -47996,7 +48066,7 @@
     },
     "madsciencetist": {
       "profile": "Пока мало данных",
-      "msg_count": 504,
+      "msg_count": 506,
       "user_id": 998419291,
       "username": "madsciencetist",
       "first_name": "Who?",
@@ -49232,7 +49302,7 @@
     },
     "andoreniy": {
       "profile": "Пока мало данных",
-      "msg_count": 3,
+      "msg_count": 6,
       "tolik_msg_count": 0,
       "user_id": 9131385273,
       "username": "andoreniy",
