@@ -46569,6 +46569,16 @@
       "user": "Maksim010227",
       "text": " [Собеседник прикрепил ФОТО]",
       "bot_reply": null
+    },
+    {
+      "ts": 1795403063.1756852,
+      "date_str": "23.11.2026",
+      "time_short": "06:04:23",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "Chernenikiy",
+      "text": " [Собеседник отправил СТИКЕР]",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -47704,7 +47714,7 @@
     },
     "Chernenikiy": {
       "profile": "Пока мало данных",
-      "msg_count": 204,
+      "msg_count": 205,
       "tolik_msg_count": 0,
       "user_id": 5164277864,
       "username": "Chernenikiy",
