@@ -45319,6 +45319,46 @@
       "user": "Andrey_Shevelkov",
       "text": "Бля",
       "bot_reply": null
+    },
+    {
+      "ts": 1795438911.0668662,
+      "date_str": "23.11.2026",
+      "time_short": "16:01:51",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "Andrey_Shevelkov",
+      "text": " [Собеседник отправил СТИКЕР]",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795438920.6699538,
+      "date_str": "23.11.2026",
+      "time_short": "16:02:00",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "Andrey_Shevelkov",
+      "text": "Так ему гораздо лучше идет",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795438934.2744389,
+      "date_str": "23.11.2026",
+      "time_short": "16:02:14",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "richerDIEd",
+      "text": "баам",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795438956.2808297,
+      "date_str": "23.11.2026",
+      "time_short": "16:02:36",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "Andrey_Shevelkov",
+      "text": "А вот это уже имба🤩",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -45599,7 +45639,7 @@
     },
     "Andrey_Shevelkov": {
       "profile": "Вот подробное структурированное психолого-аналитическое досье на пользователя **@Andrey_Shevelkov**, составленное на основе",
-      "msg_count": 95,
+      "msg_count": 98,
       "user_id": 7492917700,
       "username": "Andrey_Shevelkov",
       "first_name": "SOCl₂",
@@ -47494,7 +47534,7 @@
     },
     "richerDIEd": {
       "profile": "Пока мало данных",
-      "msg_count": 16,
+      "msg_count": 17,
       "tolik_msg_count": 0,
       "user_id": 8874164256,
       "username": "richerDIEd",
