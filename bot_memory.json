@@ -46829,6 +46829,126 @@
       "user": "madsciencetist",
       "text": "не стоило пить молоко фембоя",
       "bot_reply": null
+    },
+    {
+      "ts": 1795410621.375574,
+      "date_str": "23.11.2026",
+      "time_short": "08:10:21",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "cvvc555",
+      "text": " [Собеседник отправил СТИКЕР]",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795410647.384112,
+      "date_str": "23.11.2026",
+      "time_short": "08:10:47",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "madsciencetist",
+      "text": "а хуле",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795410656.5871618,
+      "date_str": "23.11.2026",
+      "time_short": "08:10:56",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "madsciencetist",
+      "text": "экспонента для тех у кого денег нет",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795410683.396541,
+      "date_str": "23.11.2026",
+      "time_short": "08:11:23",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "cvvc555",
+      "text": " [Собеседник отправил СТИКЕР]",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795410701.0029435,
+      "date_str": "23.11.2026",
+      "time_short": "08:11:41",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "madsciencetist",
+      "text": "да я\nмы\nон она\nоно\nони",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795410709.005974,
+      "date_str": "23.11.2026",
+      "time_short": "08:11:49",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "madsciencetist",
+      "text": "ты вы\nеще",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795410730.2139592,
+      "date_str": "23.11.2026",
+      "time_short": "08:12:10",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "cvvc555",
+      "text": " [Собеседник отправил СТИКЕР]",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795410757.8244035,
+      "date_str": "23.11.2026",
+      "time_short": "08:12:37",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "madsciencetist",
+      "text": "/q@QuotLyBot",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795410764.2269034,
+      "date_str": "23.11.2026",
+      "time_short": "08:12:44",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "cvvc555",
+      "text": "/q@QuotLyBot",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795410821.4459097,
+      "date_str": "23.11.2026",
+      "time_short": "08:13:41",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "madsciencetist",
+      "text": " [Собеседник отправил СТИКЕР]",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795410853.8568277,
+      "date_str": "23.11.2026",
+      "time_short": "08:14:13",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "cvvc555",
+      "text": "Слишком много букв",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795410977.1007185,
+      "date_str": "23.11.2026",
+      "time_short": "08:16:17",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "madsciencetist",
+      "text": " [Собеседник отправил СТИКЕР]",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -47663,7 +47783,7 @@
     },
     "cvvc555": {
       "profile": "Пока мало данных",
-      "msg_count": 110,
+      "msg_count": 115,
       "user_id": 5187313411,
       "username": "cvvc555",
       "first_name": "Станислав",
@@ -47756,7 +47876,7 @@
     },
     "madsciencetist": {
       "profile": "Пока мало данных",
-      "msg_count": 493,
+      "msg_count": 500,
       "user_id": 998419291,
       "username": "madsciencetist",
       "first_name": "Who?",
