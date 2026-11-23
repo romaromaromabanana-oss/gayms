@@ -47469,6 +47469,16 @@
       "user": "ColdAndLonely",
       "text": "О ну дадад",
       "bot_reply": null
+    },
+    {
+      "ts": 1795448081.0990438,
+      "date_str": "23.11.2026",
+      "time_short": "18:34:41",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "kirill666_022",
+      "text": "Это такой бред",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -48841,7 +48851,7 @@
     },
     "kirill666_022": {
       "profile": "Пока мало данных",
-      "msg_count": 8,
+      "msg_count": 9,
       "tolik_msg_count": 0,
       "user_id": 6858749990,
       "username": "kirill666_022",
