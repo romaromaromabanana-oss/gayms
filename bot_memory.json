@@ -47059,6 +47059,16 @@
       "user": "ColdAndLonely",
       "text": "Лол",
       "bot_reply": null
+    },
+    {
+      "ts": 1795413988.1539433,
+      "date_str": "23.11.2026",
+      "time_short": "09:06:28",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "madsciencetist",
+      "text": "НИХУЯ [Собеседник прикрепил ФОТО]",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -47986,7 +47996,7 @@
     },
     "madsciencetist": {
       "profile": "Пока мало данных",
-      "msg_count": 503,
+      "msg_count": 504,
       "user_id": 998419291,
       "username": "madsciencetist",
       "first_name": "Who?",
