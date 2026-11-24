@@ -45759,6 +45759,16 @@
       "user": "Hiopirett",
       "text": "Да",
       "bot_reply": null
+    },
+    {
+      "ts": 1795511785.916628,
+      "date_str": "24.11.2026",
+      "time_short": "12:16:25",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "Hiopirett",
+      "text": "Неорганика гумунитарная наука",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -47590,7 +47600,7 @@
     },
     "Hiopirett": {
       "profile": "Пока мало данных",
-      "msg_count": 96,
+      "msg_count": 97,
       "tolik_msg_count": 1,
       "user_id": 6385496035,
       "username": "Hiopirett",
