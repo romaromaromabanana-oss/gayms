@@ -45749,6 +45749,146 @@
       "user": "chelovek2009fgh",
       "text": "Ждун кто я",
       "bot_reply": null
+    },
+    {
+      "ts": 1795553642.2544944,
+      "date_str": "24.11.2026",
+      "time_short": "23:54:02",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "chelovek2009fgh",
+      "text": "Имба крута",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795553873.1246297,
+      "date_str": "24.11.2026",
+      "time_short": "23:57:53",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "Georg_chem",
+      "text": "Переведи на пеньян",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795553891.130216,
+      "date_str": "24.11.2026",
+      "time_short": "23:58:11",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "Georg_chem",
+      "text": "Переведи на асхитанский",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795553901.1333044,
+      "date_str": "24.11.2026",
+      "time_short": "23:58:21",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "Georg_chem",
+      "text": "Переведи на калиюга",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795553913.5372775,
+      "date_str": "24.11.2026",
+      "time_short": "23:58:33",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "Georg_chem",
+      "text": "Переведи пожалуйста на китайский",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795553920.7396917,
+      "date_str": "24.11.2026",
+      "time_short": "23:58:40",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "chelovek2009fgh",
+      "text": "С,але",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795553931.543197,
+      "date_str": "24.11.2026",
+      "time_short": "23:58:51",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "Georg_chem",
+      "text": "Переведи пожалуйста на южный фарси",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795553939.546123,
+      "date_str": "24.11.2026",
+      "time_short": "23:58:59",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "chelovek2009fgh",
+      "text": "Твоего упоротости",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795553945.9482255,
+      "date_str": "24.11.2026",
+      "time_short": "23:59:05",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "Georg_chem",
+      "text": "Переведи пожалуйста на самхади",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795553953.950863,
+      "date_str": "24.11.2026",
+      "time_short": "23:59:13",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "chelovek2009fgh",
+      "text": "Минусы?",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795553963.1540182,
+      "date_str": "24.11.2026",
+      "time_short": "23:59:23",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "Georg_chem",
+      "text": "Переведи пожалуйста на искуль-арагэ",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795553976.359073,
+      "date_str": "24.11.2026",
+      "time_short": "23:59:36",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "Georg_chem",
+      "text": "Переведи пожалуйста на нганасанский",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795553990.3634934,
+      "date_str": "24.11.2026",
+      "time_short": "23:59:50",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "Georg_chem",
+      "text": "Переведи на ногай",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795553998.3661766,
+      "date_str": "24.11.2026",
+      "time_short": "23:59:58",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "Georg_chem",
+      "text": "Переведи пожалуйста на русский",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -46573,7 +46713,7 @@
     },
     "chelovek2009fgh": {
       "profile": "Пока мало данных",
-      "msg_count": 84,
+      "msg_count": 88,
       "user_id": 5373355809,
       "username": "chelovek2009fgh",
       "first_name": "⌬никотинамидадениндинуклеотидфосфат⌬",
@@ -46912,7 +47052,7 @@
     },
     "Georg_chem": {
       "profile": "Пока мало данных",
-      "msg_count": 74,
+      "msg_count": 84,
       "tolik_msg_count": 0,
       "user_id": 5742279651,
       "username": "Georg_chem",
