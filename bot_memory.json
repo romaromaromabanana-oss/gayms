@@ -46449,6 +46449,16 @@
       "user": "Pistolass",
       "text": " [Собеседник отправил СТИКЕР]",
       "bot_reply": null
+    },
+    {
+      "ts": 1795518240.8108597,
+      "date_str": "24.11.2026",
+      "time_short": "14:04:00",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "nsifsa",
+      "text": "Ну или [Собеседник прикрепил ФОТО]",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -48453,7 +48463,7 @@
     },
     "nsifsa": {
       "profile": "Пока мало данных",
-      "msg_count": 231,
+      "msg_count": 232,
       "tolik_msg_count": 3,
       "user_id": 8371997148,
       "username": "nsifsa",
