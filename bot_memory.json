@@ -45779,6 +45779,16 @@
       "user": "Channel_Bot",
       "text": "А группы симметрий и что-то такое это неорга или нет? 🙂",
       "bot_reply": null
+    },
+    {
+      "ts": 1795512888.2731862,
+      "date_str": "24.11.2026",
+      "time_short": "12:34:48",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "Hiopirett",
+      "text": "Гум",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -47610,7 +47620,7 @@
     },
     "Hiopirett": {
       "profile": "Пока мало данных",
-      "msg_count": 97,
+      "msg_count": 98,
       "tolik_msg_count": 1,
       "user_id": 6385496035,
       "username": "Hiopirett",
