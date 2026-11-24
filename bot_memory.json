@@ -47689,6 +47689,16 @@
       "user": "Maksim010227",
       "text": "Те самые пикми химбио вайбик каналы \n\nВсОШ по мемам [Собеседник прикрепил ФОТО]",
       "bot_reply": null
+    },
+    {
+      "ts": 1795540445.557323,
+      "date_str": "24.11.2026",
+      "time_short": "20:14:05",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "Newton_Leibniz_Formula",
+      "text": "Ошибка",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -49891,6 +49901,20 @@
       ],
       "topic_id": 3279,
       "tolik_msg_count": 1
+    },
+    "Newton_Leibniz_Formula": {
+      "profile": "Пока мало данных",
+      "msg_count": 1,
+      "tolik_msg_count": 0,
+      "user_id": 1095010455,
+      "username": "Newton_Leibniz_Formula",
+      "first_name": "Иван",
+      "last_name": "Быков",
+      "bio": "Дай человеку рыбу- сыт весь день. Дай человеку интеграл- сыт до смерти",
+      "chats": [
+        -1002626154604
+      ],
+      "topic_id": 18203
     }
   },
   "ignored_users": {},
