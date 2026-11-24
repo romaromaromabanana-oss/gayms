@@ -46369,6 +46369,16 @@
       "user": "t3hge",
       "text": "У тебя скок время, я забыл?",
       "bot_reply": null
+    },
+    {
+      "ts": 1795536824.5433862,
+      "date_str": "24.11.2026",
+      "time_short": "19:13:44",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "unwantedsecurity",
+      "text": "лучше начинать с химэл какого нибудь шевелькова или с хаускрофт и параллельно химэл?",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -47886,14 +47896,15 @@
     },
     "unwantedsecurity": {
       "profile": "Пока мало данных",
-      "msg_count": 0,
+      "msg_count": 1,
       "tolik_msg_count": 0,
       "user_id": 941660615,
       "username": "unwantedsecurity",
       "first_name": ".",
       "chats": [
         -1002626154604
-      ]
+      ],
+      "topic_id": 18069
     },
     "13": {
       "profile": "Пока мало данных",
