@@ -45749,6 +45749,16 @@
       "user": "t3hge",
       "text": " [Собеседник прикрепил ФОТО]",
       "bot_reply": null
+    },
+    {
+      "ts": 1795511378.1985924,
+      "date_str": "24.11.2026",
+      "time_short": "12:09:38",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "Hiopirett",
+      "text": "Да",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -47580,7 +47590,7 @@
     },
     "Hiopirett": {
       "profile": "Пока мало данных",
-      "msg_count": 95,
+      "msg_count": 96,
       "tolik_msg_count": 1,
       "user_id": 6385496035,
       "username": "Hiopirett",
