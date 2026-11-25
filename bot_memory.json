@@ -46179,6 +46179,26 @@
       "user": "MiliKotikAbormotik",
       "text": "👋",
       "bot_reply": null
+    },
+    {
+      "ts": 1795624536.6836004,
+      "date_str": "25.11.2026",
+      "time_short": "19:35:36",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "grindhardee",
+      "text": "серьезно?",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795624725.5646925,
+      "date_str": "25.11.2026",
+      "time_short": "19:38:45",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "C0Cl2",
+      "text": "Привет",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -46499,7 +46519,7 @@
     },
     "C0Cl2": {
       "profile": "Пока мало данных",
-      "msg_count": 172,
+      "msg_count": 173,
       "user_id": 1096109068,
       "username": "C0Cl2",
       "first_name": "Фосген",
@@ -47188,7 +47208,7 @@
     },
     "grindhardee": {
       "profile": "Пока мало данных",
-      "msg_count": 201,
+      "msg_count": 202,
       "tolik_msg_count": 0,
       "user_id": 1630995303,
       "username": "grindhardee",
