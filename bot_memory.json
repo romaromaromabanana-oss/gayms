@@ -49779,6 +49779,16 @@
       "user": "cr1972627",
       "text": "С кайфом\nИ отправь сюда\nРезы",
       "bot_reply": null
+    },
+    {
+      "ts": 1795720278.4951916,
+      "date_str": "26.11.2026",
+      "time_short": "22:11:18",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "Llisztt",
+      "text": "мадс идёт в подарок?",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -50988,7 +50998,7 @@
     },
     "Llisztt": {
       "profile": "Пока мало данных",
-      "msg_count": 94,
+      "msg_count": 95,
       "tolik_msg_count": 0,
       "user_id": 7817847456,
       "username": "Llisztt",
