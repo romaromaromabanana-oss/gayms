@@ -46599,6 +46599,56 @@
       "user": "sele_n1um",
       "text": " [Собеседник отправил СТИКЕР]",
       "bot_reply": null
+    },
+    {
+      "ts": 1795672153.3423128,
+      "date_str": "26.11.2026",
+      "time_short": "08:49:13",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "Chase_the_sunset",
+      "text": "мяу\n [Собеседник отправил СТИКЕР]",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795672263.7781427,
+      "date_str": "26.11.2026",
+      "time_short": "08:51:03",
+      "chat_id": -1002373626230,
+      "chat_title": "Группа «Фурри Минск сообщество»",
+      "user": "Pistolass",
+      "text": "Моя статья",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795672272.5819502,
+      "date_str": "26.11.2026",
+      "time_short": "08:51:12",
+      "chat_id": -1002373626230,
+      "chat_title": "Группа «Фурри Минск сообщество»",
+      "user": "Pistolass",
+      "text": "Предсказание для @Pistolass:\n\nТебе срочно нужно помыть жопу",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795672280.9851217,
+      "date_str": "26.11.2026",
+      "time_short": "08:51:20",
+      "chat_id": -1002373626230,
+      "chat_title": "Группа «Фурри Минск сообщество»",
+      "user": "Pistolass",
+      "text": "Кому",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795672306.994458,
+      "date_str": "26.11.2026",
+      "time_short": "08:51:46",
+      "chat_id": -1002373626230,
+      "chat_title": "Группа «Фурри Минск сообщество»",
+      "user": "Pistolass",
+      "text": "Опускаем тест в баночку для анализов… Ты не беременна 🙅🏻‍♀️",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -46644,7 +46694,7 @@
     },
     "Pistolass": {
       "profile": "Вот обновленное, подробное и структурированное досье на пользователя **@Pistolass** на основе сохраненной",
-      "msg_count": 892,
+      "msg_count": 896,
       "user_id": 5137761946,
       "username": "Pistolass",
       "first_name": "Тоби Маркарян",
@@ -48460,7 +48510,7 @@
     },
     "Chase_the_sunset": {
       "profile": "Пока мало данных",
-      "msg_count": 67,
+      "msg_count": 68,
       "tolik_msg_count": 0,
       "user_id": 1822627444,
       "username": "Chase_the_sunset",
