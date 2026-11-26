@@ -46679,6 +46679,16 @@
       "user": "Chase_the_sunset",
       "text": "мяу",
       "bot_reply": null
+    },
+    {
+      "ts": 1795674613.8045774,
+      "date_str": "26.11.2026",
+      "time_short": "09:30:13",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "nsifsa",
+      "text": "Приве",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -48662,7 +48672,7 @@
     },
     "nsifsa": {
       "profile": "Пока мало данных",
-      "msg_count": 659,
+      "msg_count": 660,
       "tolik_msg_count": 3,
       "user_id": 8371997148,
       "username": "nsifsa",
