@@ -47779,6 +47779,46 @@
       "user": "Channel_Bot",
       "text": "@diplom_Vsosha а какие отборы олимп по физике 1 уровня?)",
       "bot_reply": null
+    },
+    {
+      "ts": 1795680267.992343,
+      "date_str": "26.11.2026",
+      "time_short": "11:04:27",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "Chase_the_sunset",
+      "text": " [Собеседник отправил СТИКЕР]",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795680277.995602,
+      "date_str": "26.11.2026",
+      "time_short": "11:04:37",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "Chase_the_sunset",
+      "text": "воду нельзя лить в кислоту",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795680366.4219298,
+      "date_str": "26.11.2026",
+      "time_short": "11:06:06",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "brg1092",
+      "text": "Всем привет",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795680404.8337364,
+      "date_str": "26.11.2026",
+      "time_short": "11:06:44",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "C0Cl2",
+      "text": "Только в серку",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -48099,7 +48139,7 @@
     },
     "C0Cl2": {
       "profile": "Пока мало данных",
-      "msg_count": 177,
+      "msg_count": 178,
       "user_id": 1096109068,
       "username": "C0Cl2",
       "first_name": "Фосген",
@@ -48461,7 +48501,7 @@
     },
     "brg1092": {
       "profile": "Age/Location: High school age (15–18) or university student background in Russia (linked to ВСОШ). Interested",
-      "msg_count": 228,
+      "msg_count": 229,
       "user_id": 5867861906,
       "username": "brg1092",
       "first_name": "B= {|x|>M}",
@@ -49640,7 +49680,7 @@
     },
     "Chase_the_sunset": {
       "profile": "Пока мало данных",
-      "msg_count": 72,
+      "msg_count": 74,
       "tolik_msg_count": 0,
       "user_id": 1822627444,
       "username": "Chase_the_sunset",
