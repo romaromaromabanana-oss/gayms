@@ -46589,6 +46589,16 @@
       "user": "Maksim010227",
       "text": "Гоблинское вместе с элитками пришли",
       "bot_reply": null
+    },
+    {
+      "ts": 1795670956.1399488,
+      "date_str": "26.11.2026",
+      "time_short": "08:29:16",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "sele_n1um",
+      "text": " [Собеседник отправил СТИКЕР]",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -47929,7 +47939,7 @@
     },
     "sele_n1um": {
       "profile": "Пока мало данных",
-      "msg_count": 791,
+      "msg_count": 792,
       "tolik_msg_count": 0,
       "user_id": 5623068183,
       "username": "sele_n1um",
