@@ -46699,6 +46699,66 @@
       "user": "alexmard",
       "text": "А зач ноги раздвигать балбесик",
       "bot_reply": null
+    },
+    {
+      "ts": 1795676423.9885318,
+      "date_str": "26.11.2026",
+      "time_short": "10:00:23",
+      "chat_id": -1002373626230,
+      "chat_title": "Группа «Фурри Минск сообщество»",
+      "user": "QuantumTheF0x",
+      "text": "Моя статья",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795676433.592154,
+      "date_str": "26.11.2026",
+      "time_short": "10:00:33",
+      "chat_id": -1002373626230,
+      "chat_title": "Группа «Фурри Минск сообщество»",
+      "user": "QuantumTheF0x",
+      "text": "Себе",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795676508.017413,
+      "date_str": "26.11.2026",
+      "time_short": "10:01:48",
+      "chat_id": -1002373626230,
+      "chat_title": "Группа «Фурри Минск сообщество»",
+      "user": "QuantumTheF0x",
+      "text": " [Собеседник отправил СТИКЕР]",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795676520.8219683,
+      "date_str": "26.11.2026",
+      "time_short": "10:02:00",
+      "chat_id": -1002373626230,
+      "chat_title": "Группа «Фурри Минск сообщество»",
+      "user": "QuantumTheF0x",
+      "text": " [Собеседник отправил СТИКЕР]",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795676555.6343575,
+      "date_str": "26.11.2026",
+      "time_short": "10:02:35",
+      "chat_id": -1002373626230,
+      "chat_title": "Группа «Фурри Минск сообщество»",
+      "user": "Pistolass",
+      "text": "Я мылась",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795676573.6408472,
+      "date_str": "26.11.2026",
+      "time_short": "10:02:53",
+      "chat_id": -1002373626230,
+      "chat_title": "Группа «Фурри Минск сообщество»",
+      "user": "QuantumTheF0x",
+      "text": "А фотоотчёт?",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -46744,7 +46804,7 @@
     },
     "Pistolass": {
       "profile": "Вот обновленное, подробное и структурированное досье на пользователя **@Pistolass** на основе сохраненной",
-      "msg_count": 896,
+      "msg_count": 897,
       "user_id": 5137761946,
       "username": "Pistolass",
       "first_name": "Тоби Маркарян",
@@ -47643,7 +47703,7 @@
     },
     "QuantumTheF0x": {
       "profile": "cadet/military school setting).\n        *   Teases someone about being small (\"Маленькая\", \"Сколько тебе годиков",
-      "msg_count": 397,
+      "msg_count": 402,
       "tolik_msg_count": 52,
       "user_id": 5975030677,
       "username": "QuantumTheF0x",
