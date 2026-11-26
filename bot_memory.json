@@ -47149,6 +47149,76 @@
       "user": "Negative Dream",
       "text": " [Собеседник отправил СТИКЕР]",
       "bot_reply": null
+    },
+    {
+      "ts": 1795733789.6369817,
+      "date_str": "27.11.2026",
+      "time_short": "01:56:29",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "cvvc555",
+      "text": "Hg(NO3)2+EtOH",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795733806.8418622,
+      "date_str": "27.11.2026",
+      "time_short": "01:56:46",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "cvvc555",
+      "text": "Ну я не знаю чё дать",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795733822.0463083,
+      "date_str": "27.11.2026",
+      "time_short": "01:57:02",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "cvvc555",
+      "text": "Понимаете Я бот на сон меняюю",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795733831.2492056,
+      "date_str": "27.11.2026",
+      "time_short": "01:57:11",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "cvvc555",
+      "text": "И иду спать",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795733852.855514,
+      "date_str": "27.11.2026",
+      "time_short": "01:57:32",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "maxcyou",
+      "text": "Зачем",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795733868.059816,
+      "date_str": "27.11.2026",
+      "time_short": "01:57:48",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "cvvc555",
+      "text": "Чтоб завтра хотя бы встать",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795733878.4628096,
+      "date_str": "27.11.2026",
+      "time_short": "01:57:58",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "cvvc555",
+      "text": "А то в школе усну",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -47992,7 +48062,7 @@
     },
     "cvvc555": {
       "profile": "Пока мало данных",
-      "msg_count": 178,
+      "msg_count": 184,
       "user_id": 5187313411,
       "username": "cvvc555",
       "first_name": "Станислав",
@@ -48980,12 +49050,12 @@
     },
     "maxcyou": {
       "profile": "Пока мало данных",
-      "msg_count": 34,
+      "msg_count": 35,
       "tolik_msg_count": 0,
       "user_id": 7906608399,
       "username": "maxcyou",
       "first_name": "Max",
-      "bio": "57 дней. | maxcyou.ru",
+      "bio": "57 дней. | maxcyou.ru && cy0u.xyz",
       "chats": [
         -1002626154604
       ],
