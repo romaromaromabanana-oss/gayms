@@ -49789,6 +49789,16 @@
       "user": "Llisztt",
       "text": "мадс идёт в подарок?",
       "bot_reply": null
+    },
+    {
+      "ts": 1795720975.514949,
+      "date_str": "26.11.2026",
+      "time_short": "22:22:55",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "chelovek2009fgh",
+      "text": "Конечно",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -50618,7 +50628,7 @@
     },
     "chelovek2009fgh": {
       "profile": "Пока мало данных",
-      "msg_count": 347,
+      "msg_count": 348,
       "user_id": 5373355809,
       "username": "chelovek2009fgh",
       "first_name": "⌬никотинамидадениндинуклеотидфосфат⌬",
