@@ -49849,6 +49849,16 @@
       "user": "winraiz",
       "text": "так есть резы?",
       "bot_reply": null
+    },
+    {
+      "ts": 1795723207.4333634,
+      "date_str": "26.11.2026",
+      "time_short": "23:00:07",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "roma126479627",
+      "text": "Ебать её перевели",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -51557,7 +51567,7 @@
     },
     "roma126479627": {
       "profile": "Пока мало данных",
-      "msg_count": 31,
+      "msg_count": 32,
       "tolik_msg_count": 0,
       "user_id": 8166230937,
       "username": "roma126479627",
