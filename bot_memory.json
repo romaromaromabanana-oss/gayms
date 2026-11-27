@@ -47929,6 +47929,56 @@
       "user": "nsifsa",
       "text": " [Собеседник отправил СТИКЕР]",
       "bot_reply": null
+    },
+    {
+      "ts": 1795770888.6906345,
+      "date_str": "27.11.2026",
+      "time_short": "12:14:48",
+      "chat_id": -1002373626230,
+      "chat_title": "Группа «Фурри Минск сообщество»",
+      "user": "QuantumTheF0x",
+      "text": "Ну тогда оплатите билет в Минск",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795770913.0999055,
+      "date_str": "27.11.2026",
+      "time_short": "12:15:13",
+      "chat_id": -1002373626230,
+      "chat_title": "Группа «Фурри Минск сообщество»",
+      "user": "Pistolass",
+      "text": "У меня осталось 60 рублей  со стипендии",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795770978.3202186,
+      "date_str": "27.11.2026",
+      "time_short": "12:16:18",
+      "chat_id": -1002373626230,
+      "chat_title": "Группа «Фурри Минск сообщество»",
+      "user": "QuantumTheF0x",
+      "text": "У меня -20 задолженность",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795771037.537415,
+      "date_str": "27.11.2026",
+      "time_short": "12:17:17",
+      "chat_id": -1002373626230,
+      "chat_title": "Группа «Фурри Минск сообщество»",
+      "user": "QuantumTheF0x",
+      "text": " [Голосовое сообщение: \"Здесь жить нельзя. Надо что-то придумать.\"]",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795771261.604583,
+      "date_str": "27.11.2026",
+      "time_short": "12:21:01",
+      "chat_id": -1002373626230,
+      "chat_title": "Группа «Фурри Минск сообщество»",
+      "user": "Pistolass",
+      "text": "Лох",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -47974,7 +48024,7 @@
     },
     "Pistolass": {
       "profile": "Вот обновленное, подробное и структурированное досье на пользователя **@Pistolass** на основе сохраненной",
-      "msg_count": 979,
+      "msg_count": 981,
       "user_id": 5137761946,
       "username": "Pistolass",
       "first_name": "Тоби Маркарян",
@@ -48880,7 +48930,7 @@
     },
     "QuantumTheF0x": {
       "profile": "cadet/military school setting).\n        *   Teases someone about being small (\"Маленькая\", \"Сколько тебе годиков",
-      "msg_count": 435,
+      "msg_count": 438,
       "tolik_msg_count": 52,
       "user_id": 5975030677,
       "username": "QuantumTheF0x",
