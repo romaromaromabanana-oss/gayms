@@ -47799,6 +47799,16 @@
       "user": "g0rek1tty",
       "text": "Хз",
       "bot_reply": null
+    },
+    {
+      "ts": 1795762079.094878,
+      "date_str": "27.11.2026",
+      "time_short": "09:47:59",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "g0rek1tty",
+      "text": "Фхм нужнее как будто",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -50102,7 +50112,7 @@
     },
     "g0rek1tty": {
       "profile": "Пока мало данных",
-      "msg_count": 1,
+      "msg_count": 2,
       "tolik_msg_count": 0,
       "user_id": 6379124471,
       "username": "g0rek1tty",
