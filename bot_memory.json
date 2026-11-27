@@ -47849,6 +47849,76 @@
       "user": "Hiopirett",
       "text": "Да и впринутае каждый физик должен знать энергию гиббса и тд",
       "bot_reply": null
+    },
+    {
+      "ts": 1795769703.1183178,
+      "date_str": "27.11.2026",
+      "time_short": "11:55:03",
+      "chat_id": -1002373626230,
+      "chat_title": "Группа «Фурри Минск сообщество»",
+      "user": "Pistolass",
+      "text": "Ага щас",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795769720.324458,
+      "date_str": "27.11.2026",
+      "time_short": "11:55:20",
+      "chat_id": -1002373626230,
+      "chat_title": "Группа «Фурри Минск сообщество»",
+      "user": "Pistolass",
+      "text": "Еле как 2 задания сделала",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795769725.5266852,
+      "date_str": "27.11.2026",
+      "time_short": "11:55:25",
+      "chat_id": -1002373626230,
+      "chat_title": "Группа «Фурри Минск сообщество»",
+      "user": "Pistolass",
+      "text": "3 наугад",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795769842.3662276,
+      "date_str": "27.11.2026",
+      "time_short": "11:57:22",
+      "chat_id": -1002373626230,
+      "chat_title": "Группа «Фурри Минск сообщество»",
+      "user": "QuantumTheF0x",
+      "text": "Моё резюме [Собеседник прикрепил ФОТО]",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795769895.9830666,
+      "date_str": "27.11.2026",
+      "time_short": "11:58:15",
+      "chat_id": -1002373626230,
+      "chat_title": "Группа «Фурри Минск сообщество»",
+      "user": "Pistolass",
+      "text": "Интересная работа",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795769908.387112,
+      "date_str": "27.11.2026",
+      "time_short": "11:58:28",
+      "chat_id": -1002373626230,
+      "chat_title": "Группа «Фурри Минск сообщество»",
+      "user": "QuantumTheF0x",
+      "text": "Хочешь проверить?",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795770182.472428,
+      "date_str": "27.11.2026",
+      "time_short": "12:03:02",
+      "chat_id": -1002373626230,
+      "chat_title": "Группа «Фурри Минск сообщество»",
+      "user": "Pistolass",
+      "text": "Газ",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -47894,7 +47964,7 @@
     },
     "Pistolass": {
       "profile": "Вот обновленное, подробное и структурированное досье на пользователя **@Pistolass** на основе сохраненной",
-      "msg_count": 974,
+      "msg_count": 979,
       "user_id": 5137761946,
       "username": "Pistolass",
       "first_name": "Тоби Маркарян",
@@ -48800,7 +48870,7 @@
     },
     "QuantumTheF0x": {
       "profile": "cadet/military school setting).\n        *   Teases someone about being small (\"Маленькая\", \"Сколько тебе годиков",
-      "msg_count": 433,
+      "msg_count": 435,
       "tolik_msg_count": 52,
       "user_id": 5975030677,
       "username": "QuantumTheF0x",
