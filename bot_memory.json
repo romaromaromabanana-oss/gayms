@@ -47809,6 +47809,16 @@
       "user": "g0rek1tty",
       "text": "Фхм нужнее как будто",
       "bot_reply": null
+    },
+    {
+      "ts": 1795763420.7394412,
+      "date_str": "27.11.2026",
+      "time_short": "10:10:20",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "Hiopirett",
+      "text": "Ну математика ясное дело",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -49626,7 +49636,7 @@
     },
     "Hiopirett": {
       "profile": "Пока мало данных",
-      "msg_count": 125,
+      "msg_count": 126,
       "tolik_msg_count": 1,
       "user_id": 6385496035,
       "username": "Hiopirett",
