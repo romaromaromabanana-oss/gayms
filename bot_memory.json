@@ -47979,6 +47979,36 @@
       "user": "Pistolass",
       "text": "Лох",
       "bot_reply": null
+    },
+    {
+      "ts": 1795772107.8555732,
+      "date_str": "27.11.2026",
+      "time_short": "12:35:07",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "Glent_tag",
+      "text": "Подскажите как звали тренершу по аналитике",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795772119.859272,
+      "date_str": "27.11.2026",
+      "time_short": "12:35:19",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "Glent_tag",
+      "text": "Наталья алексеевна ?",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795772301.1146688,
+      "date_str": "27.11.2026",
+      "time_short": "12:38:21",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "Llisztt",
+      "text": "био вообще ахуенный предмет",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -49189,7 +49219,7 @@
     },
     "Llisztt": {
       "profile": "Пока мало данных",
-      "msg_count": 97,
+      "msg_count": 98,
       "tolik_msg_count": 0,
       "user_id": 7817847456,
       "username": "Llisztt",
@@ -49399,7 +49429,7 @@
     },
     "Glent_tag": {
       "profile": "Пока мало данных",
-      "msg_count": 45,
+      "msg_count": 47,
       "tolik_msg_count": 0,
       "user_id": 6155153225,
       "username": "Glent_tag",
