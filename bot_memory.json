@@ -45659,6 +45659,16 @@
       "user": "Belugahgfgh",
       "text": "Нет",
       "bot_reply": null
+    },
+    {
+      "ts": 1795796849.9766123,
+      "date_str": "27.11.2026",
+      "time_short": "19:27:29",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "garievvaa",
+      "text": "Жизнь на физтехе бывает разная…\n\n\nА чтобы эту жизнь попробовать уже в начале февраля, участвуйте в отборе олимпиады Phотон до 03:00 по мск 1 декабря🚀 [Собеседник отправил ВИДЕОРОЛИК]",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -47983,6 +47993,19 @@
         8751524689
       ],
       "topic_id": 24013
+    },
+    "garievvaa": {
+      "profile": "Пока мало данных",
+      "msg_count": 1,
+      "tolik_msg_count": 0,
+      "user_id": 1047880248,
+      "username": "garievvaa",
+      "first_name": "Полина",
+      "bio": "https://t.me/+aFvtlzWnqlxjYzk6",
+      "chats": [
+        -1002626154604
+      ],
+      "topic_id": 24023
     }
   },
   "ignored_users": {},
