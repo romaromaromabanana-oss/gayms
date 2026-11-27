@@ -49579,6 +49579,36 @@
       "user": "ColdAndLonely",
       "text": "хз",
       "bot_reply": null
+    },
+    {
+      "ts": 1795815426.323672,
+      "date_str": "28.11.2026",
+      "time_short": "00:37:06",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "vywik",
+      "text": "C + HNO3 ожидается сложный путь",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795815551.1623242,
+      "date_str": "28.11.2026",
+      "time_short": "00:39:11",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "hidislo",
+      "text": "Типа меллитовая кислота?",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795815598.7771554,
+      "date_str": "28.11.2026",
+      "time_short": "00:39:58",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "Ars_Swet007",
+      "text": "Меллитовый ангидрид, меллитовая кислота, оксидграфита или интеркалята азотки в графите))))",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -50040,7 +50070,7 @@
     },
     "Ars_Swet007": {
       "profile": "Пока мало данных",
-      "msg_count": 4,
+      "msg_count": 5,
       "user_id": 6343265229,
       "username": "Ars_Swet007",
       "first_name": "Арсений",
@@ -51300,7 +51330,7 @@
     },
     "hidislo": {
       "profile": "Пока мало данных",
-      "msg_count": 1,
+      "msg_count": 2,
       "tolik_msg_count": 0,
       "user_id": 1773135910,
       "username": "hidislo",
@@ -51869,7 +51899,7 @@
     },
     "vywik": {
       "profile": "Пока мало данных",
-      "msg_count": 96,
+      "msg_count": 97,
       "tolik_msg_count": 0,
       "user_id": 2007417953,
       "username": "vywik",
