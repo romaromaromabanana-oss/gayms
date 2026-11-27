@@ -47919,6 +47919,16 @@
       "user": "Pistolass",
       "text": "Газ",
       "bot_reply": null
+    },
+    {
+      "ts": 1795770553.386466,
+      "date_str": "27.11.2026",
+      "time_short": "12:09:13",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "nsifsa",
+      "text": " [Собеседник отправил СТИКЕР]",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -49910,7 +49920,7 @@
     },
     "nsifsa": {
       "profile": "Пока мало данных",
-      "msg_count": 855,
+      "msg_count": 856,
       "tolik_msg_count": 3,
       "user_id": 8371997148,
       "username": "nsifsa",
