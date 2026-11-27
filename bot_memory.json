@@ -49759,6 +49759,16 @@
       "user": "madsciencetist",
       "text": "а я чет не смотрел\nу нас есть или нет",
       "bot_reply": null
+    },
+    {
+      "ts": 1795817622.5836508,
+      "date_str": "28.11.2026",
+      "time_short": "01:13:42",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "g4xhj1l",
+      "text": "Скок часов ты спишь?",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -50736,7 +50746,7 @@
     },
     "g4xhj1l": {
       "profile": "Пока мало данных",
-      "msg_count": 118,
+      "msg_count": 119,
       "tolik_msg_count": 0,
       "user_id": 8218214954,
       "username": "g4xhj1l",
