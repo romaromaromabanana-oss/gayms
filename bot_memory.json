@@ -47489,6 +47489,46 @@
       "user": "grindhardee",
       "text": "понаехали пендосы бля",
       "bot_reply": null
+    },
+    {
+      "ts": 1795755762.335637,
+      "date_str": "27.11.2026",
+      "time_short": "08:02:42",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "WinterAura24752",
+      "text": "А, самобот для долбаебов придумали я так понял",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795755763.9363942,
+      "date_str": "27.11.2026",
+      "time_short": "08:02:43",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "C0Cl2",
+      "text": "Ххахахахахахах",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795755772.3389325,
+      "date_str": "27.11.2026",
+      "time_short": "08:02:52",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "grindhardee",
+      "text": "ах)",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795755805.5490596,
+      "date_str": "27.11.2026",
+      "time_short": "08:03:25",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "WinterAura24752",
+      "text": "На репетов деньги есть, а на книги и задачники нету",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -47811,7 +47851,7 @@
     },
     "C0Cl2": {
       "profile": "Пока мало данных",
-      "msg_count": 181,
+      "msg_count": 182,
       "user_id": 1096109068,
       "username": "C0Cl2",
       "first_name": "Фосген",
@@ -48505,7 +48545,7 @@
     },
     "grindhardee": {
       "profile": "Пока мало данных",
-      "msg_count": 210,
+      "msg_count": 211,
       "tolik_msg_count": 0,
       "user_id": 1630995303,
       "username": "grindhardee",
@@ -48623,7 +48663,7 @@
     },
     "WinterAura24752": {
       "profile": "Пока мало данных",
-      "msg_count": 19,
+      "msg_count": 21,
       "tolik_msg_count": 0,
       "user_id": 8222413149,
       "username": "WinterAura24752",
