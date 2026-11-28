@@ -45709,6 +45709,16 @@
       "user": "Maksim010227",
       "text": " [Собеседник отправил СТИКЕР]",
       "bot_reply": null
+    },
+    {
+      "ts": 1795865683.4634345,
+      "date_str": "28.11.2026",
+      "time_short": "14:34:43",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "lxmrcs",
+      "text": "Выебал",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -47891,7 +47901,7 @@
     },
     "lxmrcs": {
       "profile": "Пока мало данных",
-      "msg_count": 69,
+      "msg_count": 70,
       "user_id": 8049231975,
       "username": "lxmrcs",
       "first_name": "⌬~1χμρχ",
