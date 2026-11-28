@@ -47179,6 +47179,16 @@
       "user": "merciful_eshel",
       "text": "В принципе правда (сам по ЕГЭ поступал)",
       "bot_reply": null
+    },
+    {
+      "ts": 1795895283.595379,
+      "date_str": "28.11.2026",
+      "time_short": "22:48:03",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "kristina_1539",
+      "text": "Спасибо хорошо",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -48170,7 +48180,7 @@
     },
     "kristina_1539": {
       "profile": "Пока мало данных",
-      "msg_count": 60,
+      "msg_count": 61,
       "tolik_msg_count": 0,
       "user_id": 8171021224,
       "username": "kristina_1539",
