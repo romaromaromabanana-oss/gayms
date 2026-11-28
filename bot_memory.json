@@ -45719,6 +45719,16 @@
       "user": "lxmrcs",
       "text": "Выебал",
       "bot_reply": null
+    },
+    {
+      "ts": 1795867118.7050478,
+      "date_str": "28.11.2026",
+      "time_short": "14:58:38",
+      "chat_id": -1002373626230,
+      "chat_title": "Группа «Фурри Минск сообщество»",
+      "user": "andoreniy",
+      "text": "как часто на аэродромной матиз летит со звуком мотора ямахи р1?\nпиздец",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -47863,7 +47873,7 @@
     },
     "andoreniy": {
       "profile": "Пока мало данных",
-      "msg_count": 46,
+      "msg_count": 47,
       "tolik_msg_count": 0,
       "user_id": 9131385273,
       "username": "andoreniy",
