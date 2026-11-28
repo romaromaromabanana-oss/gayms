@@ -49979,6 +49979,16 @@
       "user": "t3hge",
       "text": "Очень связанно",
       "bot_reply": null
+    },
+    {
+      "ts": 1795850568.1786153,
+      "date_str": "28.11.2026",
+      "time_short": "10:22:48",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "imag3ryy",
+      "text": "Тишебудницу свою утихомирьте да [Собеседник прикрепил ФОТО]",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -51483,7 +51493,7 @@
     },
     "imag3ryy": {
       "profile": "Пока мало данных",
-      "msg_count": 214,
+      "msg_count": 215,
       "tolik_msg_count": 0,
       "user_id": 5988561021,
       "username": "imag3ryy",
