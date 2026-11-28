@@ -49799,6 +49799,16 @@
       "user": "Maksim010227",
       "text": "ВсОШ по мемам [Собеседник отправил ВИДЕОРОЛИК]",
       "bot_reply": null
+    },
+    {
+      "ts": 1795841926.026883,
+      "date_str": "28.11.2026",
+      "time_short": "07:58:46",
+      "chat_id": -1002373626230,
+      "chat_title": "Группа «Фурри Минск сообщество»",
+      "user": "andoreniy",
+      "text": "бойтесь суки скоро буду [Собеседник прикрепил ФОТО]\nмоя статья",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -51942,7 +51952,7 @@
     },
     "andoreniy": {
       "profile": "Пока мало данных",
-      "msg_count": 45,
+      "msg_count": 46,
       "tolik_msg_count": 0,
       "user_id": 9131385273,
       "username": "andoreniy",
