@@ -45069,6 +45069,16 @@
       "user": "Chase_the_sunset",
       "text": "по типу в задачи про нагрев",
       "bot_reply": null
+    },
+    {
+      "ts": 1795887913.8526115,
+      "date_str": "28.11.2026",
+      "time_short": "20:45:13",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "Infinitychim",
+      "text": "хз, шк программа и база по титрованию",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -45491,7 +45501,7 @@
     },
     "Infinitychim": {
       "profile": "**ПСИХОЛОГИЧЕСКОЕ ДОСЬЕ ПОЛЬЗОВАТЕЛЯ**\n\n👤 **Основ",
-      "msg_count": 206,
+      "msg_count": 207,
       "user_id": 8478021420,
       "username": "Infinitychim",
       "first_name": "Korshin",
