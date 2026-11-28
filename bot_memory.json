@@ -47079,6 +47079,26 @@
       "user": "madsciencetist",
       "text": "жендос",
       "bot_reply": null
+    },
+    {
+      "ts": 1795893954.7049322,
+      "date_str": "28.11.2026",
+      "time_short": "22:25:54",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "vywik",
+      "text": "Го реакций",
+      "bot_reply": null
+    },
+    {
+      "ts": 1795893959.9073899,
+      "date_str": "28.11.2026",
+      "time_short": "22:25:59",
+      "chat_id": -1002626154604,
+      "chat_title": "Группа «ФизХимМат чат»",
+      "user": "vywik",
+      "text": "Кто-то пишет мош?",
+      "bot_reply": null
     }
   ],
   "users": {
@@ -49357,7 +49377,7 @@
     },
     "vywik": {
       "profile": "Пока мало данных",
-      "msg_count": 97,
+      "msg_count": 99,
       "tolik_msg_count": 0,
       "user_id": 2007417953,
       "username": "vywik",
